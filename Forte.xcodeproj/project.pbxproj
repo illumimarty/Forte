@@ -13,6 +13,9 @@
 		99B4896D2AD2459B00AE2CF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99B4896C2AD2459B00AE2CF4 /* Preview Assets.xcassets */; };
 		99B4896F2AD2459B00AE2CF4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B4896E2AD2459B00AE2CF4 /* Persistence.swift */; };
 		99B489722AD2459B00AE2CF4 /* Forte.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99B489702AD2459B00AE2CF4 /* Forte.xcdatamodeld */; };
+		99B489792AD2461D00AE2CF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99B489782AD2461D00AE2CF4 /* GoogleService-Info.plist */; };
+		99B4897C2AD246EE00AE2CF4 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 99B4897B2AD246EE00AE2CF4 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		99B4897F2AD249F400AE2CF4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 99B4897E2AD249F400AE2CF4 /* FirebaseAuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +26,7 @@
 		99B4896C2AD2459B00AE2CF4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		99B4896E2AD2459B00AE2CF4 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		99B489712AD2459B00AE2CF4 /* Forte.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Forte.xcdatamodel; sourceTree = "<group>"; };
+		99B489782AD2461D00AE2CF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +34,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99B4897C2AD246EE00AE2CF4 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				99B4897F2AD249F400AE2CF4 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +47,7 @@
 			children = (
 				99B489642AD2459900AE2CF4 /* Forte */,
 				99B489632AD2459900AE2CF4 /* Products */,
+				99B4897D2AD249F400AE2CF4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +67,7 @@
 				99B489692AD2459B00AE2CF4 /* Assets.xcassets */,
 				99B4896E2AD2459B00AE2CF4 /* Persistence.swift */,
 				99B489702AD2459B00AE2CF4 /* Forte.xcdatamodeld */,
+				99B489782AD2461D00AE2CF4 /* GoogleService-Info.plist */,
 				99B4896B2AD2459B00AE2CF4 /* Preview Content */,
 			);
 			path = Forte;
@@ -71,6 +79,13 @@
 				99B4896C2AD2459B00AE2CF4 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		99B4897D2AD249F400AE2CF4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -89,6 +104,10 @@
 			dependencies = (
 			);
 			name = Forte;
+			packageProductDependencies = (
+				99B4897B2AD246EE00AE2CF4 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				99B4897E2AD249F400AE2CF4 /* FirebaseAuth */,
+			);
 			productName = Forte;
 			productReference = 99B489622AD2459900AE2CF4 /* Forte.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +136,9 @@
 				Base,
 			);
 			mainGroup = 99B489592AD2459900AE2CF4;
+			packageReferences = (
+				99B4897A2AD246EE00AE2CF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 99B489632AD2459900AE2CF4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -133,6 +155,7 @@
 			files = (
 				99B4896D2AD2459B00AE2CF4 /* Preview Assets.xcassets in Resources */,
 				99B4896A2AD2459B00AE2CF4 /* Assets.xcassets in Resources */,
+				99B489792AD2461D00AE2CF4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +370,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		99B4897A2AD246EE00AE2CF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		99B4897B2AD246EE00AE2CF4 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99B4897A2AD246EE00AE2CF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		99B4897E2AD249F400AE2CF4 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99B4897A2AD246EE00AE2CF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		99B489702AD2459B00AE2CF4 /* Forte.xcdatamodeld */ = {
