@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import GoogleSignIn
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
@@ -26,8 +27,18 @@ struct ForteApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                ContentView()
+                ContentView(authViewModel: AuthenticationViewModel())
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .onOpenURL { url in
+                        GIDSignIn.sharedInstance.handle(url)
+                    }
+                    .onAppear {
+                        if GIDSignIn.sharedInstance.hasPreviousSignIn() {
+                            GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+//                                authenticateUser(for: user, with: error)
+                            }
+                        }
+                    }
             }
         }
     }
