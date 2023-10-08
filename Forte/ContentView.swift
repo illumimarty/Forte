@@ -8,9 +8,13 @@
 import SwiftUI
 import Firebase
 import FirebaseAuth
+import GoogleSignInSwift
+import GoogleSignIn
 import CoreData
 
 struct ContentView: View {
+    
+    @ObservedObject var authViewModel: AuthenticationViewModel
     
     @State var email = ""
     @State var password = ""
@@ -24,22 +28,14 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            TextField("Email", text: $email)
-            SecureField("Password", text: $password)
-            Button(action: { login() }) {
-                Text("Sign in")
-            }
+//            TextField("Email", text: $email)
+//            SecureField("Password", text: $password)
+//            Button(action: { login() }) {
+//                Text("Sign in")
+//            }
+//            GoogleSignInButton(viewModel: authViewModel, action: <#T##() -> Void#>)
+            GoogleSignInButton(action: authViewModel.handleSignInButton)
         }.padding()
-    }
-    
-    private func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            } else {
-                print("success!")
-            }
-        }
     }
     
     private func addItem() {
@@ -83,6 +79,7 @@ private let itemFormatter: DateFormatter = {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView(authViewModel: AuthenticationViewModel())
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
