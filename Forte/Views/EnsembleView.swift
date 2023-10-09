@@ -8,8 +8,33 @@
 import SwiftUI
 
 struct EnsembleView: View {
+    
+    @FetchRequest(sortDescriptors: []) var groups: FetchedResults<Ensemble>
+    
+    @Environment(\.managedObjectContext) var moc // imoprtant when adding and saving objects
+    
     var body: some View {
-        Text("EnsembleView")
+        NavigationStack {
+            VStack {
+                Text("EnsembleView")
+            }
+            .navigationTitle("My Groups")
+            .navigationBarTitleDisplayMode(.large)
+            Button("Add") {
+                let names = ["Mariposa Symphony Orchestra", "London Symphony Orchestra", "Vanden Wind Ensemble", "Hilmar Community Band"]
+                let chosenName = names.randomElement()!
+                
+                let group = Ensemble(context: moc)
+                group.id = UUID()
+                group.name = chosenName
+                
+                try? moc.save()
+                
+            }
+            List(groups) { group in
+                Text(group.name ?? "unknown")
+            }
+        }
     }
 }
 

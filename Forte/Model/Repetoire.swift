@@ -7,14 +7,15 @@
 
 import Foundation
 
-struct Repetoire {
-    var ensemble: Ensemble?
-    var startDate: Date?
-    var endDate: Date?
-    
-    init(ensemble: Ensemble? = nil, startDate: Date? = nil, endDate: Date? = nil) {
-        self.ensemble = ensemble
-        self.startDate = startDate
-        self.endDate = endDate
-    }
-}
+//struct Repetoire {
+////    var id: UUID
+//    var ensemble: Ensemble?
+//    var startDate: Date?
+//    var endDate: Date?
+//    
+//    init(ensemble: Ensemble? = nil, startDate: Date? = nil, endDate: Date? = nil) {
+//        self.ensemble = ensemble
+//        self.startDate = startDate
+//        self.endDate = endDate
+//    }
+//}
