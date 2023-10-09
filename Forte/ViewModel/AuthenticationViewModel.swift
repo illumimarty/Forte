@@ -10,18 +10,43 @@ import Firebase
 import FirebaseAuth
 import GoogleSignIn
 
-class AuthenticationViewModel: ObservableObject {
+enum UserStateError: Error {
+    case signInError, signOutError
+}
 
-    func handleSignInButton() {
+class AuthenticationViewModel: ObservableObject {
+    
+    @Published var isLoggedIn = false
+    @Published var isBusy = false
+    
+    func checkForPreviousSignIn() {
+        if GIDSignIn.sharedInstance.hasPreviousSignIn() {
+          GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+              guard user != nil else {
+                  print(error!.localizedDescription)
+                  return
+              }
+              self.isLoggedIn = true
+              print("success!")
+            }
+        }
+    }
+    
+    func signIn() {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
         guard let rootViewController = windowScene.windows.first?.rootViewController else { return }
         GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController) { signInResult, error in
-            guard let result = signInResult else {
+            guard signInResult != nil else {
                 print(error!.localizedDescription)
                 return
             }
-            
-            print("success!")
+            self.isLoggedIn = true
+            print("success?")
         }
+    }
+    
+    func signOut() {
+        GIDSignIn.sharedInstance.signOut()
+        self.isLoggedIn = false
     }
 }

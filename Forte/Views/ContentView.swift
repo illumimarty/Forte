@@ -14,10 +14,10 @@ import CoreData
 
 struct ContentView: View {
     
-    @ObservedObject var authViewModel: AuthenticationViewModel
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
     
-    @State var email = ""
-    @State var password = ""
+//    @State var email = ""
+//    @State var password = ""
     
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -33,8 +33,7 @@ struct ContentView: View {
 //            Button(action: { login() }) {
 //                Text("Sign in")
 //            }
-//            GoogleSignInButton(viewModel: authViewModel, action: <#T##() -> Void#>)
-            GoogleSignInButton(action: authViewModel.handleSignInButton)
+            GoogleSignInButton(action: authViewModel.signIn)
         }.padding()
     }
     
@@ -79,7 +78,7 @@ private let itemFormatter: DateFormatter = {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(authViewModel: AuthenticationViewModel())
+        ContentView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
