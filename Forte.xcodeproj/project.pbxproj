@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		995964742AD39E10003EECAC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995964732AD39E10003EECAC /* SettingsView.swift */; };
 		99B489662AD2459900AE2CF4 /* ForteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489652AD2459900AE2CF4 /* ForteApp.swift */; };
 		99B489682AD2459900AE2CF4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489672AD2459900AE2CF4 /* ContentView.swift */; };
 		99B4896A2AD2459B00AE2CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99B489692AD2459B00AE2CF4 /* Assets.xcassets */; };
@@ -22,9 +23,13 @@
 		99B489882AD2555B00AE2CF4 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489872AD2555B00AE2CF4 /* Section.swift */; };
 		99B4898B2AD2585400AE2CF4 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B4898A2AD2585400AE2CF4 /* AuthenticationViewModel.swift */; };
 		99B4898E2AD2595D00AE2CF4 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 99B4898D2AD2595D00AE2CF4 /* GoogleSignInSwift */; };
+		99B489922AD27EED00AE2CF4 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489912AD27EEC00AE2CF4 /* MainTabView.swift */; };
+		99B489942AD27F5600AE2CF4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489932AD27F5600AE2CF4 /* HomeView.swift */; };
+		99B489962AD27F6D00AE2CF4 /* EnsembleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		995964732AD39E10003EECAC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		99B489622AD2459900AE2CF4 /* Forte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Forte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99B489652AD2459900AE2CF4 /* ForteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForteApp.swift; sourceTree = "<group>"; };
 		99B489672AD2459900AE2CF4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -39,6 +44,9 @@
 		99B489872AD2555B00AE2CF4 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		99B4898A2AD2585400AE2CF4 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		99B4898F2AD2687700AE2CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		99B489912AD27EEC00AE2CF4 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		99B489932AD27F5600AE2CF4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,10 +83,10 @@
 		99B489642AD2459900AE2CF4 /* Forte */ = {
 			isa = PBXGroup;
 			children = (
-				99B489892AD2584300AE2CF4 /* ViewModel */,
 				99B489802AD2535A00AE2CF4 /* Model */,
+				99B489902AD27EBC00AE2CF4 /* Views */,
+				99B489892AD2584300AE2CF4 /* ViewModel */,
 				99B489652AD2459900AE2CF4 /* ForteApp.swift */,
-				99B489672AD2459900AE2CF4 /* ContentView.swift */,
 				99B489692AD2459B00AE2CF4 /* Assets.xcassets */,
 				99B4896E2AD2459B00AE2CF4 /* Persistence.swift */,
 				99B489702AD2459B00AE2CF4 /* Forte.xcdatamodeld */,
@@ -121,6 +129,18 @@
 				99B4898A2AD2585400AE2CF4 /* AuthenticationViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		99B489902AD27EBC00AE2CF4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				99B489672AD2459900AE2CF4 /* ContentView.swift */,
+				99B489912AD27EEC00AE2CF4 /* MainTabView.swift */,
+				99B489932AD27F5600AE2CF4 /* HomeView.swift */,
+				99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */,
+				995964732AD39E10003EECAC /* SettingsView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,12 +226,16 @@
 				99B4896F2AD2459B00AE2CF4 /* Persistence.swift in Sources */,
 				99B489862AD2550600AE2CF4 /* Piece.swift in Sources */,
 				99B489682AD2459900AE2CF4 /* ContentView.swift in Sources */,
+				99B489962AD27F6D00AE2CF4 /* EnsembleView.swift in Sources */,
 				99B489822AD2538000AE2CF4 /* Ensemble.swift in Sources */,
 				99B489842AD254A400AE2CF4 /* Repetoire.swift in Sources */,
+				99B489942AD27F5600AE2CF4 /* HomeView.swift in Sources */,
 				99B489882AD2555B00AE2CF4 /* Section.swift in Sources */,
 				99B4898B2AD2585400AE2CF4 /* AuthenticationViewModel.swift in Sources */,
 				99B489722AD2459B00AE2CF4 /* Forte.xcdatamodeld in Sources */,
 				99B489662AD2459900AE2CF4 /* ForteApp.swift in Sources */,
+				99B489922AD27EED00AE2CF4 /* MainTabView.swift in Sources */,
+				995964742AD39E10003EECAC /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,30 +16,37 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
+struct ApplicationSwitcher: View {
+    @EnvironmentObject var viewModel: AuthenticationViewModel
+    
+    var body: some View {
+        if viewModel.isLoggedIn {
+            MainTabView()
+        } else {
+            ContentView()
+        }
+    }
+}
+
 
 @main
 struct ForteApp: App {
-    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
     let persistenceController = PersistenceController.shared
+    @StateObject var authViewModel = AuthenticationViewModel()
 
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                ContentView(authViewModel: AuthenticationViewModel())
-                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                ApplicationSwitcher()
                     .onOpenURL { url in
                         GIDSignIn.sharedInstance.handle(url)
                     }
                     .onAppear {
-                        if GIDSignIn.sharedInstance.hasPreviousSignIn() {
-                            GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-//                                authenticateUser(for: user, with: error)
-                            }
-                        }
+                        authViewModel.checkForPreviousSignIn()
                     }
             }
+            .environmentObject(authViewModel)
         }
     }
 }
