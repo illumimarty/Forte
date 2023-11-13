@@ -27,6 +27,7 @@
 		99B489922AD27EED00AE2CF4 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489912AD27EEC00AE2CF4 /* MainTabView.swift */; };
 		99B489942AD27F5600AE2CF4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489932AD27F5600AE2CF4 /* HomeView.swift */; };
 		99B489962AD27F6D00AE2CF4 /* EnsembleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */; };
+		99C2E6C02B014DF600E6F838 /* EnsembleDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C2E6BF2B014DF600E6F838 /* EnsembleDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		99B489912AD27EEC00AE2CF4 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		99B489932AD27F5600AE2CF4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleView.swift; sourceTree = "<group>"; };
+		99C2E6BF2B014DF600E6F838 /* EnsembleDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				99B489932AD27F5600AE2CF4 /* HomeView.swift */,
 				99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */,
 				995964732AD39E10003EECAC /* SettingsView.swift */,
+				99C2E6BF2B014DF600E6F838 /* EnsembleDetailsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				99B489922AD27EED00AE2CF4 /* MainTabView.swift in Sources */,
 				9959647C2AD3CB7B003EECAC /* Ensemble.xcdatamodeld in Sources */,
 				995964742AD39E10003EECAC /* SettingsView.swift in Sources */,
+				99C2E6C02B014DF600E6F838 /* EnsembleDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

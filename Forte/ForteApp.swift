@@ -33,7 +33,7 @@ struct ApplicationSwitcher: View {
 @main
 struct ForteApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    let persistenceController = PersistenceController.shared
+//    let persistenceController = PersistenceController.shared
     @StateObject var authViewModel = AuthenticationViewModel()
     @StateObject private var dataController = DataController()
 
