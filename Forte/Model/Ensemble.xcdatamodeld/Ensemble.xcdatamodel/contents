@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22G74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Ensemble" representedClassName="Ensemble" syncable="YES" codeGenerationType="class">
+    <entity name="Composition" representedClassName="Composition" syncable="YES">
+        <attribute name="composer" optional="YES" attributeType="String"/>
+        <attribute name="duration" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="recording_link" optional="YES" attributeType="String"/>
+        <relationship name="ensemble" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ensemble" inverseName="pieces" inverseEntity="Ensemble"/>
+    </entity>
+    <entity name="Ensemble" representedClassName="Ensemble" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="location" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="pieces" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Composition" inverseName="ensemble" inverseEntity="Composition"/>
     </entity>
-    <entity name="Repertoire" representedClassName="Repertoire" syncable="YES" codeGenerationType="class">
+    <entity name="Repertoire" representedClassName="Repertoire" syncable="YES">
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="ensemble" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ensemble"/>
     </entity>
 </model>

@@ -10,6 +10,7 @@ import SwiftUI
 struct EnsembleView: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var groups: FetchedResults<Ensemble>
     @Environment(\.managedObjectContext) var moc // imoprtant when adding and saving objects
+//    var groups: [Ensemble] = DataManager.shared.ensembles()
     
     @State private var isAuthenticating = false
     @State private var chosenName = ""
@@ -27,7 +28,7 @@ struct EnsembleView: View {
                 }
                 List {
                     ForEach(groups) { group in
-                        NavigationLink(destination: EnsembleDetailsView(ensemble: group)) {
+                        NavigationLink(destination: EnsembleDetailsView(group: group)) {
                             Text(group.name ?? "unknown")
                         }
                     }
@@ -43,10 +44,14 @@ struct EnsembleView: View {
     }
     
     func createEnsemble() {
-        let group = Ensemble(context: moc)
-        group.id = UUID()
-        group.name = chosenName
-        try? moc.save()
+        let _ = DataManager.shared.ensemble(name: chosenName)
+//        self.groups.append(group)
+        DataManager.shared.save()
+        
+//        let group = Ensemble(context: moc)
+//        group.id = UUID()
+//        group.name = chosenName
+//        try? moc.save()
     }
     
     // ? - why delete from a set of indices than one index?
@@ -55,9 +60,10 @@ struct EnsembleView: View {
         
         for index in offsets {
             let group = groups[index]
-            moc.delete(group)
+            DataManager.shared.deleteEnsemble(ensemble: group)
+//            moc.delete(group)
         }
-        try? moc.save()
+//        try? moc.save()
     }
 }
 
