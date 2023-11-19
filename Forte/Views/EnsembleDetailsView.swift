@@ -10,9 +10,6 @@ import SwiftUI
 
 
 struct EnsembleDetailsView: View {
-//    @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var pieces: FetchedResults<Composition>
-//    @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var pieces: FetchedResults<Compo
-//    @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var groups: FetchedResults<Ensemble>
     @Environment(\.managedObjectContext) var moc // imoprtant when adding and saving objects
     
     let ensemble: Ensemble
@@ -20,7 +17,6 @@ struct EnsembleDetailsView: View {
     @State private var chosenName = ""
     
     var pieces: [Composition] = []
-//    var pieces: [Composition] = DataManager.shared.pieces(ensemble: ensemble)
     
     init(group: Ensemble) {
         ensemble = group
@@ -39,13 +35,10 @@ struct EnsembleDetailsView: View {
             }
             List {
                 ForEach(pieces, content: { piece in
-                    Text(piece.name ?? "unknown piece")
+                    NavigationLink(destination: CompositionDetailsView(group: ensemble, piece: piece)) {
+                            Text(piece.name ?? "unknown piece")
+                    }
                 })
-//                ForEach(groups) { group in
-//                    NavigationLink(destination: EnsembleDetailsView(ensemble: group)) {
-//                        Text(group.name ?? "unknown")
-//                    }
-//                }
                 .onDelete(perform: removePiece)
             }
             .toolbar {
@@ -63,10 +56,6 @@ struct EnsembleDetailsView: View {
     func createPiece() {
         let _ = DataManager.shared.piece(name: chosenName, ensemble: self.ensemble)
         DataManager.shared.save()
-//        let piece = Composition(context: moc)
-//        piece.id = UUID()
-//        piece.name = chosenName
-//        try? moc.save()
     }
     
     // ? - why delete from a set of indices than one index?
@@ -77,6 +66,5 @@ struct EnsembleDetailsView: View {
             let piece = pieces[index]
             DataManager.shared.deletePiece(piece: piece)
         }
-//        try? moc.save()
     }
 }
