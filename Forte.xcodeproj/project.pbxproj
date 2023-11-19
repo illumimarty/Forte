@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		995964742AD39E10003EECAC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995964732AD39E10003EECAC /* SettingsView.swift */; };
-		995964792AD3AD9E003EECAC /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995964782AD3AD9E003EECAC /* DataController.swift */; };
 		9959647C2AD3CB7B003EECAC /* Ensemble.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9959647A2AD3CB7B003EECAC /* Ensemble.xcdatamodeld */; };
-		996F1D462B071F4D0048D9CC /* Composition+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996F1D402B071F4D0048D9CC /* Composition+CoreDataClass.swift */; };
-		996F1D472B071F4D0048D9CC /* Composition+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996F1D412B071F4D0048D9CC /* Composition+CoreDataProperties.swift */; };
 		996F1D482B071F4D0048D9CC /* Ensemble+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996F1D422B071F4D0048D9CC /* Ensemble+CoreDataClass.swift */; };
 		996F1D492B071F4D0048D9CC /* Ensemble+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996F1D432B071F4D0048D9CC /* Ensemble+CoreDataProperties.swift */; };
 		996F1D4A2B071F4D0048D9CC /* Repertoire+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996F1D442B071F4D0048D9CC /* Repertoire+CoreDataClass.swift */; };
 		996F1D4B2B071F4D0048D9CC /* Repertoire+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996F1D452B071F4D0048D9CC /* Repertoire+CoreDataProperties.swift */; };
 		997C720F2B087556000F10BE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997C720E2B087556000F10BE /* DataManager.swift */; };
+		99933E302B08967C008AB97C /* CompositionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E2F2B08967C008AB97C /* CompositionDetailsView.swift */; };
+		99933E392B089E46008AB97C /* Composition+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E352B089E46008AB97C /* Composition+CoreDataClass.swift */; };
+		99933E3A2B089E46008AB97C /* Composition+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E362B089E46008AB97C /* Composition+CoreDataProperties.swift */; };
+		99933E3B2B089E46008AB97C /* Section+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E372B089E46008AB97C /* Section+CoreDataClass.swift */; };
+		99933E3C2B089E46008AB97C /* Section+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E382B089E46008AB97C /* Section+CoreDataProperties.swift */; };
+		99933E3F2B095DCF008AB97C /* SectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E3E2B095DCF008AB97C /* SectionRowView.swift */; };
 		99B489662AD2459900AE2CF4 /* ForteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489652AD2459900AE2CF4 /* ForteApp.swift */; };
 		99B489682AD2459900AE2CF4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489672AD2459900AE2CF4 /* ContentView.swift */; };
 		99B4896A2AD2459B00AE2CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99B489692AD2459B00AE2CF4 /* Assets.xcassets */; };
 		99B4896D2AD2459B00AE2CF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99B4896C2AD2459B00AE2CF4 /* Preview Assets.xcassets */; };
-		99B4896F2AD2459B00AE2CF4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B4896E2AD2459B00AE2CF4 /* Persistence.swift */; };
 		99B489792AD2461D00AE2CF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99B489782AD2461D00AE2CF4 /* GoogleService-Info.plist */; };
 		99B4897C2AD246EE00AE2CF4 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 99B4897B2AD246EE00AE2CF4 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		99B4897F2AD249F400AE2CF4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 99B4897E2AD249F400AE2CF4 /* FirebaseAuth */; };
@@ -35,21 +37,23 @@
 
 /* Begin PBXFileReference section */
 		995964732AD39E10003EECAC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		995964782AD3AD9E003EECAC /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		9959647B2AD3CB7B003EECAC /* Ensemble.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Ensemble.xcdatamodel; sourceTree = "<group>"; };
-		996F1D402B071F4D0048D9CC /* Composition+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Composition+CoreDataClass.swift"; sourceTree = "<group>"; };
-		996F1D412B071F4D0048D9CC /* Composition+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Composition+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		996F1D422B071F4D0048D9CC /* Ensemble+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ensemble+CoreDataClass.swift"; sourceTree = "<group>"; };
 		996F1D432B071F4D0048D9CC /* Ensemble+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ensemble+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		996F1D442B071F4D0048D9CC /* Repertoire+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repertoire+CoreDataClass.swift"; sourceTree = "<group>"; };
 		996F1D452B071F4D0048D9CC /* Repertoire+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repertoire+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		997C720E2B087556000F10BE /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		99933E2F2B08967C008AB97C /* CompositionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionDetailsView.swift; sourceTree = "<group>"; };
+		99933E352B089E46008AB97C /* Composition+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Composition+CoreDataClass.swift"; sourceTree = "<group>"; };
+		99933E362B089E46008AB97C /* Composition+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Composition+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		99933E372B089E46008AB97C /* Section+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataClass.swift"; sourceTree = "<group>"; };
+		99933E382B089E46008AB97C /* Section+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		99933E3E2B095DCF008AB97C /* SectionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionRowView.swift; sourceTree = "<group>"; };
 		99B489622AD2459900AE2CF4 /* Forte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Forte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99B489652AD2459900AE2CF4 /* ForteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForteApp.swift; sourceTree = "<group>"; };
 		99B489672AD2459900AE2CF4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		99B489692AD2459B00AE2CF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		99B4896C2AD2459B00AE2CF4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		99B4896E2AD2459B00AE2CF4 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		99B489782AD2461D00AE2CF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		99B4898A2AD2585400AE2CF4 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		99B4898F2AD2687700AE2CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,12 +102,9 @@
 				99B489892AD2584300AE2CF4 /* ViewModel */,
 				99B489652AD2459900AE2CF4 /* ForteApp.swift */,
 				99B489692AD2459B00AE2CF4 /* Assets.xcassets */,
-				99B4896E2AD2459B00AE2CF4 /* Persistence.swift */,
-				997C720E2B087556000F10BE /* DataManager.swift */,
 				99B489782AD2461D00AE2CF4 /* GoogleService-Info.plist */,
 				99B4898F2AD2687700AE2CF4 /* Info.plist */,
 				99B4896B2AD2459B00AE2CF4 /* Preview Content */,
-				995964782AD3AD9E003EECAC /* DataController.swift */,
 			);
 			path = Forte;
 			sourceTree = "<group>";
@@ -126,13 +127,16 @@
 		99B489802AD2535A00AE2CF4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				996F1D402B071F4D0048D9CC /* Composition+CoreDataClass.swift */,
-				996F1D412B071F4D0048D9CC /* Composition+CoreDataProperties.swift */,
+				99933E352B089E46008AB97C /* Composition+CoreDataClass.swift */,
+				99933E362B089E46008AB97C /* Composition+CoreDataProperties.swift */,
+				99933E372B089E46008AB97C /* Section+CoreDataClass.swift */,
+				99933E382B089E46008AB97C /* Section+CoreDataProperties.swift */,
 				996F1D422B071F4D0048D9CC /* Ensemble+CoreDataClass.swift */,
 				996F1D432B071F4D0048D9CC /* Ensemble+CoreDataProperties.swift */,
 				996F1D442B071F4D0048D9CC /* Repertoire+CoreDataClass.swift */,
 				996F1D452B071F4D0048D9CC /* Repertoire+CoreDataProperties.swift */,
 				9959647A2AD3CB7B003EECAC /* Ensemble.xcdatamodeld */,
+				997C720E2B087556000F10BE /* DataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -154,6 +158,8 @@
 				99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */,
 				995964732AD39E10003EECAC /* SettingsView.swift */,
 				99C2E6BF2B014DF600E6F838 /* EnsembleDetailsView.swift */,
+				99933E2F2B08967C008AB97C /* CompositionDetailsView.swift */,
+				99933E3E2B095DCF008AB97C /* SectionRowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -239,17 +245,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				996F1D482B071F4D0048D9CC /* Ensemble+CoreDataClass.swift in Sources */,
-				99B4896F2AD2459B00AE2CF4 /* Persistence.swift in Sources */,
+				99933E3B2B089E46008AB97C /* Section+CoreDataClass.swift in Sources */,
 				996F1D4A2B071F4D0048D9CC /* Repertoire+CoreDataClass.swift in Sources */,
-				996F1D462B071F4D0048D9CC /* Composition+CoreDataClass.swift in Sources */,
+				99933E392B089E46008AB97C /* Composition+CoreDataClass.swift in Sources */,
 				99B489682AD2459900AE2CF4 /* ContentView.swift in Sources */,
+				99933E3C2B089E46008AB97C /* Section+CoreDataProperties.swift in Sources */,
 				996F1D4B2B071F4D0048D9CC /* Repertoire+CoreDataProperties.swift in Sources */,
+				99933E3F2B095DCF008AB97C /* SectionRowView.swift in Sources */,
+				99933E3A2B089E46008AB97C /* Composition+CoreDataProperties.swift in Sources */,
 				99B489962AD27F6D00AE2CF4 /* EnsembleView.swift in Sources */,
 				997C720F2B087556000F10BE /* DataManager.swift in Sources */,
-				996F1D472B071F4D0048D9CC /* Composition+CoreDataProperties.swift in Sources */,
 				99B489942AD27F5600AE2CF4 /* HomeView.swift in Sources */,
+				99933E302B08967C008AB97C /* CompositionDetailsView.swift in Sources */,
 				99B4898B2AD2585400AE2CF4 /* AuthenticationViewModel.swift in Sources */,
-				995964792AD3AD9E003EECAC /* DataController.swift in Sources */,
 				99B489662AD2459900AE2CF4 /* ForteApp.swift in Sources */,
 				99B489922AD27EED00AE2CF4 /* MainTabView.swift in Sources */,
 				9959647C2AD3CB7B003EECAC /* Ensemble.xcdatamodeld in Sources */,

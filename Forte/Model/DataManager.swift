@@ -23,10 +23,10 @@ class DataManager: ObservableObject {
     
     func save() {
         let moc = container.viewContext
-        
         if moc.hasChanges {
             do {
                 try moc.save()
+                
             } catch {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -90,6 +90,43 @@ class DataManager: ObservableObject {
     func deletePiece(piece: Composition) {
         let moc = container.viewContext
         moc.delete(piece)
+        save()
+    }
+    
+    // MARK: Sections Operations
+    func section(name: String, piece: Composition) -> Section {
+        let section = Section(context: container.viewContext)
+        section.name = name
+        section.id = UUID()
+        
+        // add following information based on user input
+        
+        piece.addToSection(section)
+        return section
+    }
+    
+    func sections(piece: Composition) -> [Section] {
+        let request: NSFetchRequest<Section> = Section.fetchRequest()
+        request.predicate = NSPredicate(format: "piece = %@", piece)
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: false)]
+        var fetchedSections: [Section] = []
+        
+        do {
+            fetchedSections = try container.viewContext.fetch(request)
+        } catch let error {
+            print("Error fetching pieces: \(error)")
+        }
+        
+        return fetchedSections
+    }
+    
+    func refreshSections(for piece: Composition) {
+        let _ = sections(piece: piece)
+    }
+    
+    func deleteSection(section: Section) {
+        let moc = container.viewContext
+        moc.delete(section)
         save()
     }
 }

@@ -7,6 +7,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="recording_link" optional="YES" attributeType="String"/>
         <relationship name="ensemble" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ensemble" inverseName="pieces" inverseEntity="Ensemble"/>
+        <relationship name="section" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Section" inverseName="piece" inverseEntity="Section"/>
     </entity>
     <entity name="Ensemble" representedClassName="Ensemble" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -19,5 +20,16 @@
         <attribute name="ensemble" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="Section" representedClassName="Section" syncable="YES">
+        <attribute name="endMeasure" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="endRehearsalMark" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="progressValue" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="startMeasure" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="startRehearsalMark" optional="YES" attributeType="String"/>
+        <relationship name="piece" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Composition" inverseName="section" inverseEntity="Composition"/>
     </entity>
 </model>

@@ -2,7 +2,7 @@
 //  Composition+CoreDataProperties.swift
 //  Forte
 //
-//  Created by Marty Nodado on 11/16/23.
+//  Created by Marty Nodado on 11/17/23.
 //
 //
 
@@ -22,6 +22,24 @@ extension Composition {
     @NSManaged public var name: String?
     @NSManaged public var recording_link: String?
     @NSManaged public var ensemble: Ensemble?
+    @NSManaged public var section: NSSet?
+
+}
+
+// MARK: Generated accessors for section
+extension Composition {
+
+    @objc(addSectionObject:)
+    @NSManaged public func addToSection(_ value: Section)
+
+    @objc(removeSectionObject:)
+    @NSManaged public func removeFromSection(_ value: Section)
+
+    @objc(addSection:)
+    @NSManaged public func addToSection(_ values: NSSet)
+
+    @objc(removeSection:)
+    @NSManaged public func removeFromSection(_ values: NSSet)
 
 }
 

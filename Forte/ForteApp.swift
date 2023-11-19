@@ -33,10 +33,8 @@ struct ApplicationSwitcher: View {
 @main
 struct ForteApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-//    let persistenceController = PersistenceController.shared
     @StateObject var authViewModel = AuthenticationViewModel()
     @StateObject private var dataManager = DataManager.shared
-//    @StateObject private var dataController = DataController()
 
     var body: some Scene {
         WindowGroup {
@@ -51,7 +49,6 @@ struct ForteApp: App {
             }
             .environmentObject(authViewModel)
             .environment(\.managedObjectContext, dataManager.container.viewContext)
-//            .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }
