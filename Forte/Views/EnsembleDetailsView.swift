@@ -15,23 +15,29 @@ struct EnsembleDetailsView: View {
     let ensemble: Ensemble
     @State private var isAuthenticating = false
     @State private var chosenName = ""
+    @State private var isShowingEditView = false
     
     var pieces: [Composition] = []
     
     init(group: Ensemble) {
-        ensemble = group
+        ensemble = group 
         pieces = DataManager.shared.pieces(ensemble: group)
     }
     
     var body: some View {
         VStack {
             Button("Add") {
-                isAuthenticating.toggle()
+//                isAuthenticating.toggle()
+                isShowingEditView.toggle()
             }
-            .alert("Enter group name", isPresented: $isAuthenticating) {
-                TextField("Beethoven 5th Symphony", text: $chosenName)
-                Button("OK", action: createPiece)
-                Button("Cancel", role: .cancel) {}
+//            .alert("Enter group name", isPresented: $isAuthenticating) {
+//                TextField("Beethoven 5th Symphony", text: $chosenName)
+//                Button("OK", action: createPiece)
+//                Button("Cancel", role: .cancel) {}
+//            }
+            .sheet(isPresented: $isShowingEditView) {
+//                CompositionEditView(isInitializing: true)
+                CompositionEditView(ensemble: self.ensemble)
             }
             List {
                 ForEach(pieces, content: { piece in
@@ -53,10 +59,11 @@ struct EnsembleDetailsView: View {
         }
     }
     
-    func createPiece() {
-        let _ = DataManager.shared.piece(name: chosenName, ensemble: self.ensemble)
-        DataManager.shared.save()
-    }
+//    func createPiece() {
+////        let _ = DataManager.shared.piece(name: chosenName, ensemble: self.ensemble)
+//
+//        DataManager.shared.save()
+//    }
     
     // ? - why delete from a set of indices than one index?
     func removePiece(at offsets: IndexSet) {

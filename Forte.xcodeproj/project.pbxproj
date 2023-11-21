@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9917066A2B0C82260041466E /* Passage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991706682B0C82260041466E /* Passage+CoreDataClass.swift */; };
+		9917066B2B0C82260041466E /* Passage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991706692B0C82260041466E /* Passage+CoreDataProperties.swift */; };
 		995964742AD39E10003EECAC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995964732AD39E10003EECAC /* SettingsView.swift */; };
 		9959647C2AD3CB7B003EECAC /* Ensemble.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9959647A2AD3CB7B003EECAC /* Ensemble.xcdatamodeld */; };
 		996F1D482B071F4D0048D9CC /* Ensemble+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996F1D422B071F4D0048D9CC /* Ensemble+CoreDataClass.swift */; };
@@ -17,9 +19,9 @@
 		99933E302B08967C008AB97C /* CompositionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E2F2B08967C008AB97C /* CompositionDetailsView.swift */; };
 		99933E392B089E46008AB97C /* Composition+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E352B089E46008AB97C /* Composition+CoreDataClass.swift */; };
 		99933E3A2B089E46008AB97C /* Composition+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E362B089E46008AB97C /* Composition+CoreDataProperties.swift */; };
-		99933E3B2B089E46008AB97C /* Section+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E372B089E46008AB97C /* Section+CoreDataClass.swift */; };
-		99933E3C2B089E46008AB97C /* Section+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E382B089E46008AB97C /* Section+CoreDataProperties.swift */; };
 		99933E3F2B095DCF008AB97C /* SectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E3E2B095DCF008AB97C /* SectionRowView.swift */; };
+		99933E412B09DC34008AB97C /* CompositionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E402B09DC34008AB97C /* CompositionEditView.swift */; };
+		99933E432B09F26D008AB97C /* SectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E422B09F26D008AB97C /* SectionEditView.swift */; };
 		99B489662AD2459900AE2CF4 /* ForteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489652AD2459900AE2CF4 /* ForteApp.swift */; };
 		99B489682AD2459900AE2CF4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489672AD2459900AE2CF4 /* ContentView.swift */; };
 		99B4896A2AD2459B00AE2CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99B489692AD2459B00AE2CF4 /* Assets.xcassets */; };
@@ -36,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		991706682B0C82260041466E /* Passage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Passage+CoreDataClass.swift"; sourceTree = "<group>"; };
+		991706692B0C82260041466E /* Passage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Passage+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		995964732AD39E10003EECAC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9959647B2AD3CB7B003EECAC /* Ensemble.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Ensemble.xcdatamodel; sourceTree = "<group>"; };
 		996F1D422B071F4D0048D9CC /* Ensemble+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ensemble+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -46,9 +50,9 @@
 		99933E2F2B08967C008AB97C /* CompositionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionDetailsView.swift; sourceTree = "<group>"; };
 		99933E352B089E46008AB97C /* Composition+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Composition+CoreDataClass.swift"; sourceTree = "<group>"; };
 		99933E362B089E46008AB97C /* Composition+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Composition+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		99933E372B089E46008AB97C /* Section+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataClass.swift"; sourceTree = "<group>"; };
-		99933E382B089E46008AB97C /* Section+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Section+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		99933E3E2B095DCF008AB97C /* SectionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionRowView.swift; sourceTree = "<group>"; };
+		99933E402B09DC34008AB97C /* CompositionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionEditView.swift; sourceTree = "<group>"; };
+		99933E422B09F26D008AB97C /* SectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditView.swift; sourceTree = "<group>"; };
 		99B489622AD2459900AE2CF4 /* Forte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Forte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99B489652AD2459900AE2CF4 /* ForteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForteApp.swift; sourceTree = "<group>"; };
 		99B489672AD2459900AE2CF4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -127,10 +131,10 @@
 		99B489802AD2535A00AE2CF4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				991706682B0C82260041466E /* Passage+CoreDataClass.swift */,
+				991706692B0C82260041466E /* Passage+CoreDataProperties.swift */,
 				99933E352B089E46008AB97C /* Composition+CoreDataClass.swift */,
 				99933E362B089E46008AB97C /* Composition+CoreDataProperties.swift */,
-				99933E372B089E46008AB97C /* Section+CoreDataClass.swift */,
-				99933E382B089E46008AB97C /* Section+CoreDataProperties.swift */,
 				996F1D422B071F4D0048D9CC /* Ensemble+CoreDataClass.swift */,
 				996F1D432B071F4D0048D9CC /* Ensemble+CoreDataProperties.swift */,
 				996F1D442B071F4D0048D9CC /* Repertoire+CoreDataClass.swift */,
@@ -160,6 +164,8 @@
 				99C2E6BF2B014DF600E6F838 /* EnsembleDetailsView.swift */,
 				99933E2F2B08967C008AB97C /* CompositionDetailsView.swift */,
 				99933E3E2B095DCF008AB97C /* SectionRowView.swift */,
+				99933E422B09F26D008AB97C /* SectionEditView.swift */,
+				99933E402B09DC34008AB97C /* CompositionEditView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -244,14 +250,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99933E432B09F26D008AB97C /* SectionEditView.swift in Sources */,
 				996F1D482B071F4D0048D9CC /* Ensemble+CoreDataClass.swift in Sources */,
-				99933E3B2B089E46008AB97C /* Section+CoreDataClass.swift in Sources */,
 				996F1D4A2B071F4D0048D9CC /* Repertoire+CoreDataClass.swift in Sources */,
 				99933E392B089E46008AB97C /* Composition+CoreDataClass.swift in Sources */,
+				99933E412B09DC34008AB97C /* CompositionEditView.swift in Sources */,
 				99B489682AD2459900AE2CF4 /* ContentView.swift in Sources */,
-				99933E3C2B089E46008AB97C /* Section+CoreDataProperties.swift in Sources */,
+				9917066B2B0C82260041466E /* Passage+CoreDataProperties.swift in Sources */,
 				996F1D4B2B071F4D0048D9CC /* Repertoire+CoreDataProperties.swift in Sources */,
 				99933E3F2B095DCF008AB97C /* SectionRowView.swift in Sources */,
+				9917066A2B0C82260041466E /* Passage+CoreDataClass.swift in Sources */,
 				99933E3A2B089E46008AB97C /* Composition+CoreDataProperties.swift in Sources */,
 				99B489962AD27F6D00AE2CF4 /* EnsembleView.swift in Sources */,
 				997C720F2B087556000F10BE /* DataManager.swift in Sources */,

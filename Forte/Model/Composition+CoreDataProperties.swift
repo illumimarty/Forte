@@ -30,10 +30,10 @@ extension Composition {
 extension Composition {
 
     @objc(addSectionObject:)
-    @NSManaged public func addToSection(_ value: Section)
+    @NSManaged public func addToSection(_ value: Passage)
 
     @objc(removeSectionObject:)
-    @NSManaged public func removeFromSection(_ value: Section)
+        @NSManaged public func removeFromSection(_ value: Passage)
 
     @objc(addSection:)
     @NSManaged public func addToSection(_ values: NSSet)
