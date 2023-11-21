@@ -9,11 +9,12 @@ import Foundation
 import SwiftUI
 
 struct SectionRowView {
-    var section: Section
+    var passage: Passage
     
     var body: some View {
         VStack {
-            Text(section.name ?? "unknown section")
+            Text(passage.name ?? "unknown section")
         }
     }
 }
+

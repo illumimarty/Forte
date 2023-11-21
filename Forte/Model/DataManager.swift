@@ -64,13 +64,13 @@ class DataManager: ObservableObject {
     
     
     // MARK: Piece Operations
-    func piece(name: String, ensemble: Ensemble) -> Composition {
+    func piece(ensemble: Ensemble) -> Composition {
         let piece = Composition(context: container.viewContext)
         piece.id = UUID()
-        piece.name = name
         ensemble.addToPieces(piece)
         return piece
     }
+    
     
     func pieces(ensemble: Ensemble) -> [Composition] {
         let request: NSFetchRequest<Composition> = Composition.fetchRequest()
@@ -94,9 +94,9 @@ class DataManager: ObservableObject {
     }
     
     // MARK: Sections Operations
-    func section(name: String, piece: Composition) -> Section {
-        let section = Section(context: container.viewContext)
-        section.name = name
+    func passage(piece: Composition) -> Passage {
+        let section = Passage(context: container.viewContext)
+//        section.name = name
         section.id = UUID()
         
         // add following information based on user input
@@ -105,11 +105,11 @@ class DataManager: ObservableObject {
         return section
     }
     
-    func sections(piece: Composition) -> [Section] {
-        let request: NSFetchRequest<Section> = Section.fetchRequest()
+    func passages(piece: Composition) -> [Passage] {
+        let request: NSFetchRequest<Passage> = Passage.fetchRequest()
         request.predicate = NSPredicate(format: "piece = %@", piece)
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: false)]
-        var fetchedSections: [Section] = []
+        var fetchedSections: [Passage] = []
         
         do {
             fetchedSections = try container.viewContext.fetch(request)
@@ -120,13 +120,13 @@ class DataManager: ObservableObject {
         return fetchedSections
     }
     
-    func refreshSections(for piece: Composition) {
-        let _ = sections(piece: piece)
+    func refreshPassages(for piece: Composition) {
+        let _ = passages(piece: piece)
     }
     
-    func deleteSection(section: Section) {
+    func deletePassage(passage: Passage) {
         let moc = container.viewContext
-        moc.delete(section)
+        moc.delete(passage)
         save()
     }
 }
