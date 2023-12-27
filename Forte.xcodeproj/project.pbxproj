@@ -9,12 +9,17 @@
 /* Begin PBXBuildFile section */
 		9917066A2B0C82260041466E /* Passage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991706682B0C82260041466E /* Passage+CoreDataClass.swift */; };
 		9917066B2B0C82260041466E /* Passage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991706692B0C82260041466E /* Passage+CoreDataProperties.swift */; };
+		9923D4BF2B0DA49D007987EB /* PassageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9923D4BE2B0DA49D007987EB /* PassageListViewModel.swift */; };
+		9923D4C12B0DABDE007987EB /* CompositionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9923D4C02B0DABDE007987EB /* CompositionListViewModel.swift */; };
+		9923D4C32B0DB7F3007987EB /* EnsembleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9923D4C22B0DB7F3007987EB /* EnsembleViewModel.swift */; };
 		995964742AD39E10003EECAC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995964732AD39E10003EECAC /* SettingsView.swift */; };
 		9959647C2AD3CB7B003EECAC /* Ensemble.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9959647A2AD3CB7B003EECAC /* Ensemble.xcdatamodeld */; };
+		996D49562B0EDC7E00165F16 /* SectionEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996D49552B0EDC7E00165F16 /* SectionEditViewModel.swift */; };
 		996F1D482B071F4D0048D9CC /* Ensemble+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996F1D422B071F4D0048D9CC /* Ensemble+CoreDataClass.swift */; };
 		996F1D492B071F4D0048D9CC /* Ensemble+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996F1D432B071F4D0048D9CC /* Ensemble+CoreDataProperties.swift */; };
 		996F1D4A2B071F4D0048D9CC /* Repertoire+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996F1D442B071F4D0048D9CC /* Repertoire+CoreDataClass.swift */; };
 		996F1D4B2B071F4D0048D9CC /* Repertoire+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996F1D452B071F4D0048D9CC /* Repertoire+CoreDataProperties.swift */; };
+		9977A4E22B3BCDB8007B5151 /* StateBindingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9977A4E12B3BCDB8007B5151 /* StateBindingViewModel.swift */; };
 		997C720F2B087556000F10BE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997C720E2B087556000F10BE /* DataManager.swift */; };
 		99933E302B08967C008AB97C /* CompositionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E2F2B08967C008AB97C /* CompositionDetailsView.swift */; };
 		99933E392B089E46008AB97C /* Composition+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E352B089E46008AB97C /* Composition+CoreDataClass.swift */; };
@@ -22,6 +27,7 @@
 		99933E3F2B095DCF008AB97C /* SectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E3E2B095DCF008AB97C /* SectionRowView.swift */; };
 		99933E412B09DC34008AB97C /* CompositionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E402B09DC34008AB97C /* CompositionEditView.swift */; };
 		99933E432B09F26D008AB97C /* SectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E422B09F26D008AB97C /* SectionEditView.swift */; };
+		99A825D12B3BEB0A00EF9982 /* CompositionEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A825D02B3BEB0A00EF9982 /* CompositionEditViewModel.swift */; };
 		99B489662AD2459900AE2CF4 /* ForteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489652AD2459900AE2CF4 /* ForteApp.swift */; };
 		99B489682AD2459900AE2CF4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489672AD2459900AE2CF4 /* ContentView.swift */; };
 		99B4896A2AD2459B00AE2CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99B489692AD2459B00AE2CF4 /* Assets.xcassets */; };
@@ -34,18 +40,23 @@
 		99B489922AD27EED00AE2CF4 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489912AD27EEC00AE2CF4 /* MainTabView.swift */; };
 		99B489942AD27F5600AE2CF4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489932AD27F5600AE2CF4 /* HomeView.swift */; };
 		99B489962AD27F6D00AE2CF4 /* EnsembleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */; };
-		99C2E6C02B014DF600E6F838 /* EnsembleDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C2E6BF2B014DF600E6F838 /* EnsembleDetailsView.swift */; };
+		99C2E6C02B014DF600E6F838 /* CompositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C2E6BF2B014DF600E6F838 /* CompositionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		991706682B0C82260041466E /* Passage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Passage+CoreDataClass.swift"; sourceTree = "<group>"; };
 		991706692B0C82260041466E /* Passage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Passage+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9923D4BE2B0DA49D007987EB /* PassageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassageListViewModel.swift; sourceTree = "<group>"; };
+		9923D4C02B0DABDE007987EB /* CompositionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionListViewModel.swift; sourceTree = "<group>"; };
+		9923D4C22B0DB7F3007987EB /* EnsembleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleViewModel.swift; sourceTree = "<group>"; };
 		995964732AD39E10003EECAC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9959647B2AD3CB7B003EECAC /* Ensemble.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Ensemble.xcdatamodel; sourceTree = "<group>"; };
+		996D49552B0EDC7E00165F16 /* SectionEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditViewModel.swift; sourceTree = "<group>"; };
 		996F1D422B071F4D0048D9CC /* Ensemble+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ensemble+CoreDataClass.swift"; sourceTree = "<group>"; };
 		996F1D432B071F4D0048D9CC /* Ensemble+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ensemble+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		996F1D442B071F4D0048D9CC /* Repertoire+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repertoire+CoreDataClass.swift"; sourceTree = "<group>"; };
 		996F1D452B071F4D0048D9CC /* Repertoire+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repertoire+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9977A4E12B3BCDB8007B5151 /* StateBindingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateBindingViewModel.swift; sourceTree = "<group>"; };
 		997C720E2B087556000F10BE /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		99933E2F2B08967C008AB97C /* CompositionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionDetailsView.swift; sourceTree = "<group>"; };
 		99933E352B089E46008AB97C /* Composition+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Composition+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -53,6 +64,7 @@
 		99933E3E2B095DCF008AB97C /* SectionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionRowView.swift; sourceTree = "<group>"; };
 		99933E402B09DC34008AB97C /* CompositionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionEditView.swift; sourceTree = "<group>"; };
 		99933E422B09F26D008AB97C /* SectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditView.swift; sourceTree = "<group>"; };
+		99A825D02B3BEB0A00EF9982 /* CompositionEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompositionEditViewModel.swift; path = Forte/ViewModel/CompositionEditViewModel.swift; sourceTree = "<group>"; };
 		99B489622AD2459900AE2CF4 /* Forte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Forte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99B489652AD2459900AE2CF4 /* ForteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForteApp.swift; sourceTree = "<group>"; };
 		99B489672AD2459900AE2CF4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -64,7 +76,7 @@
 		99B489912AD27EEC00AE2CF4 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		99B489932AD27F5600AE2CF4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleView.swift; sourceTree = "<group>"; };
-		99C2E6BF2B014DF600E6F838 /* EnsembleDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleDetailsView.swift; sourceTree = "<group>"; };
+		99C2E6BF2B014DF600E6F838 /* CompositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +96,7 @@
 		99B489592AD2459900AE2CF4 = {
 			isa = PBXGroup;
 			children = (
+				99A825D02B3BEB0A00EF9982 /* CompositionEditViewModel.swift */,
 				99B489642AD2459900AE2CF4 /* Forte */,
 				99B489632AD2459900AE2CF4 /* Products */,
 				99B4897D2AD249F400AE2CF4 /* Frameworks */,
@@ -149,6 +162,11 @@
 			isa = PBXGroup;
 			children = (
 				99B4898A2AD2585400AE2CF4 /* AuthenticationViewModel.swift */,
+				9923D4C02B0DABDE007987EB /* CompositionListViewModel.swift */,
+				9923D4BE2B0DA49D007987EB /* PassageListViewModel.swift */,
+				9923D4C22B0DB7F3007987EB /* EnsembleViewModel.swift */,
+				996D49552B0EDC7E00165F16 /* SectionEditViewModel.swift */,
+				9977A4E12B3BCDB8007B5151 /* StateBindingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -161,7 +179,7 @@
 				99B489932AD27F5600AE2CF4 /* HomeView.swift */,
 				99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */,
 				995964732AD39E10003EECAC /* SettingsView.swift */,
-				99C2E6BF2B014DF600E6F838 /* EnsembleDetailsView.swift */,
+				99C2E6BF2B014DF600E6F838 /* CompositionView.swift */,
 				99933E2F2B08967C008AB97C /* CompositionDetailsView.swift */,
 				99933E3E2B095DCF008AB97C /* SectionRowView.swift */,
 				99933E422B09F26D008AB97C /* SectionEditView.swift */,
@@ -203,7 +221,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					99B489612AD2459900AE2CF4 = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -251,27 +269,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				99933E432B09F26D008AB97C /* SectionEditView.swift in Sources */,
+				9923D4BF2B0DA49D007987EB /* PassageListViewModel.swift in Sources */,
 				996F1D482B071F4D0048D9CC /* Ensemble+CoreDataClass.swift in Sources */,
 				996F1D4A2B071F4D0048D9CC /* Repertoire+CoreDataClass.swift in Sources */,
 				99933E392B089E46008AB97C /* Composition+CoreDataClass.swift in Sources */,
 				99933E412B09DC34008AB97C /* CompositionEditView.swift in Sources */,
 				99B489682AD2459900AE2CF4 /* ContentView.swift in Sources */,
 				9917066B2B0C82260041466E /* Passage+CoreDataProperties.swift in Sources */,
+				9977A4E22B3BCDB8007B5151 /* StateBindingViewModel.swift in Sources */,
 				996F1D4B2B071F4D0048D9CC /* Repertoire+CoreDataProperties.swift in Sources */,
 				99933E3F2B095DCF008AB97C /* SectionRowView.swift in Sources */,
 				9917066A2B0C82260041466E /* Passage+CoreDataClass.swift in Sources */,
 				99933E3A2B089E46008AB97C /* Composition+CoreDataProperties.swift in Sources */,
+				996D49562B0EDC7E00165F16 /* SectionEditViewModel.swift in Sources */,
 				99B489962AD27F6D00AE2CF4 /* EnsembleView.swift in Sources */,
+				9923D4C12B0DABDE007987EB /* CompositionListViewModel.swift in Sources */,
 				997C720F2B087556000F10BE /* DataManager.swift in Sources */,
 				99B489942AD27F5600AE2CF4 /* HomeView.swift in Sources */,
 				99933E302B08967C008AB97C /* CompositionDetailsView.swift in Sources */,
 				99B4898B2AD2585400AE2CF4 /* AuthenticationViewModel.swift in Sources */,
 				99B489662AD2459900AE2CF4 /* ForteApp.swift in Sources */,
 				99B489922AD27EED00AE2CF4 /* MainTabView.swift in Sources */,
+				9923D4C32B0DB7F3007987EB /* EnsembleViewModel.swift in Sources */,
 				9959647C2AD3CB7B003EECAC /* Ensemble.xcdatamodeld in Sources */,
 				995964742AD39E10003EECAC /* SettingsView.swift in Sources */,
 				996F1D492B071F4D0048D9CC /* Ensemble+CoreDataProperties.swift in Sources */,
-				99C2E6C02B014DF600E6F838 /* EnsembleDetailsView.swift in Sources */,
+				99C2E6C02B014DF600E6F838 /* CompositionView.swift in Sources */,
+				99A825D12B3BEB0A00EF9982 /* CompositionEditViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +338,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -374,6 +399,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

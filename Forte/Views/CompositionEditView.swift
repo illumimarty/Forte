@@ -8,31 +8,17 @@
 import SwiftUI
 
 struct CompositionEditView: View {
-    @Environment(\.managedObjectContext) var moc // imoprtant when adding and saving objects
-
-    
-    let isInitializing: Bool
-    
-    let ensemble: Ensemble
-    @State private var pieceName: String = ""
-    @State private var composerName: String = ""
-    @State private var recordingLink: String = ""
+    @ObservedObject var viewModel: CompositionEditViewModel
     @Environment(\.dismiss) var dismiss
-    
-    
-    init(ensemble: Ensemble, isInitializing: Bool = false) {
-        self.ensemble = ensemble
-        self.isInitializing = isInitializing
-    }
 
     var body: some View {
         NavigationView {
             VStack {
                 Form {
                     Group {
-                        TextField("Name", text: $pieceName)
-                        TextField("Composer", text: $composerName)
-                        TextField("Recording Link", text: $recordingLink)
+                        TextField("Name", text: viewModel.binding(\.pieceName))
+                        TextField("Composer", text: viewModel.binding(\.composerName))
+                        TextField("Recording URL", text: viewModel.binding(\.recordingLink))
                     }
                 }
                 HStack {
@@ -48,7 +34,7 @@ struct CompositionEditView: View {
                     
                     Button {
                         print("Saving Changes...")
-                        createComposition()
+                        viewModel.createComposition()
                         dismiss()
                     } label: {
                         Text("Save Changes")
@@ -61,13 +47,5 @@ struct CompositionEditView: View {
             }
             .navigationTitle("New Composition")
         }
-    }
-    
-    func createComposition() {
-        let piece = DataManager.shared.piece(ensemble: self.ensemble)
-        piece.name = pieceName
-        piece.composer = composerName
-        piece.recording_link = piece.recording_link
-        DataManager.shared.save()
     }
 }
