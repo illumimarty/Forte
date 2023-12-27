@@ -10,23 +10,41 @@ import CoreData
 
 class DataManager: NSObject, ObservableObject {
     static let shared = DataManager()
+  
+    let container = NSPersistentContainer(name: "Ensemble")
     
-    lazy var container: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Ensemble")
-        container.loadPersistentStores { storeDesc, error in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+    override init() {
+        container.loadPersistentStores { desc, error in
+//            guard error == nil else { print(error!.localizedDescription)
+//                return
+//            }
+            if let error = error {
+                print("Core Data failed to load: \(error.localizedDescription)")
             }
         }
-        return container
-    }()
+    }
+
+//    let container: NSPersistentContainer = {
+//        let container = NSPersistentContainer(name: "Ensemble")
+//        container.loadPersistentStores { storeDesc, error in
+//            if let error = error as NSError? {
+//                fatalError("Unresolved error \(error), \(error.userInfo)")
+//            }
+//        }
+//        return container
+//    }()
+    
+    func reload() {
+        let moc = container.viewContext
+        moc.refreshAllObjects()
+    }
     
     func save() {
         let moc = container.viewContext
         if moc.hasChanges {
             do {
                 try moc.save()
-                
+//                reload()
             } catch {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")

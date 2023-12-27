@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct EnsembleView: View {
+    
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: []) var groups: FetchedResults<Ensemble>
+    
     @ObservedObject var viewModel: EnsembleViewModel
     
     @State private var isAuthenticating = false
@@ -33,17 +37,15 @@ struct EnsembleView: View {
                     Button("Cancel", role: .cancel) { }
                 }
                 List {
-                    ForEach(viewModel.groups) { group in
+                    ForEach(groups) { group in
                         NavigationLink {
                             CompositionView(viewModel: CompositionListViewModel(ensemble: group))
                         } label: {
                             Text(group.name ?? "unknown group")
                         }
-
                     }
                     .onDelete(perform: viewModel.removeEnsemble)
                 }
-                .onAppear(perform: self.viewModel.loadEnsembleList)
                 .toolbar {
                     EditButton()
                 }
