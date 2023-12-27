@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct EnsembleView: View {
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var groups: FetchedResults<Ensemble>
-    @Environment(\.managedObjectContext) var moc // imoprtant when adding and saving objects
+    @ObservedObject var viewModel: EnsembleViewModel
     
     @State private var isAuthenticating = false
     @State private var chosenName = ""
+    
+    init(for viewModel: EnsembleViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         NavigationStack {
@@ -22,17 +25,25 @@ struct EnsembleView: View {
                 }
                 .alert("Enter group name", isPresented: $isAuthenticating) {
                     TextField("London Symphony Orchestra", text: $chosenName)
-                    Button("OK", action: createEnsemble)
-                    Button("Cancel", role: .cancel) {}
+                    Button("OK", action: {
+                        guard !chosenName.isEmpty else { return }
+                        viewModel.createEnsemble(for: chosenName)
+                        chosenName = ""
+                    })
+                    Button("Cancel", role: .cancel) { }
                 }
                 List {
-                    ForEach(groups) { group in
-                        NavigationLink(destination: EnsembleDetailsView(group: group)) {
-                            Text(group.name ?? "unknown")
+                    ForEach(viewModel.groups) { group in
+                        NavigationLink {
+                            CompositionView(viewModel: CompositionListViewModel(ensemble: group))
+                        } label: {
+                            Text(group.name ?? "unknown group")
                         }
+
                     }
-                    .onDelete(perform: removeEnsemble)
+                    .onDelete(perform: viewModel.removeEnsemble)
                 }
+                .onAppear(perform: self.viewModel.loadEnsembleList)
                 .toolbar {
                     EditButton()
                 }
@@ -40,26 +51,5 @@ struct EnsembleView: View {
             .navigationTitle("My Groups")
             .navigationBarTitleDisplayMode(.large)
         }
-    }
-    
-    func createEnsemble() {
-        let _ = DataManager.shared.ensemble(name: chosenName)
-        DataManager.shared.save()
-    }
-    
-    // ? - why delete from a set of indices than one index?
-    func removeEnsemble(at offsets: IndexSet) {
-        // TODO: add a prompt to ensure desired item deletion
-        
-        for index in offsets {
-            let group = groups[index]
-            DataManager.shared.deleteEnsemble(ensemble: group)
-        }
-    }
-}
-
-struct EnsembleView_Previews: PreviewProvider {
-    static var previews: some View {
-        EnsembleView()
     }
 }

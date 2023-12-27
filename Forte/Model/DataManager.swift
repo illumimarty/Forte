@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class DataManager: ObservableObject {
+class DataManager: NSObject, ObservableObject {
     static let shared = DataManager()
     
     lazy var container: NSPersistentContainer = {
@@ -106,18 +106,24 @@ class DataManager: ObservableObject {
     }
     
     func passages(piece: Composition) -> [Passage] {
+//        let request: NSFetchRequest<Passage> = Passage.fetchRequest()
+//        request.predicate = NSPredicate(format: "piece = %@", piece)
+//        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: false)]
+//        var fetchedSections: [Passage] = []
+//
+//        do {
+//            fetchedSections = try container.viewContext.fetch(request)
+//        } catch let error {
+//            print("Error fetching pieces: \(error)")
+//        }
+//
+//        return fetchedSections
+        
         let request: NSFetchRequest<Passage> = Passage.fetchRequest()
         request.predicate = NSPredicate(format: "piece = %@", piece)
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: false)]
-        var fetchedSections: [Passage] = []
         
-        do {
-            fetchedSections = try container.viewContext.fetch(request)
-        } catch let error {
-            print("Error fetching pieces: \(error)")
-        }
-        
-        return fetchedSections
+        return (try? container.viewContext.fetch(request)) ?? []
     }
     
     func refreshPassages(for piece: Composition) {
@@ -130,3 +136,9 @@ class DataManager: ObservableObject {
         save()
     }
 }
+
+//extension DataManager: NSFetchedResultsControllerDelegate {
+//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        <#code#>
+//    }
+//}

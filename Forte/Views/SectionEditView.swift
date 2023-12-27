@@ -9,49 +9,42 @@ import SwiftUI
 
 struct SectionEditView: View {
     
-    let isInitializing: Bool = false
-    let piece: Composition
-    @State private var passageName: String = ""
-    @State private var passageNotes: String = ""
-    @State private var personalNotes: String = ""
-    @State private var startRehearsalMark: String = ""
-    @State private var endRehearsalMark: String = ""
-    @State private var startMeasureNumber: String = ""
-    @State private var endMeasureNumber: String = ""
-    @Environment(\.dismiss) var dismiss
+    @ObservedObject var viewModel: SectionEditViewModel
     
-    init(piece: Composition) {
-        self.piece = piece
-    }
+//    @ObservedObject var viewModel: PassageListViewModel
     
+//    @ObservedObject var section: Passage
+//    @StateObject var section: Passage
+//    @Binding var isInitializing: Bool
+//    @Binding var isPresenting: Bool
+
+//    @ObservedObject var piece: Composition
+    
+//    @State private var passageName: String?
+//    @State private var passageNotes: String?
+//    @State private var personalNotes: String?
+//    @State private var startRehearsalMark: String?
+//    @State private var endRehearsalMark: String?
+//    @State private var startMeasureNumber: String?
+//    @State private var endMeasureNumber: String?
+    
+
     var body: some View {
         NavigationView {
             VStack {
                 Form {
                     Section("Notes") {
-                        TextField("Section Name", text: $passageName)
-                        TextField("Description", text: $passageNotes)
-//                        TextField("Notes", text: $personalNotes)
-                    }
-                    
-                    Section("Rehearsal Marks") {
-                        HStack {
-                            TextField("Start", text: $startRehearsalMark)
-                            TextField("End", text: $endRehearsalMark)
-                        }
-                    }
-                    
-                    Section("Measure Numbers") {
-                        HStack {
-                            TextField("Start", text: $startMeasureNumber)
-                            TextField("End", text: $endMeasureNumber)
-                        }
+                        TextField("Section Name", text: viewModel.binding(\.passageName))
+                        TextField("Description", text: viewModel.binding(\.passageNotes))
                     }
                 }
+
                 
                 HStack {
                     Button {
-                        dismiss()
+                        viewModel.isPresenting = false
+//                        isPresenting = false
+//                        dismiss()
                     } label: {
                         Text("Cancel")
                             .frame(maxWidth: .infinity)
@@ -64,7 +57,8 @@ struct SectionEditView: View {
                         print("Saving Changes...")
                         createSection()
                         //                        createComposition()
-                        dismiss()
+//                        dismiss()
+                        viewModel.isPresenting = false
                     } label: {
                         Text("Save Changes")
                             .frame(maxWidth: .infinity)
@@ -79,14 +73,7 @@ struct SectionEditView: View {
     }
     
     func createSection() {
-        let section = DataManager.shared.passage(piece: self.piece)
-        section.name = passageName
-        section.notes = passageNotes
-        section.startRehearsalMark = self.startRehearsalMark
-        section.endRehearsalMark = self.endRehearsalMark
-        section.startMeasure = Int16(self.startMeasureNumber) ?? 0
-        section.endMeasure = Int16(self.endMeasureNumber) ?? 0
-        DataManager.shared.save()
+
     }
 }
 
@@ -95,3 +82,14 @@ struct SectionEditView: View {
 //        SectionEditView()
 //    }
 //}
+
+extension Binding {
+    init(_ source: Binding<Value?>, _ defaultValue: Value) {
+        // Ensure a non-nil value in `source`.
+        if source.wrappedValue == nil {
+            source.wrappedValue = defaultValue
+        }
+        // Unsafe unwrap because *we* know it's non-nil now.
+        self.init(source)!
+    }
+}

@@ -14,7 +14,7 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
-            EnsembleView()
+            EnsembleView(for: EnsembleViewModel())
                 .tabItem {
                     Label("Groups", systemImage: "person.3")
                 }

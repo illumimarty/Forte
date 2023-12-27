@@ -9,47 +9,46 @@ import Foundation
 import SwiftUI
 
 struct CompositionDetailsView: View {
-    @Environment(\.managedObjectContext) var moc // imoprtant when adding and saving objects
-    
-    let ensemble: Ensemble
-    let piece: Composition
-    
-//    @State private var isAuthenticating = false
-    @State private var chosenName = ""
-    @State private var isShowingEditView = false
 
     
-    var passages: [Passage] = []
+//    @Environment(\.managedObjectContext) var moc // imoprtant when adding and saving objects
+    
+    @StateObject var passageViewModel: PassageListViewModel
+    
+    @ObservedObject var compositionViewModel: CompositionListViewModel
+    
+//    let ensemble: Ensemble
+//    let piece: Composition
+    
+//    @State private var isAuthenticating = false
+//    @State private var piece: Composition
+    @State private var chosenName = ""
+    @State private var isShowingEditView: Bool = false
+    @State private var isInitializingSection: Bool = false
+
+//    @State private var passages: [Passage]
         
     // TODO: Remember to consider the user's groups/pieces since, if multiple users, will pull EVERYONE's data instead of only their own
-    
-    init(group: Ensemble, piece: Composition) {
-        ensemble = group
-        self.piece = piece
-        passages = DataManager.shared.passages(piece: piece)
-    }
-    
+
     var body: some View {
         VStack {
             Button("Add") {
                 isShowingEditView.toggle()
+                isInitializingSection.toggle()
             }
             .sheet(isPresented: $isShowingEditView) {
-                SectionEditView(piece: self.piece)
+//                SectionEditView(viewModel: <#T##SectionEditViewModel#>)
             }
-//            .alert("Enter section name", isPresented: $isAuthenticating) {
-//                TextField("A to B", text: $chosenName)
-//                Button("OK", action: createSection)
-//                Button("Cancel", role: .cancel) {}
-//            }
-            
             List {
-                ForEach(passages, content: { section in
-                    NavigationLink(destination: SectionEditView(piece: self.piece)) {
+                ForEach(passageViewModel.passages, content: { section in
+                    NavigationLink {
+                        SectionEditView(viewModel: SectionEditViewModel(initialState: SectionEditState(section: section)))
+                    } label: {
                         Text(section.name ?? "unknown passage")
                     }
                 })
-                .onDelete(perform: removeSection)
+                .onDelete(perform: passageViewModel.removePassage)
+                
             }
             .toolbar {
                 EditButton()
@@ -58,25 +57,8 @@ struct CompositionDetailsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(piece.name ?? "unknown").font(.headline)
+                Text(passageViewModel.piece.name ?? "unknown").font(.headline)
             }
-        }
-    }
-    
-    func createSection() {
-//        let _ = DataManager.shared.section(name: chosenName, piece: self.piece)
-        let _ = DataManager.shared.passage(piece: self.piece)
-        DataManager.shared.save()
-    }
-
-    // ? - why delete from a set of indices than one index?
-    func removeSection(at offsets: IndexSet) {
-        // TODO: add a prompt to ensure desired item deletion
-
-        for index in offsets {
-            let section = passages[index]
-//            DataManager.shared.deleteSection(section: section)
-            DataManager.shared.deletePassage(passage: section)
         }
     }
 }
