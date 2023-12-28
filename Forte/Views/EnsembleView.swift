@@ -9,13 +9,12 @@ import SwiftUI
 
 struct EnsembleView: View {
     
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: []) var groups: FetchedResults<Ensemble>
+//    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(sortDescriptors: []) var groups: FetchedResults<Ensemble>
     
     @ObservedObject var viewModel: EnsembleViewModel
     
-    @State private var isAuthenticating = false
-    @State private var chosenName = ""
+//    @State private var chosenName = ""
     
     init(for viewModel: EnsembleViewModel) {
         self.viewModel = viewModel
@@ -25,24 +24,24 @@ struct EnsembleView: View {
         NavigationStack {
             VStack{
                 Button("Add") {
-                    isAuthenticating.toggle()
+                    viewModel.toggleAuthenticating()
+//                    isAuthenticating.toggle()
                 }
-                .alert("Enter group name", isPresented: $isAuthenticating) {
-                    TextField("London Symphony Orchestra", text: $chosenName)
-                    Button("OK", action: {
-                        guard !chosenName.isEmpty else { return }
-                        viewModel.createEnsemble(for: chosenName)
-                        chosenName = ""
-                    })
+                .alert("Enter group name", isPresented: $viewModel.isAuthenticating) {
+                    TextField("London Symphony Orchestra", text: $viewModel.chosenName)
+                    Button("OK", action: viewModel.createEnsemble)
                     Button("Cancel", role: .cancel) { }
                 }
                 List {
-                    ForEach(groups) { group in
+                    ForEach(viewModel.groups) { group in
                         NavigationLink {
-                            CompositionView(viewModel: CompositionListViewModel(ensemble: group))
+//                            CompositionView(for: group)
+//                            CompositionView(viewModel: CompositionListViewModel(ensemble: group))
+                            
                         } label: {
                             Text(group.name ?? "unknown group")
                         }
+//                        Text(group.name ?? "unknown group")
                     }
                     .onDelete(perform: viewModel.removeEnsemble)
                 }
@@ -55,3 +54,9 @@ struct EnsembleView: View {
         }
     }
 }
+
+//struct EnsembleView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EnsembleView(for: EnsembleViewModel())
+//    }
+//}
