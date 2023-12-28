@@ -15,7 +15,7 @@ struct CompositionEditState: Equatable {
     var recordingLink: String = ""
     internal var isInitializing: Bool = false
     
-    init(group: Ensemble?) {
+    init(for group: Ensemble? = nil) {
         if let unwrappedGroup = group {
             self.ensemble = unwrappedGroup
         }
@@ -29,7 +29,26 @@ struct CompositionEditState: Equatable {
     }
 }
 
+//class CompositionEditViewModel: ObservableObject {
+//    
+//    @Published private var dataManager: DataManager
+//
+//    init(dataManager: DataManager = DataManager.shared) {
+//        self.dataManager = dataManager
+//    }
+//    
+//}
+//
 final class CompositionEditViewModel: StateBindingViewModel<CompositionEditState> {
+
+    @Published private var dataManager: DataManager
+    
+    init (
+        initialState: CompositionEditState,
+        dataManager: DataManager = DataManager.shared) {
+            self.dataManager = dataManager
+            super.init(initialState: initialState)
+    }
     
     func createComposition() {
         let piece = DataManager.shared.piece(ensemble: self.state.ensemble!)

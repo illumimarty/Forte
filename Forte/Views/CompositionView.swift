@@ -12,13 +12,17 @@ import SwiftUI
 
 struct CompositionView: View {
     
-    @StateObject var viewModel = CompositionListViewModel()
+    @ObservedObject var viewModel: CompositionListViewModel
 //    @Binding var group: Ensemble
 //    @Binding var pieces: [Composition]
     
     @State private var isAuthenticating: Bool = false
     @State private var chosenName = ""
     @State private var isShowingEditView: Bool = false
+    
+    init(for group: Ensemble) {
+        self.viewModel = CompositionListViewModel(for: group)
+    }
     
     var body: some View {
         VStack {
@@ -29,8 +33,9 @@ struct CompositionView: View {
 //                CompositionEditView(isInitializing: true)
                 // CompositionEditView(ensemble: viewModel.ensemble)
     
-                let ensemble = viewModel.ensemble
-                CompositionEditView(viewModel: CompositionEditViewModel(initialState: CompositionEditState(group: ensemble)))
+//                let ensemble = $viewModel.ensemble
+                CompositionEditView(for: viewModel.group)
+//                CompositionEditView(viewModel: CompositionEditViewModel(initialState: CompositionEditState(group: ensemble)))
             }
             List {
                 ForEach(viewModel.pieces) { piece in
