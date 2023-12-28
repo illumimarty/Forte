@@ -54,11 +54,18 @@ class DataManager: NSObject, ObservableObject {
     
     // MARK: Ensemble operations
     
-    func ensemble(name: String) -> Ensemble {
+//    func ensemble(name: String) -> Ensemble {
+//        let ensemble = Ensemble(context: container.viewContext)
+//        ensemble.id = UUID()
+//        ensemble.name = name
+//        return ensemble
+//    }
+    
+    func createEnsemble(for name: String) {
         let ensemble = Ensemble(context: container.viewContext)
         ensemble.id = UUID()
         ensemble.name = name
-        return ensemble
+        save()
     }
     
     func ensembles() -> [Ensemble] {
