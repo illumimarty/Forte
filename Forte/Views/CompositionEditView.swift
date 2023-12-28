@@ -10,6 +10,11 @@ import SwiftUI
 struct CompositionEditView: View {
     @ObservedObject var viewModel: CompositionEditViewModel
     @Environment(\.dismiss) var dismiss
+    
+    init(for group: Ensemble, isInitializing: Bool = false) {
+        let state = CompositionEditState(for: group)
+        self.viewModel = CompositionEditViewModel(initialState: state)
+    }
 
     var body: some View {
         NavigationView {

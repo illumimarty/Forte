@@ -12,18 +12,24 @@ import SwiftUI
 
 class CompositionListViewModel: ObservableObject {
 //    @Published var state: CompositionEditState
+    @Published private var dataManager: DataManager
     
-    @Published var pieces: [Composition] = []
-    @Published var ensemble: Ensemble?
+    var pieces: [Composition]
+    var group: Ensemble
+//    @Published var pieces: [Composition] = []
+//    @Published var ensemble: Ensemble? = nil
     
-//    init(ensemble: Ensemble) {
-////        self.pieces = DataManager.shared.pieces(ensemble: ensemble)
+    init(for ensemble: Ensemble, dataManager: DataManager = DataManager.shared) {
+        self.dataManager = dataManager
+        self.pieces = dataManager.pieces(ensemble: ensemble)
+        self.group = ensemble
+//        self.pieces = DataManager.shared.pieces(ensemble: ensemble)
 //        self.ensemble = ensemble
 //        self.pieces = getPieces(for: ensemble)
-//    }
+    }
     
     func getPieces(for group: Ensemble) -> [Composition] {
-        return DataManager.shared.pieces(ensemble: group)
+        return dataManager.pieces(ensemble: group)
     }
 
     

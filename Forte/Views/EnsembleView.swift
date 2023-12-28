@@ -9,12 +9,7 @@ import SwiftUI
 
 struct EnsembleView: View {
     
-//    @Environment(\.managedObjectContext) var moc
-//    @FetchRequest(sortDescriptors: []) var groups: FetchedResults<Ensemble>
-    
     @ObservedObject var viewModel: EnsembleViewModel
-    
-//    @State private var chosenName = ""
     
     init(for viewModel: EnsembleViewModel) {
         self.viewModel = viewModel
@@ -25,7 +20,6 @@ struct EnsembleView: View {
             VStack{
                 Button("Add") {
                     viewModel.toggleAuthenticating()
-//                    isAuthenticating.toggle()
                 }
                 .alert("Enter group name", isPresented: $viewModel.isAuthenticating) {
                     TextField("London Symphony Orchestra", text: $viewModel.chosenName)
@@ -35,13 +29,12 @@ struct EnsembleView: View {
                 List {
                     ForEach(viewModel.groups) { group in
                         NavigationLink {
-//                            CompositionView(for: group)
+                            CompositionView(for: group)
 //                            CompositionView(viewModel: CompositionListViewModel(ensemble: group))
                             
                         } label: {
                             Text(group.name ?? "unknown group")
                         }
-//                        Text(group.name ?? "unknown group")
                     }
                     .onDelete(perform: viewModel.removeEnsemble)
                 }
