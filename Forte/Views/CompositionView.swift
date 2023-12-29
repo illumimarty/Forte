@@ -8,13 +8,9 @@
 import Foundation
 import SwiftUI
 
-
-
 struct CompositionView: View {
     
     @ObservedObject var viewModel: CompositionListViewModel
-    @State private var isAuthenticating: Bool = false
-    @State private var chosenName = ""
     @State private var isShowingEditView: Bool = false
     
     init(for group: Ensemble) {
@@ -53,6 +49,5 @@ struct CompositionView: View {
                 Text(viewModel.group.name ?? "unknown group").font(.headline)
             }
         }
-//        .onAppear(perform: viewModel.getPieces)
     }
 }

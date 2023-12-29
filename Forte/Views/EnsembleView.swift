@@ -29,9 +29,7 @@ struct EnsembleView: View {
                 List {
                     ForEach(viewModel.groups) { group in
                         NavigationLink {
-                            CompositionView(for: group)
-//                            CompositionView(viewModel: CompositionListViewModel(ensemble: group))
-                            
+                            CompositionView(for: group)                            
                         } label: {
                             Text(group.name ?? "unknown group")
                         }
