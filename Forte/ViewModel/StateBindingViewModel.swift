@@ -20,9 +20,7 @@ open class StateBindingViewModel<State: Equatable>: ObservableObject {
     /// Creates a `Binding` for some value from state.
     /// - Parameter keyPath: the keyPath, representing some property of the `State`
     /// - Returns: a `Binding<Value>` of the `State` property represented by the keyPath
-    public func binding<Value>(
-        _ keyPath: WritableKeyPath<State, Value>
-    ) -> Binding<Value> where Value: Equatable {
+    public func binding<Value>(_ keyPath: WritableKeyPath<State, Value>) -> Binding<Value> where Value: Equatable {
         .init(
             get: { self.state[keyPath: keyPath] },
             set: { [weak self] newValue in

@@ -11,9 +11,27 @@ struct CompositionEditView: View {
     @ObservedObject var viewModel: CompositionEditViewModel
     @Environment(\.dismiss) var dismiss
     
+    
+    /*
+     if isInitializing:
+        set the viewmodel with a blank slate
+     else:
+        populate the 
+     
+     
+     */
+    
     init(for group: Ensemble, isInitializing: Bool = false) {
         let state = CompositionEditState(for: group)
+
+//        let state = CompositionEditState(for: group, isInitializing: isInitializing)
         self.viewModel = CompositionEditViewModel(initialState: state)
+//        if isInitializing {
+//            
+//
+//        } else {
+////            let state = Compo
+//        }
     }
 
     var body: some View {
@@ -21,9 +39,9 @@ struct CompositionEditView: View {
             VStack {
                 Form {
                     Group {
-                        TextField("Name", text: viewModel.binding(\.pieceName))
-                        TextField("Composer", text: viewModel.binding(\.composerName))
-                        TextField("Recording URL", text: viewModel.binding(\.recordingLink))
+                        TextField("Name", text: viewModel.binding(\.name))
+                        TextField("Composer", text: viewModel.binding(\.composer))
+                        TextField("Recording URL", text: viewModel.binding(\.recording_link))
                     }
                 }
                 HStack {
