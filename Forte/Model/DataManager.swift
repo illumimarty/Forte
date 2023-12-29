@@ -89,6 +89,19 @@ class DataManager: NSObject, ObservableObject {
     
     
     // MARK: Piece Operations
+    func createPiece(for state: CompositionEditState) {
+        let piece = Composition(context: container.viewContext)
+        let ensemble = state.ensemble!
+        piece.id = UUID()
+        
+        let mirror = Mirror(reflecting: state)
+        for (compProp, compVal) in mirror.children {
+            piece.setValue(compVal, forKeyPath: compProp!)
+        }
+        ensemble.addToPieces(piece)
+        save()
+    }
+    
     func createPiece(for ensemble: Ensemble) -> Composition {
         let piece = Composition(context: container.viewContext)
         piece.id = UUID()
