@@ -13,9 +13,6 @@ import SwiftUI
 struct CompositionView: View {
     
     @ObservedObject var viewModel: CompositionListViewModel
-//    @Binding var group: Ensemble
-//    @Binding var pieces: [Composition]
-    
     @State private var isAuthenticating: Bool = false
     @State private var chosenName = ""
     @State private var isShowingEditView: Bool = false
@@ -30,12 +27,7 @@ struct CompositionView: View {
                 isShowingEditView.toggle()
             }
             .sheet(isPresented: $isShowingEditView) {
-//                CompositionEditView(isInitializing: true)
-                // CompositionEditView(ensemble: viewModel.ensemble)
-    
-//                let ensemble = $viewModel.ensemble
                 CompositionEditView(for: viewModel.group)
-//                CompositionEditView(viewModel: CompositionEditViewModel(initialState: CompositionEditState(group: ensemble)))
             }
             List {
                 ForEach(viewModel.pieces) { piece in
@@ -43,24 +35,11 @@ struct CompositionView: View {
                         
 //                        CompositionDetailsView(passageViewModel: PassageListViewModel(piece: piece), compositionViewModel: self.viewModel)
                     } label: {
-//                        Text(piece.name)
                         Text(piece.name ?? "unknown piece")
                     }
                 }
-//                ForEach(viewModel.getPieces, content: { piece in
-//                    NavigationLink {
-//                        CompositionDetailsView(passageViewModel: PassageListViewModel(piece: piece), compositionViewModel: self.viewModel)
-//                    } label: {
-//                        Text(piece.name ?? "unknown piece")
-//                    }
-//
-//                })
                 .onDelete(perform: viewModel.removePiece)
             }
-            .onAppear(perform: {
-//                self.pieces = DataManager.shared.pieces(ensemble: viewModel.ensemble)
-//                self.group = viewModel.ensemble
-            })
             .toolbar {
                 EditButton()
             }
@@ -68,9 +47,9 @@ struct CompositionView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("test")
-//                Text(viewModel.ensemble.name ?? "unknown").font(.headline)
+                Text(viewModel.group.name ?? "unknown group").font(.headline)
             }
         }
+        .onAppear(perform: viewModel.getPieces)
     }
 }

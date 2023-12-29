@@ -89,11 +89,18 @@ class DataManager: NSObject, ObservableObject {
     
     
     // MARK: Piece Operations
-    func piece(ensemble: Ensemble) -> Composition {
+    func createPiece(for ensemble: Ensemble) -> Composition {
         let piece = Composition(context: container.viewContext)
         piece.id = UUID()
         ensemble.addToPieces(piece)
+        save()
         return piece
+    }
+    
+    func createPiece(_ piece: Composition, for ensemble: Ensemble) {
+        piece.id = UUID()
+        ensemble.addToPieces(piece)
+        save()
     }
     
     
