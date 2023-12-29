@@ -11,38 +11,18 @@ import SwiftUI
 
 
 class CompositionListViewModel: ObservableObject {
-//    @Published var state: CompositionEditState
-    
+
     @Published private var dataManager: DataManager
     @Published var pieces: [Composition]
     var group: Ensemble
 
     // TODO: Figure out why this works
     var anyCancellable: AnyCancellable? = nil
-
-//    var pieces: [Composition] {
-//        dataManager.pieces(ensemble: group)
-//    }
-//    @State var pieces: [Composition] {
-//        get {
-//            dataManager.pieces(ensemble: group)
-//        }
-//        set {
-//            
-//        }
-//    }
-//    
-    
-//    @Published var pieces: [Composition] = []
-//    @Published var ensemble: Ensemble? = nil
     
     init(for ensemble: Ensemble, dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
         self.pieces = dataManager.pieces(ensemble: ensemble)
         self.group = ensemble
-//        self.pieces = DataManager.shared.pieces(ensemble: ensemble)
-//        self.ensemble = ensemble
-//        self.pieces = getPieces(for: ensemble)
         
         // TODO: Figure out why this works
         anyCancellable = dataManager.objectWillChange.sink { [weak self] (_) in

@@ -8,30 +8,13 @@
 import SwiftUI
 
 struct CompositionEditView: View {
+    
     @ObservedObject var viewModel: CompositionEditViewModel
     @Environment(\.dismiss) var dismiss
     
-    
-    /*
-     if isInitializing:
-        set the viewmodel with a blank slate
-     else:
-        populate the 
-     
-     
-     */
-    
     init(for group: Ensemble, isInitializing: Bool = false) {
         let state = CompositionEditState(for: group)
-
-//        let state = CompositionEditState(for: group, isInitializing: isInitializing)
         self.viewModel = CompositionEditViewModel(initialState: state)
-//        if isInitializing {
-//            
-//
-//        } else {
-////            let state = Compo
-//        }
     }
 
     var body: some View {

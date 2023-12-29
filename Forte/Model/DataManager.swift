@@ -15,28 +15,10 @@ class DataManager: NSObject, ObservableObject {
     
     override init() {
         container.loadPersistentStores { desc, error in
-//            guard error == nil else { print(error!.localizedDescription)
-//                return
-//            }
             if let error = error {
                 print("Core Data failed to load: \(error.localizedDescription)")
             }
         }
-    }
-
-//    let container: NSPersistentContainer = {
-//        let container = NSPersistentContainer(name: "Ensemble")
-//        container.loadPersistentStores { storeDesc, error in
-//            if let error = error as NSError? {
-//                fatalError("Unresolved error \(error), \(error.userInfo)")
-//            }
-//        }
-//        return container
-//    }()
-    
-    func reload() {
-        let moc = container.viewContext
-        moc.refreshAllObjects()
     }
     
     func save() {
@@ -44,7 +26,6 @@ class DataManager: NSObject, ObservableObject {
         if moc.hasChanges {
             do {
                 try moc.save()
-//                reload()
             } catch {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -53,13 +34,6 @@ class DataManager: NSObject, ObservableObject {
     }
     
     // MARK: Ensemble operations
-    
-//    func ensemble(name: String) -> Ensemble {
-//        let ensemble = Ensemble(context: container.viewContext)
-//        ensemble.id = UUID()
-//        ensemble.name = name
-//        return ensemble
-//    }
     
     func createEnsemble(for name: String) {
         let ensemble = Ensemble(context: container.viewContext)
@@ -181,9 +155,3 @@ class DataManager: NSObject, ObservableObject {
         save()
     }
 }
-
-//extension DataManager: NSFetchedResultsControllerDelegate {
-//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        <#code#>
-//    }
-//}
