@@ -28,6 +28,9 @@ struct CompositionView: View {
             }
             .sheet(isPresented: $isShowingEditView) {
                 CompositionEditView(for: viewModel.group)
+                    .onDisappear(perform: {
+                        viewModel.getPieces()
+                    })
             }
             List {
                 ForEach(viewModel.pieces) { piece in
@@ -50,6 +53,6 @@ struct CompositionView: View {
                 Text(viewModel.group.name ?? "unknown group").font(.headline)
             }
         }
-        .onAppear(perform: viewModel.getPieces)
+//        .onAppear(perform: viewModel.getPieces)
     }
 }
