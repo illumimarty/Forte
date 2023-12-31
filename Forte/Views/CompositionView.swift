@@ -31,7 +31,7 @@ struct CompositionView: View {
             List {
                 ForEach(viewModel.pieces) { piece in
                     NavigationLink {
-                        
+                        CompositionDetailsView(for: piece)
 //                        CompositionDetailsView(passageViewModel: PassageListViewModel(piece: piece), compositionViewModel: self.viewModel)
                     } label: {
                         Text(piece.name ?? "unknown piece")

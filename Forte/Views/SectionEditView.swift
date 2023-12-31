@@ -10,6 +10,8 @@ import SwiftUI
 struct SectionEditView: View {
     
     @ObservedObject var viewModel: SectionEditViewModel
+    @Environment(\.dismiss) var dismiss
+
     
 //    @ObservedObject var viewModel: PassageListViewModel
     
@@ -28,21 +30,25 @@ struct SectionEditView: View {
 //    @State private var startMeasureNumber: String?
 //    @State private var endMeasureNumber: String?
     
-
+    init (for piece: Composition, isIntializing: Bool = false) {
+        let state = SectionEditState(for: piece)
+        self.viewModel = SectionEditViewModel(initialState: state)
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
                 Form {
                     Section("Notes") {
-                        TextField("Section Name", text: viewModel.binding(\.passageName))
-                        TextField("Description", text: viewModel.binding(\.passageNotes))
+                        TextField("Section Name", text: viewModel.binding(\.name))
+                        TextField("Description", text: viewModel.binding(\.notes))
                     }
                 }
 
                 
                 HStack {
                     Button {
-                        viewModel.isPresenting = false
+//                        viewModel.isPresenting = false
 //                        isPresenting = false
 //                        dismiss()
                     } label: {
@@ -55,10 +61,11 @@ struct SectionEditView: View {
                     
                     Button {
                         print("Saving Changes...")
-                        createSection()
+                        viewModel.createPassage()
+//                        createSection()
                         //                        createComposition()
-//                        dismiss()
-                        viewModel.isPresenting = false
+                        dismiss()
+//                        viewModel.isPresenting = false
                     } label: {
                         Text("Save Changes")
                             .frame(maxWidth: .infinity)
