@@ -9,23 +9,30 @@ import Foundation
 import SwiftUI
 
 struct SectionEditState: Equatable {
-    var passageName: String
-    var passageNotes: String
+    var piece: Composition?
+    var name: String = ""
+    var notes: String = ""
 //    var personalNotes: String
-    var startRehearsalMark: String
-    var endRehearsalMark: String
-    var startMeasureNumber: String
-    var endMeasureNumber: String
+//    var startRehearsalMark: String = ""
+//    var endRehearsalMark: String = ""
+//    var startMeasureNumber: String = ""
+//    var endMeasureNumber: String = ""
     
-    init(section: Passage) {
-        self.passageName = section.name!
-        self.passageNotes = section.notes ?? ""
-//        self.personalNotes = personalNotes
-        self.startRehearsalMark = section.startRehearsalMark ?? ""
-        self.endRehearsalMark = section.endRehearsalMark ?? ""
-        self.startMeasureNumber = String(describing: section.startMeasure) 
-        self.endMeasureNumber = String(describing: section.endMeasure)
+    init(for piece: Composition?) {
+        if let unwrappedPiece = piece {
+            self.piece = unwrappedPiece
+        }
     }
+    
+//    init(section: Passage) {
+//        self.passageName = section.name!
+//        self.passageNotes = section.notes ?? ""
+////        self.personalNotes = personalNotes
+//        self.startRehearsalMark = section.startRehearsalMark ?? ""
+//        self.endRehearsalMark = section.endRehearsalMark ?? ""
+//        self.startMeasureNumber = String(describing: section.startMeasure) 
+//        self.endMeasureNumber = String(describing: section.endMeasure)
+//    }
 }
 
 
@@ -49,8 +56,20 @@ struct SectionEditState: Equatable {
 
 final class SectionEditViewModel: StateBindingViewModel<SectionEditState> {
     
-    @State var isInitializing: Bool = false
-    @State var isPresenting: Bool = false
+    @Published private var dataManager: DataManager
+    
+    init(
+        initialState: SectionEditState,
+        dataManager: DataManager = DataManager.shared) {
+        self.dataManager = dataManager
+            super.init(initialState: initialState)
+    }
+    
+    func createPassage() {
+        dataManager.createPassage(for: self.state)
+    }
+//    @State var isInitializing: Bool = false
+//    @State var isPresenting: Bool = false
     
 //    init(isInitializing: Bool, piece: Composition? = nil) {
 //        if isInitializing {

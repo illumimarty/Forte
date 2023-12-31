@@ -13,9 +13,15 @@ struct CompositionDetailsView: View {
     
 //    @Environment(\.managedObjectContext) var moc // imoprtant when adding and saving objects
     
-    @StateObject var passageViewModel: PassageListViewModel
     
-    @ObservedObject var compositionViewModel: CompositionListViewModel
+    
+    @ObservedObject var passageViewModel: PassageListViewModel
+    
+//    @ObservedObject var compositionViewModel: CompositionListViewModel
+    
+    init(for piece: Composition) {
+        self.passageViewModel = PassageListViewModel(for: piece)
+    }
     
 //    let ensemble: Ensemble
 //    let piece: Composition
@@ -37,12 +43,17 @@ struct CompositionDetailsView: View {
                 isInitializingSection.toggle()
             }
             .sheet(isPresented: $isShowingEditView) {
+                SectionEditView(for: passageViewModel.piece)
+                    .onDisappear(perform: {
+                        passageViewModel.getPassages()
+                    }) 
 //                SectionEditView(viewModel: <#T##SectionEditViewModel#>)
             }
             List {
                 ForEach(passageViewModel.passages, content: { section in
                     NavigationLink {
-                        SectionEditView(viewModel: SectionEditViewModel(initialState: SectionEditState(section: section)))
+                        SectionEditView(for: passageViewModel.piece)
+//                        SectionEditView(viewModel: SectionEditViewModel(initialState: SectionEditState(section: section)))
                     } label: {
                         Text(section.name ?? "unknown passage")
                     }
