@@ -34,15 +34,13 @@ class CompositionListViewModel: ObservableObject {
         self.pieces = dataManager.pieces(ensemble: group)
     }
 
-    
     // ? - why delete from a set of indices than one index?
     func removePiece(at offsets: IndexSet) {
-//        // TODO: add a prompt to ensure desired item deletion
-//        let pieces = getPieces(for: ensemble)
-//        for index in offsets {
-//            let piece = pieces[index]
-////            let piece = pieces[index]
-//            DataManager.shared.deletePiece(piece: piece)
-//        }
+        // TODO: add a prompt to ensure desired item deletion
+        for index in offsets {
+            let piece = pieces[index]
+            dataManager.deletePiece(piece: piece)
+        }
+        pieces.remove(atOffsets: offsets)
     }
 }

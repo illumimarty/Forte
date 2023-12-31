@@ -17,7 +17,8 @@ class EnsembleViewModel: ObservableObject {
 
     
     var groups: [Ensemble] {
-        dataManager.ensembles()
+        get { dataManager.ensembles() }
+        set {}
     }
     
     
@@ -44,7 +45,8 @@ class EnsembleViewModel: ObservableObject {
         // TODO: add a prompt to ensure desired item deletion
         for index in offsets {
             let group = groups[index]
-            DataManager.shared.deleteEnsemble(ensemble: group)
+            dataManager.deleteEnsemble(ensemble: group)
         }
+        groups.remove(atOffsets: offsets)
     }
 }

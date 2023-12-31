@@ -9,11 +9,7 @@ import SwiftUI
 
 struct EnsembleView: View {
     
-    @ObservedObject var viewModel: EnsembleViewModel
-    
-    init(for viewModel: EnsembleViewModel) {
-        self.viewModel = viewModel
-    }
+    @StateObject var viewModel = EnsembleViewModel()
     
     var body: some View {
         NavigationStack {
