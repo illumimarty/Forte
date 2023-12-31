@@ -13,7 +13,7 @@
 
 **Required Must-have Stories**
 - [x] User can sign in and sign up for an account
-- [ ] User can add new pieces to their current repertoire
+- [x] User can add new pieces to an ensemble's repertoire
 - [ ] User can track rehearsal progress based on group and piece
 - [ ] User can log progress on a particular section of a piece
 
