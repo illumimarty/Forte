@@ -76,14 +76,6 @@ class DataManager: NSObject, ObservableObject {
         save()
     }
     
-    func createPiece(for ensemble: Ensemble) -> Composition {
-        let piece = Composition(context: container.viewContext)
-        piece.id = UUID()
-        ensemble.addToPieces(piece)
-        save()
-        return piece
-    }
-    
     func createPiece(_ piece: Composition, for ensemble: Ensemble) {
         piece.id = UUID()
         ensemble.addToPieces(piece)
@@ -94,7 +86,7 @@ class DataManager: NSObject, ObservableObject {
     func pieces(ensemble: Ensemble) -> [Composition] {
         let request: NSFetchRequest<Composition> = Composition.fetchRequest()
         request.predicate = NSPredicate(format: "ensemble = %@", ensemble)
-        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         var fetchedPieces: [Composition] = []
         
         do {
@@ -140,7 +132,7 @@ class DataManager: NSObject, ObservableObject {
         
         let request: NSFetchRequest<Passage> = Passage.fetchRequest()
         request.predicate = NSPredicate(format: "piece = %@", piece)
-        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
         return (try? container.viewContext.fetch(request)) ?? []
     }
