@@ -15,7 +15,6 @@ class EnsembleViewModel: ObservableObject {
     @Published var isAuthenticating = false
     @Published var chosenName = ""
 
-    
     var groups: [Ensemble] {
         get { dataManager.ensembles() }
         set {}

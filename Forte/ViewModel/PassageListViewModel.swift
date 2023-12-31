@@ -30,11 +30,6 @@ class PassageListViewModel: ObservableObject {
         self.passages = dataManager.passages(for: piece)
     }
     
-//    init(piece: Composition) {
-//        self.piece = piece
-//        self.passages = DataManager.shared.passages(piece: piece)
-//    }
-    
     func addPassage(for piece: Composition) {
         let passage = DataManager.shared.passage(piece: piece)
         passages.append(passage)
@@ -44,8 +39,8 @@ class PassageListViewModel: ObservableObject {
     func removePassage(at offsets: IndexSet) {
         for index in offsets {
             let section = passages[index]
-//            DataManager.shared.deleteSection(section: section)
-            DataManager.shared.deletePassage(passage: section)
+            dataManager.deletePassage(passage: section)
         }
+        passages.remove(atOffsets: offsets)
     }
 }

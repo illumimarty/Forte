@@ -11,24 +11,6 @@ struct SectionEditView: View {
     
     @ObservedObject var viewModel: SectionEditViewModel
     @Environment(\.dismiss) var dismiss
-
-    
-//    @ObservedObject var viewModel: PassageListViewModel
-    
-//    @ObservedObject var section: Passage
-//    @StateObject var section: Passage
-//    @Binding var isInitializing: Bool
-//    @Binding var isPresenting: Bool
-
-//    @ObservedObject var piece: Composition
-    
-//    @State private var passageName: String?
-//    @State private var passageNotes: String?
-//    @State private var personalNotes: String?
-//    @State private var startRehearsalMark: String?
-//    @State private var endRehearsalMark: String?
-//    @State private var startMeasureNumber: String?
-//    @State private var endMeasureNumber: String?
     
     init (for piece: Composition, isIntializing: Bool = false) {
         let state = SectionEditState(for: piece)
@@ -45,7 +27,6 @@ struct SectionEditView: View {
                     }
                 }
 
-                
                 HStack {
                     Button {
 //                        viewModel.isPresenting = false
@@ -62,8 +43,6 @@ struct SectionEditView: View {
                     Button {
                         print("Saving Changes...")
                         viewModel.createPassage()
-//                        createSection()
-                        //                        createComposition()
                         dismiss()
 //                        viewModel.isPresenting = false
                     } label: {
@@ -78,10 +57,6 @@ struct SectionEditView: View {
             .navigationTitle("New Section")
         }
     }
-    
-    func createSection() {
-
-    }
 }
 
 //struct SectionEditView_Previews: PreviewProvider {
@@ -89,14 +64,3 @@ struct SectionEditView: View {
 //        SectionEditView()
 //    }
 //}
-
-extension Binding {
-    init(_ source: Binding<Value?>, _ defaultValue: Value) {
-        // Ensure a non-nil value in `source`.
-        if source.wrappedValue == nil {
-            source.wrappedValue = defaultValue
-        }
-        // Unsafe unwrap because *we* know it's non-nil now.
-        self.init(source)!
-    }
-}
