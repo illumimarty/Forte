@@ -76,13 +76,6 @@ class DataManager: NSObject, ObservableObject {
         save()
     }
     
-    func createPiece(_ piece: Composition, for ensemble: Ensemble) {
-        piece.id = UUID()
-        ensemble.addToPieces(piece)
-        save()
-    }
-    
-    
     func pieces(ensemble: Ensemble) -> [Composition] {
         let request: NSFetchRequest<Composition> = Composition.fetchRequest()
         request.predicate = NSPredicate(format: "ensemble = %@", ensemble)
@@ -116,35 +109,17 @@ class DataManager: NSObject, ObservableObject {
             section.setValue(compVal, forKeyPath: compProp!)
         }
         piece.addToSection(section)
-//        ensemble.addToPieces(piece)
         save()
     }
     
     func passage(piece: Composition) -> Passage {
         let section = Passage(context: container.viewContext)
-//        section.name = name
         section.id = UUID()
-        
-        // add following information based on user input
-        
         piece.addToSection(section)
         return section
     }
     
     func passages(for piece: Composition) -> [Passage] {
-//        let request: NSFetchRequest<Passage> = Passage.fetchRequest()
-//        request.predicate = NSPredicate(format: "piece = %@", piece)
-//        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: false)]
-//        var fetchedSections: [Passage] = []
-//
-//        do {
-//            fetchedSections = try container.viewContext.fetch(request)
-//        } catch let error {
-//            print("Error fetching pieces: \(error)")
-//        }
-//
-//        return fetchedSections
-        
         let request: NSFetchRequest<Passage> = Passage.fetchRequest()
         request.predicate = NSPredicate(format: "piece = %@", piece)
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
@@ -158,10 +133,6 @@ class DataManager: NSObject, ObservableObject {
         
         return fetchedPassages
     }
-    
-//    func refreshPassages(for piece: Composition) {
-//        let _ = passages(piece: piece)
-//    }
     
     func deletePassage(passage: Passage) {
         let moc = container.viewContext
