@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Ensemble {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Ensemble> {
@@ -40,6 +39,6 @@ extension Ensemble {
 
 }
 
-extension Ensemble : Identifiable {
+extension Ensemble: Identifiable {
 
 }

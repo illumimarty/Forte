@@ -20,7 +20,6 @@ class EnsembleViewModel: ObservableObject {
         set {}
     }
     
-    
     init(dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
     }

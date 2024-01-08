@@ -41,6 +41,7 @@
 		99B489942AD27F5600AE2CF4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489932AD27F5600AE2CF4 /* HomeView.swift */; };
 		99B489962AD27F6D00AE2CF4 /* EnsembleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */; };
 		99C2E6C02B014DF600E6F838 /* CompositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C2E6BF2B014DF600E6F838 /* CompositionView.swift */; };
+		99D9AD142B4CAABE0054C077 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 99D9AD132B4CAABE0054C077 /* Inject */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 				99B4898E2AD2595D00AE2CF4 /* GoogleSignInSwift in Frameworks */,
 				99B4897C2AD246EE00AE2CF4 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				99B4897F2AD249F400AE2CF4 /* FirebaseAuth in Frameworks */,
+				99D9AD142B4CAABE0054C077 /* Inject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +200,7 @@
 				99B4895E2AD2459900AE2CF4 /* Sources */,
 				99B4895F2AD2459900AE2CF4 /* Frameworks */,
 				99B489602AD2459900AE2CF4 /* Resources */,
+				994223AC2B4A031100322DE3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -208,6 +211,7 @@
 				99B4897B2AD246EE00AE2CF4 /* FirebaseAnalyticsWithoutAdIdSupport */,
 				99B4897E2AD249F400AE2CF4 /* FirebaseAuth */,
 				99B4898D2AD2595D00AE2CF4 /* GoogleSignInSwift */,
+				99D9AD132B4CAABE0054C077 /* Inject */,
 			);
 			productName = Forte;
 			productReference = 99B489622AD2459900AE2CF4 /* Forte.app */;
@@ -240,6 +244,7 @@
 			packageReferences = (
 				99B4897A2AD246EE00AE2CF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				99B4898C2AD2595D00AE2CF4 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				99D9AD122B4CAABE0054C077 /* XCRemoteSwiftPackageReference "Inject" */,
 			);
 			productRefGroup = 99B489632AD2459900AE2CF4 /* Products */;
 			projectDirPath = "";
@@ -262,6 +267,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		994223AC2B4A031100322DE3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = " # Type a script or drag a script file from your workspace to insert its path.\n\n if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\n fi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		99B4895E2AD2459900AE2CF4 /* Sources */ = {
@@ -338,7 +363,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -399,7 +424,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -440,6 +465,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mnodado.Forte;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -518,6 +547,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		99D9AD122B4CAABE0054C077 /* XCRemoteSwiftPackageReference "Inject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzysztofzablocki/Inject";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -535,6 +572,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 99B4898C2AD2595D00AE2CF4 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		99D9AD132B4CAABE0054C077 /* Inject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99D9AD122B4CAABE0054C077 /* XCRemoteSwiftPackageReference "Inject" */;
+			productName = Inject;
 		};
 /* End XCSwiftPackageProductDependency section */
 

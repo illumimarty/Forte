@@ -20,9 +20,6 @@ struct CompositionDetailsView: View {
     @State private var isShowingEditView: Bool = false
     @State private var isInitializingSection: Bool = false
 
-        
-    // TODO: Remember to consider the user's groups/pieces since, if multiple users, will pull EVERYONE's data instead of only their own
-
     var body: some View {
         VStack {
             Button("Add") {
@@ -30,7 +27,10 @@ struct CompositionDetailsView: View {
                 isInitializingSection.toggle()
             }
             .sheet(isPresented: $isShowingEditView) {
-                SectionEditView(for: passageViewModel.piece)
+                SectionEditView(piece: passageViewModel.piece)
+//                SectionEditView(for: passageViewModel.piece)
+//                SectionEditView(for: <#T##Passage#>, isIntializing: <#T##Bool#>)
+//                SectionEditView(for: passageViewModel.piece, isIntializing: true)
                     .onDisappear(perform: {
                         passageViewModel.getPassages()
                     })
@@ -38,7 +38,7 @@ struct CompositionDetailsView: View {
             List {
                 ForEach(passageViewModel.passages, content: { section in
                     NavigationLink {
-                        SectionEditView(for: passageViewModel.piece)
+                        SectionEditView(for: section, piece: passageViewModel.piece)
                     } label: {
                         Text(section.name ?? "unknown passage")
                     }
@@ -58,4 +58,3 @@ struct CompositionDetailsView: View {
         }
     }
 }
-

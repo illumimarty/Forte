@@ -18,7 +18,6 @@ struct ContentView: View {
     
 //    @State var email = ""
 //    @State var password = ""
-    
 //    @Environment(\.managedObjectContext) private var viewContext
 //
 //    @FetchRequest(

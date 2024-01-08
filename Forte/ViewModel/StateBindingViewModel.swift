@@ -37,7 +37,6 @@ open class StateBindingViewModel<State: Equatable>: ObservableObject {
             }
         )
     }
-    
     /// Updates a property of the `state`.
     /// - Parameters:
     ///   - keyPath: the keyPath, representing some property of the `State`.

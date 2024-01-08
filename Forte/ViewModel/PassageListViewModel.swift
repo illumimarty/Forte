@@ -13,9 +13,8 @@ class PassageListViewModel: ObservableObject {
     @Published private var dataManager: DataManager
     @Published var passages: [Passage]
     var piece: Composition
-    var anyCancellable: AnyCancellable? = nil
+    var anyCancellable: AnyCancellable?
 
-    
     init(for piece: Composition, dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
         self.piece = piece

@@ -14,7 +14,7 @@ class DataManager: NSObject, ObservableObject {
     let container = NSPersistentContainer(name: "Ensemble")
     
     override init() {
-        container.loadPersistentStores { desc, error in
+        container.loadPersistentStores { _, error in
             if let error = error {
                 print("Core Data failed to load: \(error.localizedDescription)")
             }
@@ -42,6 +42,13 @@ class DataManager: NSObject, ObservableObject {
         save()
     }
     
+    func createTestEnsemble() -> Ensemble {
+        let ensemble = Ensemble(context: container.viewContext)
+        ensemble.id = UUID()
+        ensemble.name = "Test Ensemble"
+        return ensemble
+    }
+    
     func ensembles() -> [Ensemble] {
         let request: NSFetchRequest<Ensemble> = Ensemble.fetchRequest()
         var fetchedEnsembles: [Ensemble] = []
@@ -60,7 +67,6 @@ class DataManager: NSObject, ObservableObject {
         moc.delete(ensemble)
         save()
     }
-    
     
     // MARK: Piece Operations
     func createPiece(for state: CompositionEditState) {
@@ -111,6 +117,54 @@ class DataManager: NSObject, ObservableObject {
         piece.addToSection(section)
         save()
     }
+    
+    func updatePassage(for state: SectionEditState) {
+
+        // Fetch section to update
+        let section = fetchPassage(for: state.id!)
+        
+        let mirror = Mirror(reflecting: state)
+        for (compProp, compVal) in mirror.children {
+//            if type(of: <#T##T#>)
+            
+            section.setValue(compVal, forKeyPath: compProp!)
+        }
+        save()
+        
+        // Loop through
+        
+//        var fetchedPassages: [Passage] = []
+//        
+//        do {
+//            fetchedPassages = try container.viewContext.fetch(request)
+//        } catch let error {
+//            print("Error fetching pieces: \(error)")
+//        }
+    }
+    
+    func fetchPassage(for id: UUID) -> Passage {
+//        return container.viewContext.existingObject(with: id) as! Passage
+        let request: NSFetchRequest<Passage> = Passage.fetchRequest()
+        request.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+        var res: [Passage] = []
+        do {
+            res = try container.viewContext.fetch(request)
+        } catch let error {
+            print("Error fetching piece: \(error)")
+        }
+        return res[0]
+    }
+    
+//    func updatePassage(_ section: Passage, for state: SectionEditState) {
+//        let mirror = Mirror(reflecting: state)
+//        for (compProp, compVal) in mirror.children {
+//            section.setValue(compVal, forKeyPath: compProp!)
+//        }
+////        let section = state.section!
+//        save()
+//    }
+    
+//    func fetchPassage(
     
     func passage(piece: Composition) -> Passage {
         let section = Passage(context: container.viewContext)

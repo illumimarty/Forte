@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Passage {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Passage> {
@@ -28,6 +27,6 @@ extension Passage {
 
 }
 
-extension Passage : Identifiable {
+extension Passage: Identifiable {
 
 }
