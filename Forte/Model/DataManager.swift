@@ -108,7 +108,6 @@ class DataManager: NSObject, ObservableObject {
     func createPassage(for state: SectionEditState) {
         let section = Passage(context: container.viewContext)
         let piece = state.piece!
-        section.id = UUID()
         
         let mirror = Mirror(reflecting: state)
         for (compProp, compVal) in mirror.children {
@@ -125,25 +124,12 @@ class DataManager: NSObject, ObservableObject {
         
         let mirror = Mirror(reflecting: state)
         for (compProp, compVal) in mirror.children {
-//            if type(of: <#T##T#>)
-            
             section.setValue(compVal, forKeyPath: compProp!)
         }
         save()
-        
-        // Loop through
-        
-//        var fetchedPassages: [Passage] = []
-//        
-//        do {
-//            fetchedPassages = try container.viewContext.fetch(request)
-//        } catch let error {
-//            print("Error fetching pieces: \(error)")
-//        }
     }
     
     func fetchPassage(for id: UUID) -> Passage {
-//        return container.viewContext.existingObject(with: id) as! Passage
         let request: NSFetchRequest<Passage> = Passage.fetchRequest()
         request.predicate = NSPredicate(format: "id = %@", id as CVarArg)
         var res: [Passage] = []
@@ -154,17 +140,6 @@ class DataManager: NSObject, ObservableObject {
         }
         return res[0]
     }
-    
-//    func updatePassage(_ section: Passage, for state: SectionEditState) {
-//        let mirror = Mirror(reflecting: state)
-//        for (compProp, compVal) in mirror.children {
-//            section.setValue(compVal, forKeyPath: compProp!)
-//        }
-////        let section = state.section!
-//        save()
-//    }
-    
-//    func fetchPassage(
     
     func passage(piece: Composition) -> Passage {
         let section = Passage(context: container.viewContext)

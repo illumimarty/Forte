@@ -17,9 +17,9 @@ struct SectionEditState: Equatable {
 //    var personalNotes: String
     var startRehearsalMark: String = ""
     var endRehearsalMark: String = ""
-    var startMeasure: Int16 = -1
-    var endMeasure: Int16 = -1
-    var progressValue: Int16 = -1
+    var startMeasure: Int16 = 0
+    var endMeasure: Int16 = 0
+    var progressValue: Int16 = 0
     
     init(_ section: Passage?) {
         if let section = section {
@@ -48,50 +48,65 @@ struct SectionEditState: Equatable {
 final class SectionEditViewModel: StateBindingViewModel<SectionEditState> {
     
     @Published private var dataManager: DataManager
-    @Published var progressValue: Double = 50
     @State private var isInitializing: Bool = false
+    @Published var progressValue: Double = 0
+    @Published var startMeasure: Int = 0
+    @Published var endMeasure: Int = 0
+    private var progressIntValue: Int16 {
+        return Int16(progressValue * 100)
+    }
     
     init (
         initialState: SectionEditState,
         dataManager: DataManager = DataManager.shared, isInitializing: Bool = false) {
+        self.dataManager = dataManager
+        self.isInitializing = isInitializing
+        
+//        if isInitializing {
+//            self.progressValue = 0
+//            self.startMeasure =
+//        }
             
-            self.dataManager = dataManager
-            self.isInitializing = isInitializing
-            self.progressValue = Double(initialState.progressValue)
-            super.init(initialState: initialState)
-            
-//            if !isInitializing {
-//                super.init(initialState: initialState)
-//            } else {
-//                super.init(initialState: SectionEditState())
-//            }
+        self.progressValue = Double(initialState.progressValue) / 100
+        
+        self.startMeasure = Int(initialState.startMeasure)
+        self.endMeasure = Int(initialState.endMeasure)
+
+        super.init(initialState: initialState)
     }
     
-    func translateNumberToState() {
+    func checkIsInitializing() -> Bool {
+        return self.isInitializing
+    }
+    
+    func translateNumberToState(for num: Double) {
         let value = doubleToInt(for: self.progressValue)
         self.update(\.progressValue, to: value)
         self.onStateChange(\.progressValue)
     }
     
     func doubleToInt(for number: Double) -> Int16 {
-        return Int16(number)
+        return Int16(number * 100)
     }
     
     func createPassage() {
+        let newId = UUID()
+        self.update(\.id, to: newId)
         dataManager.createPassage(for: self.state)
     }
     
     func saveChanges() {
+        
+        // MARK: Change numeric values to CoreData preferred type
+        
+        self.update(\.progressValue, to: Int16(self.progressIntValue))
+        self.update(\.startMeasure, to: Int16(self.startMeasure))
+        self.update(\.endMeasure, to: Int16(self.endMeasure))
+        
         if !isInitializing {
-//            dataManager.save()
-//            dataManager.updatePassage(self.state.section!, for: self.state)
-            
-            self.update(\.progressValue, to: Int16(self.progressValue))
-            
             dataManager.updatePassage(for: self.state)
-            
-            return
+        } else {
+            createPassage()
         }
-        createPassage()
     }
 }

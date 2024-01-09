@@ -13,18 +13,35 @@ struct SectionEditView: View {
     @ObserveInjection var forceRedraw
     @ObservedObject var viewModel: SectionEditViewModel
     @Environment(\.dismiss) var dismiss
-//    @State private var progressValue: Double = 50.0
+    private var title: String?
     
     init (for section: Passage? = nil, piece: Composition) {
         
-        let state = SectionEditState(section)
-
+//        let state = SectionEditState(section)
         if section != nil {
+            let state = SectionEditState(section)
+            self.title = state.name
             self.viewModel = SectionEditViewModel(initialState: state)
         } else {
+            let state = SectionEditState(for: piece)
+            self.title = "New Section"
             self.viewModel = SectionEditViewModel(initialState: state, isInitializing: true)
         }
     }
+    
+    let measureFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
+        formatter.zeroSymbol = ""
+        return formatter
+    }()
+    
+    let percentFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.zeroSymbol = ""
+        return formatter
+    }()
     
     var body: some View {
         NavigationView {
@@ -37,21 +54,21 @@ struct SectionEditView: View {
                     Section("Rehearsal Marks") {
                         HStack {
                             TextField("Start", text: viewModel.binding(\.startRehearsalMark))
+
                             TextField("End", text: viewModel.binding(\.endRehearsalMark))
                         }
                     }
                     Section("Measure Numbers") {
                         HStack {
-//                            TextField("Start", text: viewModel.binding(\.startMeasure))
-//                            TextField("End", text: viewModel.binding(\.endMeasure))
+                            TextField("Start", value: $viewModel.startMeasure, formatter: measureFormatter)
+                           TextField("End", value: $viewModel.endMeasure, formatter: measureFormatter)
                         }
                     }
                     Section("Progress") {
                         VStack {
-                            Text("\(viewModel.progressValue)")
-//                                .padding()
-
-                            Slider(value: $viewModel.progressValue, in: 0...100, step: 1)
+//                            Text(viewModel.progressValue, format: .percent)
+                            Text("\(viewModel.progressValue, format: .percent)")
+                            Slider(value: $viewModel.progressValue, in: 0...1, step: 0.01)
                             .padding()
                         }
                     }
@@ -83,7 +100,8 @@ struct SectionEditView: View {
                     .controlSize(.large)
                 }
             }
-            .navigationTitle(viewModel.state.name)
+//            .navigationTitle(viewModel.state.name)
+            .navigationTitle(self.title ?? "")
         }
         .enableInjection()
     }
