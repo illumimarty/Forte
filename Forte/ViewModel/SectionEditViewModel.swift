@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 struct SectionEditState: Equatable {
-//    var section: Passage?
     var id: UUID?
     var piece: Composition?
     var name: String = ""
@@ -23,7 +22,6 @@ struct SectionEditState: Equatable {
     
     init(_ section: Passage?) {
         if let section = section {
-//            self.section = section
             self.id = section.id
             self.piece = section.piece
             self.name = section.name ?? ""
@@ -32,8 +30,6 @@ struct SectionEditState: Equatable {
             self.endRehearsalMark = section.endRehearsalMark ?? ""
             self.startMeasure = section.startMeasure
             self.endMeasure = section.endMeasure
-//            self.startMeasure = String(describing: section.startMeasure)
-//            self.endMeasure = String(describing: endMeasure)
             self.progressValue = Int16(section.progressValue)
         }
     }
@@ -61,14 +57,8 @@ final class SectionEditViewModel: StateBindingViewModel<SectionEditState> {
         dataManager: DataManager = DataManager.shared, isInitializing: Bool = false) {
         self.dataManager = dataManager
         self.isInitializing = isInitializing
-        
-//        if isInitializing {
-//            self.progressValue = 0
-//            self.startMeasure =
-//        }
             
         self.progressValue = Double(initialState.progressValue) / 100
-        
         self.startMeasure = Int(initialState.startMeasure)
         self.endMeasure = Int(initialState.endMeasure)
 

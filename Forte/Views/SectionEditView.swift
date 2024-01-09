@@ -16,8 +16,6 @@ struct SectionEditView: View {
     private var title: String?
     
     init (for section: Passage? = nil, piece: Composition) {
-        
-//        let state = SectionEditState(section)
         if section != nil {
             let state = SectionEditState(section)
             self.title = state.name
@@ -66,14 +64,13 @@ struct SectionEditView: View {
                     }
                     Section("Progress") {
                         VStack {
-//                            Text(viewModel.progressValue, format: .percent)
                             Text("\(viewModel.progressValue, format: .percent)")
                             Slider(value: $viewModel.progressValue, in: 0...1, step: 0.01)
                             .padding()
                         }
                     }
-                    
                 }
+                
                 HStack {
                     Button {
 //                        viewModel.isPresenting = false
@@ -100,7 +97,6 @@ struct SectionEditView: View {
                     .controlSize(.large)
                 }
             }
-//            .navigationTitle(viewModel.state.name)
             .navigationTitle(self.title ?? "")
         }
         .enableInjection()

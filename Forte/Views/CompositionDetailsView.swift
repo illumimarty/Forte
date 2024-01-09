@@ -28,9 +28,6 @@ struct CompositionDetailsView: View {
             }
             .sheet(isPresented: $isShowingEditView) {
                 SectionEditView(piece: passageViewModel.piece)
-//                SectionEditView(for: passageViewModel.piece)
-//                SectionEditView(for: <#T##Passage#>, isIntializing: <#T##Bool#>)
-//                SectionEditView(for: passageViewModel.piece, isIntializing: true)
                     .onDisappear(perform: {
                         passageViewModel.getPassages()
                     })

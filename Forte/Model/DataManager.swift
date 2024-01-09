@@ -33,7 +33,7 @@ class DataManager: NSObject, ObservableObject {
         }
     }
     
-    // MARK: Ensemble operations
+    // MARK: - Ensemble operations
     
     func createEnsemble(for name: String) {
         let ensemble = Ensemble(context: container.viewContext)
@@ -68,7 +68,8 @@ class DataManager: NSObject, ObservableObject {
         save()
     }
     
-    // MARK: Piece Operations
+    // MARK: - Piece Operations
+    
     func createPiece(for state: CompositionEditState) {
         let piece = Composition(context: container.viewContext)
         let ensemble = state.ensemble!
@@ -118,8 +119,6 @@ class DataManager: NSObject, ObservableObject {
     }
     
     func updatePassage(for state: SectionEditState) {
-
-        // Fetch section to update
         let section = fetchPassage(for: state.id!)
         
         let mirror = Mirror(reflecting: state)
