@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Repertoire {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Repertoire> {
@@ -23,6 +22,6 @@ extension Repertoire {
 
 }
 
-extension Repertoire : Identifiable {
+extension Repertoire: Identifiable {
 
 }

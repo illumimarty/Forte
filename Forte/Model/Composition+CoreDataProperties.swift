@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Composition {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Composition> {
@@ -20,7 +19,7 @@ extension Composition {
     @NSManaged public var duration: Int16
     @NSManaged public var id: UUID?
     @NSManaged public var name: String?
-    @NSManaged public var recording_link: String?
+    @NSManaged public var recordingLink: String?
     @NSManaged public var ensemble: Ensemble?
     @NSManaged public var section: NSSet?
 
@@ -43,6 +42,6 @@ extension Composition {
 
 }
 
-extension Composition : Identifiable {
+extension Composition: Identifiable {
 
 }

@@ -22,9 +22,9 @@ struct CompositionEditView: View {
             VStack {
                 Form {
                     Group {
-                        TextField("Name", text: viewModel.binding(\.name))
-                        TextField("Composer", text: viewModel.binding(\.composer))
-                        TextField("Recording URL", text: viewModel.binding(\.recording_link))
+//                        TextField("Name", text: viewModel.binding(\.name))
+//                        TextField("Composer", text: viewModel.binding(\.composer))
+//                        TextField("Recording URL", text: viewModel.binding(\.recording_link))
                     }
                 }
                 HStack {

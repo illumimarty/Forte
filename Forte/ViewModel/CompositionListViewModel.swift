@@ -9,22 +9,19 @@ import Foundation
 import Combine
 import SwiftUI
 
-
 class CompositionListViewModel: ObservableObject {
 
     @Published private var dataManager: DataManager
     @Published var pieces: [Composition]
     var group: Ensemble
 
-    // TODO: Figure out why this works
-    var anyCancellable: AnyCancellable? = nil
+    var anyCancellable: AnyCancellable?
     
     init(for ensemble: Ensemble, dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
         self.pieces = dataManager.pieces(ensemble: ensemble)
         self.group = ensemble
         
-        // TODO: Figure out why this works
         anyCancellable = dataManager.objectWillChange.sink { [weak self] (_) in
             self?.objectWillChange.send()
         }

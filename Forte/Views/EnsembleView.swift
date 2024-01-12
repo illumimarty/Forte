@@ -13,7 +13,7 @@ struct EnsembleView: View {
     
     var body: some View {
         NavigationStack {
-            VStack{
+            VStack {
                 Button("Add") {
                     viewModel.toggleAuthenticating()
                 }
@@ -42,8 +42,8 @@ struct EnsembleView: View {
     }
 }
 
-//struct EnsembleView_Previews: PreviewProvider {
+// struct EnsembleView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        EnsembleView(for: EnsembleViewModel())
 //    }
-//}
+// }

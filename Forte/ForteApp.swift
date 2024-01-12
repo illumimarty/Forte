@@ -11,8 +11,13 @@ import GoogleSignIn
 import CoreData
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         FirebaseApp.configure()
+        
+        #if DEBUG
+        Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle")?.load()
+        #endif
+        
         return true
     }
 }
@@ -29,13 +34,12 @@ struct ApplicationSwitcher: View {
     }
 }
 
-
 @main
 struct ForteApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var authViewModel = AuthenticationViewModel()
     @StateObject private var dataManager = DataManager.shared
-
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {

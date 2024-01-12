@@ -50,3 +50,10 @@ struct CompositionView: View {
         }
     }
 }
+
+struct CompositionView_Previews: PreviewProvider {
+    static var previews: some View {
+        let group = DataManager.shared.createTestEnsemble()
+        CompositionView(for: group)
+    }
+}

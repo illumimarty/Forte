@@ -13,7 +13,7 @@ struct CompositionEditState: Equatable {
     var ensemble: Ensemble?
     var name: String = ""
     var composer: String = ""
-    var recording_link: String = ""
+    var recordingLink: String = ""
     
     init(for group: Ensemble?) {
         if let unwrappedGroup = group {

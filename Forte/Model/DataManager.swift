@@ -14,7 +14,7 @@ class DataManager: NSObject, ObservableObject {
     let container = NSPersistentContainer(name: "Ensemble")
     
     override init() {
-        container.loadPersistentStores { desc, error in
+        container.loadPersistentStores { _, error in
             if let error = error {
                 print("Core Data failed to load: \(error.localizedDescription)")
             }
@@ -33,13 +33,20 @@ class DataManager: NSObject, ObservableObject {
         }
     }
     
-    // MARK: Ensemble operations
+    // MARK: - Ensemble operations
     
     func createEnsemble(for name: String) {
         let ensemble = Ensemble(context: container.viewContext)
         ensemble.id = UUID()
         ensemble.name = name
         save()
+    }
+    
+    func createTestEnsemble() -> Ensemble {
+        let ensemble = Ensemble(context: container.viewContext)
+        ensemble.id = UUID()
+        ensemble.name = "Test Ensemble"
+        return ensemble
     }
     
     func ensembles() -> [Ensemble] {
@@ -61,8 +68,8 @@ class DataManager: NSObject, ObservableObject {
         save()
     }
     
+    // MARK: - Piece Operations
     
-    // MARK: Piece Operations
     func createPiece(for state: CompositionEditState) {
         let piece = Composition(context: container.viewContext)
         let ensemble = state.ensemble!
@@ -102,7 +109,6 @@ class DataManager: NSObject, ObservableObject {
     func createPassage(for state: SectionEditState) {
         let section = Passage(context: container.viewContext)
         let piece = state.piece!
-        section.id = UUID()
         
         let mirror = Mirror(reflecting: state)
         for (compProp, compVal) in mirror.children {
@@ -110,6 +116,28 @@ class DataManager: NSObject, ObservableObject {
         }
         piece.addToSection(section)
         save()
+    }
+    
+    func updatePassage(for state: SectionEditState) {
+        let section = fetchPassage(for: state.id!)
+        
+        let mirror = Mirror(reflecting: state)
+        for (compProp, compVal) in mirror.children {
+            section.setValue(compVal, forKeyPath: compProp!)
+        }
+        save()
+    }
+    
+    func fetchPassage(for id: UUID) -> Passage {
+        let request: NSFetchRequest<Passage> = Passage.fetchRequest()
+        request.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+        var res: [Passage] = []
+        do {
+            res = try container.viewContext.fetch(request)
+        } catch let error {
+            print("Error fetching piece: \(error)")
+        }
+        return res[0]
     }
     
     func passage(piece: Composition) -> Passage {
