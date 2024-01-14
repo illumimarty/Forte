@@ -6,15 +6,25 @@
 //
 
 import SwiftUI
+import Inject
+import HotSwiftUI
 
 struct CompositionEditView: View {
     
     @ObservedObject var viewModel: CompositionEditViewModel
     @Environment(\.dismiss) var dismiss
+    private var title: String?
     
-    init(for group: Ensemble, isInitializing: Bool = false) {
-        let state = CompositionEditState(for: group)
-        self.viewModel = CompositionEditViewModel(initialState: state)
+    init(for piece: Composition? = nil, group: Ensemble) {
+        if piece != nil {
+            let state = CompositionEditState(piece)
+            self.title = piece?.name
+            self.viewModel = CompositionEditViewModel(initialState: state)
+        } else {
+            let state = CompositionEditState(for: group)
+            self.title = "New Composition"
+            self.viewModel = CompositionEditViewModel(initialState: state, isInitializing: true)
+        }
     }
 
     var body: some View {
@@ -22,9 +32,9 @@ struct CompositionEditView: View {
             VStack {
                 Form {
                     Group {
-//                        TextField("Name", text: viewModel.binding(\.name))
-//                        TextField("Composer", text: viewModel.binding(\.composer))
-//                        TextField("Recording URL", text: viewModel.binding(\.recording_link))
+                        TextField("Name", text: viewModel.binding(\.name))
+                        TextField("Composer", text: viewModel.binding(\.composer))
+                        TextField("Recording URL", text: viewModel.binding(\.recordingLink))
                     }
                 }
                 HStack {
@@ -40,7 +50,8 @@ struct CompositionEditView: View {
                     
                     Button {
                         print("Saving Changes...")
-                        viewModel.createComposition()
+                        viewModel.saveChanges()
+//                        viewModel.createComposition()
                         dismiss()
                     } label: {
                         Text("Save Changes")
@@ -51,7 +62,14 @@ struct CompositionEditView: View {
                     .controlSize(.large)
                 }
             }
-            .navigationTitle("New Composition")
+            .navigationTitle(title ?? "")
         }
+        .toolbar(.hidden, for: .tabBar)
+        .eraseToAnyView()
     }
+    
+    #if DEBUG
+//    @ObserveInjection
+//    @ObserveInjection var inject
+    #endif
 }

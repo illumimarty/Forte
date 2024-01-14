@@ -7,9 +7,11 @@
 
 import Foundation
 import SwiftUI
+import Inject
 
 struct CompositionView: View {
     
+//    @ObserveInjection var inject
     @ObservedObject var viewModel: CompositionListViewModel
     @State private var isShowingEditView: Bool = false
     
@@ -23,17 +25,40 @@ struct CompositionView: View {
                 isShowingEditView.toggle()
             }
             .sheet(isPresented: $isShowingEditView) {
-                CompositionEditView(for: viewModel.group)
+                CompositionEditView(group: viewModel.group)
+//                CompositionEditView(for: viewModel.group)
                     .onDisappear(perform: {
                         viewModel.getPieces()
                     })
             }
             List {
-                ForEach(viewModel.pieces) { piece in
+                ForEach(Array(viewModel.pieces.enumerated()), id: \.1) { index, piece in
                     NavigationLink {
                         CompositionDetailsView(for: piece)
+                        
                     } label: {
-                        Text(piece.name ?? "unknown piece")
+                        CompositionRowView(piece: piece)
+                            .padding(.vertical, 2.0)
+                    }
+                    .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
+                        Button(role: .destructive) {
+                            let idx = IndexSet(integer: index)
+                            viewModel.removePiece(at: idx)
+                            print("Deleting...")
+                        } label: {
+                            Label("Delete", systemImage: "trash.fill")
+                        }
+                    })
+                    .swipeActions(allowsFullSwipe: false) {
+                        NavigationLink {
+                            CompositionEditView(for: piece, group: viewModel.group)
+                                .onDisappear(perform: {
+                                    viewModel.getPieces()
+                                })
+                        } label: {
+                            Label("Edit", systemImage: "square.and.pencil")
+                        }
+                        .tint(.yellow)
                     }
                 }
                 .onDelete(perform: viewModel.removePiece)
@@ -49,11 +74,10 @@ struct CompositionView: View {
             }
         }
     }
-}
 
-struct CompositionView_Previews: PreviewProvider {
-    static var previews: some View {
-        let group = DataManager.shared.createTestEnsemble()
-        CompositionView(for: group)
-    }
+    #if DEBUG
+    @ObserveInjection var redraw
+    @ObserveInjection var inject
+//    @ObservedObject private var iO = InjectionObserver
+    #endif
 }

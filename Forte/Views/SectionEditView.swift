@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
-@_exported import Inject
+//@_exported import Inject
+//import HotSwiftUI
 
 struct SectionEditView: View {
     
-    @ObserveInjection var forceRedraw
+//    @ObserveInjection var forceRedraw
     @ObservedObject var viewModel: SectionEditViewModel
     @Environment(\.dismiss) var dismiss
     private var title: String?
@@ -99,7 +100,12 @@ struct SectionEditView: View {
             }
             .navigationTitle(self.title ?? "")
         }
-        .enableInjection()
+        .toolbar(.hidden, for: .tabBar)
+        .eraseToAnyView()
+//        .enableInjection()
+//        #if DEBUG
+//        @ObservedObject var iO = injectionObserver
+//        #endif
     }
 }
 

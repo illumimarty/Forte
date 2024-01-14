@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HotSwiftUI
 
 struct EnsembleView: View {
     
@@ -24,11 +25,14 @@ struct EnsembleView: View {
                 }
                 List {
                     ForEach(viewModel.groups) { group in
-                        NavigationLink {
-                            CompositionView(for: group)                            
-                        } label: {
-                            Text(group.name ?? "unknown group")
-                        }
+//                        Section {
+                            NavigationLink {
+                                CompositionView(for: group)
+                            } label: {
+                                Text(group.name ?? "unknown group")
+                                    .font(.title3)
+                                    .padding(.vertical)
+                            }
                     }
                     .onDelete(perform: viewModel.removeEnsemble)
                 }
@@ -39,11 +43,10 @@ struct EnsembleView: View {
             .navigationTitle("My Groups")
             .navigationBarTitleDisplayMode(.large)
         }
-    }
-}
 
-// struct EnsembleView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EnsembleView(for: EnsembleViewModel())
-//    }
-// }
+        .eraseToAnyView()
+    }
+    #if DEBUG
+    @ObservedObject var iO = injectionObserver
+    #endif
+}

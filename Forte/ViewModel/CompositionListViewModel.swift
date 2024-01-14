@@ -17,6 +17,8 @@ class CompositionListViewModel: ObservableObject {
 
     var anyCancellable: AnyCancellable?
     
+    // FIX: Composition details in list doesn't change asynchronously
+    
     init(for ensemble: Ensemble, dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
         self.pieces = dataManager.pieces(ensemble: ensemble)
@@ -27,10 +29,20 @@ class CompositionListViewModel: ObservableObject {
         }
     }
     
+    // TODO: Display overall practice progress of piece
+    /*
+     1. Fetch request piece
+     
+     */
+    
     func getPieces() {
         self.pieces = dataManager.pieces(ensemble: group)
     }
 
+    func removePiece(_ piece: Composition) {
+        dataManager.deletePiece(piece: piece)
+    }
+    
     // ? - why delete from a set of indices than one index?
     func removePiece(at offsets: IndexSet) {
         // TODO: add a prompt to ensure desired item deletion

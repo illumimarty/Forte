@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseCore
 import GoogleSignIn
 import CoreData
+@_exported import Inject
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {

@@ -42,6 +42,8 @@
 		99B489962AD27F6D00AE2CF4 /* EnsembleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */; };
 		99C2E6C02B014DF600E6F838 /* CompositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C2E6BF2B014DF600E6F838 /* CompositionView.swift */; };
 		99D9AD142B4CAABE0054C077 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 99D9AD132B4CAABE0054C077 /* Inject */; };
+		99D9AD162B4D07BF0054C077 /* CompositionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D9AD152B4D07BF0054C077 /* CompositionRowView.swift */; };
+		99D9AD192B4D11C70054C077 /* HotSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 99D9AD182B4D11C70054C077 /* HotSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +80,7 @@
 		99B489932AD27F5600AE2CF4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleView.swift; sourceTree = "<group>"; };
 		99C2E6BF2B014DF600E6F838 /* CompositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionView.swift; sourceTree = "<group>"; };
+		99D9AD152B4D07BF0054C077 /* CompositionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +89,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				99B4898E2AD2595D00AE2CF4 /* GoogleSignInSwift in Frameworks */,
+				99D9AD192B4D11C70054C077 /* HotSwiftUI in Frameworks */,
 				99B4897C2AD246EE00AE2CF4 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				99B4897F2AD249F400AE2CF4 /* FirebaseAuth in Frameworks */,
 				99D9AD142B4CAABE0054C077 /* Inject in Frameworks */,
@@ -186,6 +190,7 @@
 				99933E3E2B095DCF008AB97C /* SectionRowView.swift */,
 				99933E422B09F26D008AB97C /* SectionEditView.swift */,
 				99933E402B09DC34008AB97C /* CompositionEditView.swift */,
+				99D9AD152B4D07BF0054C077 /* CompositionRowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 				99B4897E2AD249F400AE2CF4 /* FirebaseAuth */,
 				99B4898D2AD2595D00AE2CF4 /* GoogleSignInSwift */,
 				99D9AD132B4CAABE0054C077 /* Inject */,
+				99D9AD182B4D11C70054C077 /* HotSwiftUI */,
 			);
 			productName = Forte;
 			productReference = 99B489622AD2459900AE2CF4 /* Forte.app */;
@@ -245,6 +251,7 @@
 				99B4897A2AD246EE00AE2CF4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				99B4898C2AD2595D00AE2CF4 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				99D9AD122B4CAABE0054C077 /* XCRemoteSwiftPackageReference "Inject" */,
+				99D9AD172B4D11C70054C077 /* XCRemoteSwiftPackageReference "HotSwiftUI" */,
 			);
 			productRefGroup = 99B489632AD2459900AE2CF4 /* Products */;
 			projectDirPath = "";
@@ -295,6 +302,7 @@
 			files = (
 				99933E432B09F26D008AB97C /* SectionEditView.swift in Sources */,
 				9923D4BF2B0DA49D007987EB /* PassageListViewModel.swift in Sources */,
+				99D9AD162B4D07BF0054C077 /* CompositionRowView.swift in Sources */,
 				996F1D482B071F4D0048D9CC /* Ensemble+CoreDataClass.swift in Sources */,
 				996F1D4A2B071F4D0048D9CC /* Repertoire+CoreDataClass.swift in Sources */,
 				99933E392B089E46008AB97C /* Composition+CoreDataClass.swift in Sources */,
@@ -555,6 +563,14 @@
 				minimumVersion = 1.2.4;
 			};
 		};
+		99D9AD172B4D11C70054C077 /* XCRemoteSwiftPackageReference "HotSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/johnno1962/HotSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.7;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -577,6 +593,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 99D9AD122B4CAABE0054C077 /* XCRemoteSwiftPackageReference "Inject" */;
 			productName = Inject;
+		};
+		99D9AD182B4D11C70054C077 /* HotSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99D9AD172B4D11C70054C077 /* XCRemoteSwiftPackageReference "HotSwiftUI" */;
+			productName = HotSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 

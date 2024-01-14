@@ -83,6 +83,30 @@ class DataManager: NSObject, ObservableObject {
         save()
     }
     
+    func updatePiece(for state: CompositionEditState) {
+        // TODO: Implement similar to updatePassage()
+        
+        let piece = fetchComposition(for: state.id!)
+        
+        let mirror = Mirror(reflecting: state)
+        for (compProp, compVal) in mirror.children {
+            piece.setValue(compVal, forKeyPath: compProp!)
+        }
+        save()
+    }
+    
+    func fetchComposition(for id: UUID) -> Composition {
+        let request: NSFetchRequest<Composition> = Composition.fetchRequest()
+        request.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+        var res: [Composition] = []
+        do {
+            res = try container.viewContext.fetch(request)
+        } catch let error {
+            print("Error fetching piece: \(error)")
+        }
+        return res[0]
+    }
+    
     func pieces(ensemble: Ensemble) -> [Composition] {
         let request: NSFetchRequest<Composition> = Composition.fetchRequest()
         request.predicate = NSPredicate(format: "ensemble = %@", ensemble)
