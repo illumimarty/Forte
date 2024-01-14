@@ -7,6 +7,7 @@
 
 import SwiftUI
 import HotSwiftUI
+import Inject
 
 struct EnsembleView: View {
     
@@ -24,14 +25,32 @@ struct EnsembleView: View {
                     Button("Cancel", role: .cancel) { }
                 }
                 List {
-                    ForEach(viewModel.groups) { group in
-//                        Section {
+                    ForEach(Array(viewModel.groups.enumerated()), id: \.1) { index, group in
                             NavigationLink {
                                 CompositionView(for: group)
                             } label: {
-                                Text(group.name ?? "unknown group")
-                                    .font(.title3)
-                                    .padding(.vertical)
+                                EnsembleRowView(ensemble: group)
+                                    .onDisappear(perform: viewModel.loadEnsembleList)
+                            }
+                            .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
+                                Button(role: .destructive) {
+                                    let idx = IndexSet(integer: index)
+                                    viewModel.removeEnsemble(at: idx)
+                                    print("Deleting...")
+                                } label: {
+                                    Label("Delete", systemImage: "trash.fill")
+                                }
+                            })
+                            .swipeActions(allowsFullSwipe: true) {
+                                NavigationLink {
+                                    EnsembleEditView(for: group)
+                                        .onDisappear(perform: {
+                                            viewModel.loadEnsembleList()
+                                        })
+                                } label: {
+                                    Label("Edit", systemImage: "square.and.pencil")
+                                }
+                                .tint(.yellow)
                             }
                     }
                     .onDelete(perform: viewModel.removeEnsemble)

@@ -41,6 +41,9 @@
 		99B489942AD27F5600AE2CF4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489932AD27F5600AE2CF4 /* HomeView.swift */; };
 		99B489962AD27F6D00AE2CF4 /* EnsembleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */; };
 		99C2E6C02B014DF600E6F838 /* CompositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C2E6BF2B014DF600E6F838 /* CompositionView.swift */; };
+		99CDE9042B53B26A0067F977 /* EnsembleEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CDE9032B53B26A0067F977 /* EnsembleEditView.swift */; };
+		99CDE9062B53B39F0067F977 /* EnsembleEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CDE9052B53B39F0067F977 /* EnsembleEditViewModel.swift */; };
+		99CDE9082B53B87B0067F977 /* EnsembleRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CDE9072B53B87B0067F977 /* EnsembleRowView.swift */; };
 		99D9AD142B4CAABE0054C077 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 99D9AD132B4CAABE0054C077 /* Inject */; };
 		99D9AD162B4D07BF0054C077 /* CompositionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D9AD152B4D07BF0054C077 /* CompositionRowView.swift */; };
 		99D9AD192B4D11C70054C077 /* HotSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 99D9AD182B4D11C70054C077 /* HotSwiftUI */; };
@@ -80,6 +83,9 @@
 		99B489932AD27F5600AE2CF4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleView.swift; sourceTree = "<group>"; };
 		99C2E6BF2B014DF600E6F838 /* CompositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionView.swift; sourceTree = "<group>"; };
+		99CDE9032B53B26A0067F977 /* EnsembleEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleEditView.swift; sourceTree = "<group>"; };
+		99CDE9052B53B39F0067F977 /* EnsembleEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleEditViewModel.swift; sourceTree = "<group>"; };
+		99CDE9072B53B87B0067F977 /* EnsembleRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleRowView.swift; sourceTree = "<group>"; };
 		99D9AD152B4D07BF0054C077 /* CompositionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,6 +175,7 @@
 			children = (
 				99B4898A2AD2585400AE2CF4 /* AuthenticationViewModel.swift */,
 				9923D4C02B0DABDE007987EB /* CompositionListViewModel.swift */,
+				99CDE9052B53B39F0067F977 /* EnsembleEditViewModel.swift */,
 				9923D4BE2B0DA49D007987EB /* PassageListViewModel.swift */,
 				9923D4C22B0DB7F3007987EB /* EnsembleViewModel.swift */,
 				996D49552B0EDC7E00165F16 /* SectionEditViewModel.swift */,
@@ -186,11 +193,13 @@
 				99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */,
 				995964732AD39E10003EECAC /* SettingsView.swift */,
 				99C2E6BF2B014DF600E6F838 /* CompositionView.swift */,
+				99CDE9032B53B26A0067F977 /* EnsembleEditView.swift */,
 				99933E2F2B08967C008AB97C /* CompositionDetailsView.swift */,
 				99933E3E2B095DCF008AB97C /* SectionRowView.swift */,
 				99933E422B09F26D008AB97C /* SectionEditView.swift */,
 				99933E402B09DC34008AB97C /* CompositionEditView.swift */,
 				99D9AD152B4D07BF0054C077 /* CompositionRowView.swift */,
+				99CDE9072B53B87B0067F977 /* EnsembleRowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -314,9 +323,11 @@
 				99933E3F2B095DCF008AB97C /* SectionRowView.swift in Sources */,
 				9917066A2B0C82260041466E /* Passage+CoreDataClass.swift in Sources */,
 				99933E3A2B089E46008AB97C /* Composition+CoreDataProperties.swift in Sources */,
+				99CDE9082B53B87B0067F977 /* EnsembleRowView.swift in Sources */,
 				996D49562B0EDC7E00165F16 /* SectionEditViewModel.swift in Sources */,
 				99B489962AD27F6D00AE2CF4 /* EnsembleView.swift in Sources */,
 				9923D4C12B0DABDE007987EB /* CompositionListViewModel.swift in Sources */,
+				99CDE9042B53B26A0067F977 /* EnsembleEditView.swift in Sources */,
 				997C720F2B087556000F10BE /* DataManager.swift in Sources */,
 				99B489942AD27F5600AE2CF4 /* HomeView.swift in Sources */,
 				99933E302B08967C008AB97C /* CompositionDetailsView.swift in Sources */,
@@ -326,6 +337,7 @@
 				9923D4C32B0DB7F3007987EB /* EnsembleViewModel.swift in Sources */,
 				9959647C2AD3CB7B003EECAC /* Ensemble.xcdatamodeld in Sources */,
 				995964742AD39E10003EECAC /* SettingsView.swift in Sources */,
+				99CDE9062B53B39F0067F977 /* EnsembleEditViewModel.swift in Sources */,
 				996F1D492B071F4D0048D9CC /* Ensemble+CoreDataProperties.swift in Sources */,
 				99C2E6C02B014DF600E6F838 /* CompositionView.swift in Sources */,
 				99A825D12B3BEB0A00EF9982 /* CompositionEditViewModel.swift in Sources */,

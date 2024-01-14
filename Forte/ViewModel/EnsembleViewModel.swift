@@ -8,21 +8,43 @@
 import Foundation
 import CoreData
 import SwiftUI
+import Combine
 
 class EnsembleViewModel: ObservableObject {
 
     @Published private var dataManager: DataManager
     @Published var isAuthenticating = false
     @Published var chosenName = ""
+    
+//    private var cancellables: Set<AnyPublisher> = []
 
-    var groups: [Ensemble] {
-        get { dataManager.ensembles() }
-        set {}
-    }
+    var groups = [Ensemble]()
+//    var groups: [Ensemble] {
+//        get {
+//            dataManager.ensembles()
+//        }
+//        set {}
+//    }
     
     init(dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
+        
+//        self.observer = dataManager.getEnsemblesWithCombine()
+//            .sink(receiveCompletion: { completion in
+//                switch completion {
+//                case .finished:
+//                    print("Finished")
+//                case .failure(let err):
+//                    print(err)
+//                }
+//            }, receiveValue: { [weak self] value in
+//                self?.groups = value
+//            })
     }
+    
+//    private func setupSubscribers() {
+//        let contextPublisher = NotificationCen
+//    }
     
     func toggleAuthenticating() {
         isAuthenticating = !isAuthenticating
@@ -34,8 +56,8 @@ class EnsembleViewModel: ObservableObject {
         chosenName = ""
     }
     
-    func loadEnsembleList() -> [Ensemble] {
-        return dataManager.ensembles()
+    func loadEnsembleList() {
+        self.groups = dataManager.ensembles()
     }
     
     // ? - why delete from a set of indices than one index?

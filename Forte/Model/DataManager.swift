@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import Combine
 
 class DataManager: NSObject, ObservableObject {
     static let shared = DataManager()
@@ -47,6 +48,35 @@ class DataManager: NSObject, ObservableObject {
         ensemble.id = UUID()
         ensemble.name = "Test Ensemble"
         return ensemble
+    }
+    
+    func updateEnsemble(for state: EnsembleEditState) {        
+        let piece = fetchEnsemble(for: state.id!)
+        
+        let mirror = Mirror(reflecting: state)
+        for (compProp, compVal) in mirror.children {
+            piece.setValue(compVal, forKeyPath: compProp!)
+        }
+        save()
+    }
+    
+    func fetchEnsemble(for id: UUID) -> Ensemble {
+        let request: NSFetchRequest<Ensemble> = Ensemble.fetchRequest()
+        request.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+        var res: [Ensemble] = []
+        do {
+            res = try container.viewContext.fetch(request)
+        } catch let error {
+            print("Error fetching piece: \(error)")
+        }
+        return res[0]
+    }
+    
+    func getEnsemblesWithCombine() -> Future<[Ensemble], Error> {
+        return Future { promise in
+            let ensembles = self.ensembles()
+            promise(.success(ensembles))
+        }
     }
     
     func ensembles() -> [Ensemble] {
