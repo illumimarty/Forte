@@ -27,17 +27,11 @@ struct EnsembleView: View {
                 }
                 List {
 					ForEach(students) { student in
-//					ForEach(students.indices, id: \.self) { idx in
-//					ForEach(viewModel.groups.indices, id: \.self) { idx in
-//                    ForEach(Array(viewModel.groups.enumerated()), id: \.1) { index, group in
-                            NavigationLink {
-								CompositionView(for: student)
-//								CompositionView(for: viewModel.groups[idx])
-                            } label: {
-								EnsembleRowView(ensemble: student)
-//								EnsembleRowView(ensemble: viewModel.groups[idx])
-//                                    .onDisappear(perform: viewModel.loadEnsembleList)
-                            }
+						NavigationLink {
+							CompositionView(for: student)
+						} label: {
+							EnsembleRowView(ensemble: student)
+						}
 //                            .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
 //                                Button(role: .destructive) {
 //                                    let idx = IndexSet(integer: index)
@@ -47,18 +41,17 @@ struct EnsembleView: View {
 //                                    Label("Delete", systemImage: "trash.fill")
 //                                }
 //                            })
-                            .swipeActions(allowsFullSwipe: true) {
-                                NavigationLink {
-									EnsembleEditView(for: student)
-//									EnsembleEditView(for: viewModel.groups[idx])
-                                        .onDisappear(perform: {
-                                            viewModel.loadEnsembleList()
-                                        })
-                                } label: {
-                                    Label("Edit", systemImage: "square.and.pencil")
-                                }
-                                .tint(.yellow)
-                            }
+						.swipeActions(allowsFullSwipe: true) {
+							NavigationLink {
+								EnsembleEditView(for: student)
+									.onDisappear(perform: {
+										viewModel.loadEnsembleList()
+									})
+							} label: {
+								Label("Edit", systemImage: "square.and.pencil")
+							}
+							.tint(.yellow)
+						}
                     }
                     .onDelete(perform: viewModel.removeEnsemble)
                 }

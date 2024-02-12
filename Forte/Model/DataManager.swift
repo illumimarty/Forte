@@ -200,16 +200,13 @@ class DataManager: NSObject, ObservableObject {
         request.predicate = NSPredicate(format: "id = %@", id as CVarArg)
         request.fetchLimit = 1
         
-//        var res: [Composition] = []
         do {
             let result = try container.viewContext.fetch(request)
             return .success(result.first)
-//            res = try container.viewContext.fetch(request)
         } catch let error {
             print("Error fetching piece: \(error)")
             return .failure(error)
         }
-//        return res[0]
     }
     
     func pieces(ensemble: Ensemble) -> [Composition] {

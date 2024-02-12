@@ -12,19 +12,11 @@ import SwiftUI
 class CompositionListViewModel: ObservableObject {
 
     @Published private var dataManager: DataManager
-//	@Published var enumeratedPieces: Array<EnumeratedSequence<Composition>>
 	@Published var pieces: [Composition]
-//	{
-//		set {
-//			self.enumeratedPieces = Array(pieces.enumerated())
-//		}
-//	}
-    var group: Ensemble
 
+    var group: Ensemble
     var anyCancellable: AnyCancellable?
-    
-    // FIX: Composition details in list doesn't change asynchronously
-    
+        
     init(for ensemble: Ensemble, dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
 		self.group = ensemble

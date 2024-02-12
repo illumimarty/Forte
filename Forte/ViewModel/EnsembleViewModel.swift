@@ -19,7 +19,6 @@ class EnsembleViewModel: ObservableObject {
     var groups = [Ensemble]()
 	var anyCancellable: AnyCancellable?
 	
-    
     init(dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
         self.groups = dataManager.ensembles()

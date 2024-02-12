@@ -7,12 +7,8 @@
 
 import Foundation
 import SwiftUI
-//@_exported import Inject
-//@_exported import HotSwiftUI
 
 struct CompositionView: View {
-    
-//    @ObserveInjection var inject
     @ObservedObject var viewModel: CompositionListViewModel
     @State private var isShowingEditView: Bool = false
     
@@ -27,17 +23,11 @@ struct CompositionView: View {
             }
             .sheet(isPresented: $isShowingEditView) {
                 CompositionEditView(group: viewModel.group)
-//                CompositionEditView(for: viewModel.group)
-//                    .onDisappear(perform: {
-//                        viewModel.getPieces()
-//                    })
             }
             List {
 				ForEach(viewModel.pieces.indices, id:\.self) { idx in
-//                ForEach(viewModel.pieces) { piece in
                     NavigationLink {
 						CompositionDetailsView(for: viewModel.pieces[idx])
-                        
                     } label: {
 						CompositionRowView(piece: $viewModel.pieces[idx])
 //						CompositionRowView(pieces: viewModel.piece)
@@ -70,9 +60,6 @@ struct CompositionView: View {
 			.refreshable {
 				viewModel.getPieces()
 			}
-//            .onAppear(perform: {
-//                viewModel.getPieces()
-//            })
             .toolbar {
                 EditButton()
             }

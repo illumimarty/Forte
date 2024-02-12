@@ -51,7 +51,6 @@ struct CompositionEditView: View {
                     Button {
                         print("Saving Changes...")
                         viewModel.saveChanges()
-//                        viewModel.createComposition()
                         dismiss()
                         withAnimation {
                             viewModel.saveChanges()
