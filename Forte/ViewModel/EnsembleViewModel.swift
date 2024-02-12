@@ -15,36 +15,19 @@ class EnsembleViewModel: ObservableObject {
     @Published private var dataManager: DataManager
     @Published var isAuthenticating = false
     @Published var chosenName = ""
-    
-//    private var cancellables: Set<AnyPublisher> = []
 
     var groups = [Ensemble]()
-//    var groups: [Ensemble] {
-//        get {
-//            dataManager.ensembles()
-//        }
-//        set {}
-//    }
+	var anyCancellable: AnyCancellable?
+	
     
     init(dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
-        
-//        self.observer = dataManager.getEnsemblesWithCombine()
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished:
-//                    print("Finished")
-//                case .failure(let err):
-//                    print(err)
-//                }
-//            }, receiveValue: { [weak self] value in
-//                self?.groups = value
-//            })
+        self.groups = dataManager.ensembles()
+		
+		anyCancellable = dataManager.objectWillChange.sink { [weak self] (_) in
+			dataManager.objectWillChange.send()
+		}
     }
-    
-//    private func setupSubscribers() {
-//        let contextPublisher = NotificationCen
-//    }
     
     func toggleAuthenticating() {
         isAuthenticating = !isAuthenticating
@@ -53,10 +36,12 @@ class EnsembleViewModel: ObservableObject {
     func createEnsemble() {
         guard !(chosenName.isEmpty) else { return }
         dataManager.createEnsemble(for: chosenName)
+        self.loadEnsembleList()
         chosenName = ""
     }
     
     func loadEnsembleList() {
+		objectWillChange.send()
         self.groups = dataManager.ensembles()
     }
     
@@ -68,5 +53,21 @@ class EnsembleViewModel: ObservableObject {
             dataManager.deleteEnsemble(ensemble: group)
         }
         groups.remove(atOffsets: offsets)
+    }
+}
+
+extension Dictionary where Key == AnyHashable {
+    func value<T>(for key: NSManagedObjectContext.NotificationKey) -> T? {
+        return key.rawValue as? T
+    }
+}
+
+extension Notification {
+    var insertedObjects: Set<NSManagedObject>? {
+        return userInfo?.value(for: .insertedObjects)
+    }
+    
+    var updatedObjects: Set<NSManagedObject>? {
+        return userInfo?.value(for: .updatedObjects)
     }
 }

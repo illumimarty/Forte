@@ -7,7 +7,8 @@
 
 import Foundation
 import SwiftUI
-import Inject
+//@_exported import Inject
+//@_exported import HotSwiftUI
 
 struct CompositionView: View {
     
@@ -27,32 +28,35 @@ struct CompositionView: View {
             .sheet(isPresented: $isShowingEditView) {
                 CompositionEditView(group: viewModel.group)
 //                CompositionEditView(for: viewModel.group)
-                    .onDisappear(perform: {
-                        viewModel.getPieces()
-                    })
+//                    .onDisappear(perform: {
+//                        viewModel.getPieces()
+//                    })
             }
             List {
-                ForEach(Array(viewModel.pieces.enumerated()), id: \.1) { index, piece in
+				ForEach(viewModel.pieces.indices, id:\.self) { idx in
+//                ForEach(viewModel.pieces) { piece in
                     NavigationLink {
-                        CompositionDetailsView(for: piece)
+						CompositionDetailsView(for: viewModel.pieces[idx])
                         
                     } label: {
-                        CompositionRowView(piece: piece)
+						CompositionRowView(piece: $viewModel.pieces[idx])
+//						CompositionRowView(pieces: viewModel.piece)
                             .padding(.vertical, 2.0)
                     }
-                    .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
-                        Button(role: .destructive) {
-                            let idx = IndexSet(integer: index)
-                            viewModel.removePiece(at: idx)
-                            print("Deleting...")
-                        } label: {
-                            Label("Delete", systemImage: "trash.fill")
-                        }
-                    })
+//                    .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
+//                        Button(role: .destructive) {
+//                            let idx = IndexSet(integer: index)
+//                            viewModel.removePiece(at: idx)
+//                            print("Deleting...")
+//                        } label: {
+//                            Label("Delete", systemImage: "trash.fill")
+//                        }
+//                    })
                     .swipeActions(allowsFullSwipe: false) {
                         NavigationLink {
-                            CompositionEditView(for: piece, group: viewModel.group)
+							CompositionEditView(for: viewModel.pieces[idx], group: viewModel.group)
                                 .onDisappear(perform: {
+//                                    viewModel.saveData()
                                     viewModel.getPieces()
                                 })
                         } label: {
@@ -63,6 +67,12 @@ struct CompositionView: View {
                 }
                 .onDelete(perform: viewModel.removePiece)
             }
+			.refreshable {
+				viewModel.getPieces()
+			}
+//            .onAppear(perform: {
+//                viewModel.getPieces()
+//            })
             .toolbar {
                 EditButton()
             }
@@ -76,8 +86,8 @@ struct CompositionView: View {
     }
 
     #if DEBUG
-    @ObserveInjection var redraw
-    @ObserveInjection var inject
+//    @ObserveInjection var redraw
+//    @ObserveInjection var inject
 //    @ObservedObject private var iO = InjectionObserver
     #endif
 }

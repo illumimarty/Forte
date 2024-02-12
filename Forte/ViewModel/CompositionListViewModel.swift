@@ -12,7 +12,13 @@ import SwiftUI
 class CompositionListViewModel: ObservableObject {
 
     @Published private var dataManager: DataManager
-    @Published var pieces: [Composition]
+//	@Published var enumeratedPieces: Array<EnumeratedSequence<Composition>>
+	@Published var pieces: [Composition]
+//	{
+//		set {
+//			self.enumeratedPieces = Array(pieces.enumerated())
+//		}
+//	}
     var group: Ensemble
 
     var anyCancellable: AnyCancellable?
@@ -21,10 +27,10 @@ class CompositionListViewModel: ObservableObject {
     
     init(for ensemble: Ensemble, dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
+		self.group = ensemble
         self.pieces = dataManager.pieces(ensemble: ensemble)
-        self.group = ensemble
         
-        anyCancellable = dataManager.objectWillChange.sink { [weak self] (_) in
+		anyCancellable = self.dataManager.objectWillChange.sink { [weak self] (_) in
             self?.objectWillChange.send()
         }
     }
@@ -34,6 +40,10 @@ class CompositionListViewModel: ObservableObject {
      1. Fetch request piece
      
      */
+    
+    func saveData() {
+        dataManager.save()
+    }
     
     func getPieces() {
         self.pieces = dataManager.pieces(ensemble: group)

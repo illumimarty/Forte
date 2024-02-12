@@ -9,6 +9,18 @@ import Foundation
 import CoreData
 import Combine
 
+enum ChangeType {
+    case inserted, deleted, updated
+    
+    var userInfoKey: String {
+        switch self {
+        case .inserted: return NSInsertedObjectIDsKey
+        case .deleted: return NSDeletedObjectIDsKey
+        case .updated: return NSUpdatedObjectIDsKey
+        }
+    }
+}
+
 class DataManager: NSObject, ObservableObject {
     static let shared = DataManager()
   
@@ -20,7 +32,56 @@ class DataManager: NSObject, ObservableObject {
                 print("Core Data failed to load: \(error.localizedDescription)")
             }
         }
+        container.viewContext.automaticallyMergesChangesFromParent = true
     }
+    
+    /// Check if notification has a list of UPDATED objects from context
+    private func managedObject(with id: NSManagedObjectID, changeType: ChangeType, from notification: Notification, in context: NSManagedObjectContext) -> NSManagedObject? {
+        
+        guard let objects = notification.userInfo?[changeType.userInfoKey] as? Set<NSManagedObjectID>, objects.contains(id) else {
+            return nil
+        }
+        return context.object(with: id)
+    }
+    
+    /// By utilizing ChangeType, the publisher listens for different kind of changes in the MOC
+    func publisher<T: NSManagedObject>(for managedObject: T, in context: NSManagedObjectContext, changeTypes: [ChangeType]) -> AnyPublisher<(T?, ChangeType), Never> {
+        
+        // Create a notification observer to subscribe to changes in the MOC
+        let notification = NSManagedObjectContext.didMergeChangesObjectIDsNotification
+        
+        return NotificationCenter.default.publisher(for: notification, object: context)
+            .compactMap ({ notification in
+                for type in changeTypes {
+                    if let object = self.managedObject(with: managedObject.objectID, changeType: type, from: notification, in: context) as? T {
+                        return (object, type)
+                    }
+                }
+                return nil
+            })
+            .eraseToAnyPublisher()
+    }
+    
+//    func publisher<T: NSManagedObject>(for managedObject: T, in context: NSManagedObjectContext) -> AnyPublisher<T, Never> {
+//        
+//        // Create a notification observer to subscribe to changes in the MOC
+//        let notification = NSManagedObjectContext.didMergeChangesObjectIDsNotification
+//        
+//        return NotificationCenter.default.publisher(for: notification, object: context)
+//            .compactMap ({ notification in
+//                // Check if notification has a list of UPDATED objects from context
+//                if let updated = notification.userInfo?[NSUpdatedObjectIDsKey] as? Set<NSManagedObjectID>,
+//                   updated.contains(managedObject.objectID), // Check if the managed object, observed from the notification, exists in the updated list
+//                   let updatedObject = context.object(with: managedObject.objectID) as? T {
+//                    return updatedObject
+//                } else {
+//                    // No updates were observed from notification
+//                    return nil
+//                }
+//            })
+//            .eraseToAnyPublisher()
+//    }
+    
     
     func save() {
         let moc = container.viewContext
@@ -117,24 +178,38 @@ class DataManager: NSObject, ObservableObject {
         // TODO: Implement similar to updatePassage()
         
         let piece = fetchComposition(for: state.id!)
-        
-        let mirror = Mirror(reflecting: state)
-        for (compProp, compVal) in mirror.children {
-            piece.setValue(compVal, forKeyPath: compProp!)
+        switch piece {
+        case .success(let managedObject):
+            if let compositionManagedObject = managedObject {
+                let mirror = Mirror(reflecting: state)
+                for (compProp, compVal) in mirror.children {
+                    compositionManagedObject.setValue(compVal, forKeyPath: compProp!)
+                }
+				save()
+            } else {
+                
+            }
+        case .failure(_):
+            print("Couldn't fetch managed object for selected composition")
         }
-        save()
+        
     }
     
-    func fetchComposition(for id: UUID) -> Composition {
+    func fetchComposition(for id: UUID) -> Result<Composition?, Error> {
         let request: NSFetchRequest<Composition> = Composition.fetchRequest()
         request.predicate = NSPredicate(format: "id = %@", id as CVarArg)
-        var res: [Composition] = []
+        request.fetchLimit = 1
+        
+//        var res: [Composition] = []
         do {
-            res = try container.viewContext.fetch(request)
+            let result = try container.viewContext.fetch(request)
+            return .success(result.first)
+//            res = try container.viewContext.fetch(request)
         } catch let error {
             print("Error fetching piece: \(error)")
+            return .failure(error)
         }
-        return res[0]
+//        return res[0]
     }
     
     func pieces(ensemble: Ensemble) -> [Composition] {

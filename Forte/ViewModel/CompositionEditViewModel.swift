@@ -61,5 +61,6 @@ final class CompositionEditViewModel: StateBindingViewModel<CompositionEditState
             createComposition()
 //            createPassage()
         }
+		objectWillChange.send()
     }
 }

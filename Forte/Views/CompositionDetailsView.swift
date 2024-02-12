@@ -37,12 +37,16 @@ struct CompositionDetailsView: View {
                     NavigationLink {
                         SectionEditView(for: section, piece: passageViewModel.piece)
                     } label: {
-                        Text(section.name ?? "unknown passage")
+                        SectionRowView(passage: section)
+//                        Text(section.name ?? "unknown passage")
                     }
                 })
                 .onDelete(perform: passageViewModel.removePassage)
                 
             }
+			.refreshable {
+				passageViewModel.getPassages()
+			}
             .toolbar {
                 EditButton()
             }

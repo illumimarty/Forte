@@ -18,7 +18,7 @@ struct CompositionEditView: View {
     init(for piece: Composition? = nil, group: Ensemble) {
         if piece != nil {
             let state = CompositionEditState(piece)
-            self.title = piece?.name
+			self.title = state.name
             self.viewModel = CompositionEditViewModel(initialState: state)
         } else {
             let state = CompositionEditState(for: group)
@@ -53,6 +53,9 @@ struct CompositionEditView: View {
                         viewModel.saveChanges()
 //                        viewModel.createComposition()
                         dismiss()
+                        withAnimation {
+                            viewModel.saveChanges()
+                        }
                     } label: {
                         Text("Save Changes")
                             .frame(maxWidth: .infinity)

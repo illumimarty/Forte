@@ -33,5 +33,6 @@ class EnsembleEditViewModel: StateBindingViewModel<EnsembleEditState> {
     
     func saveChanges() {
         dataManager.updateEnsemble(for: self.state)
+        objectWillChange.send()
     }
 }

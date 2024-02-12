@@ -17,7 +17,7 @@ struct EnsembleEditView: View {
     init(for group: Ensemble? = nil) {
         let state = EnsembleEditState(group)
         self.title = "Edit Ensemble"
-        self.viewModel = EnsembleEditViewModel(initialState: state)
+		self.viewModel = EnsembleEditViewModel(initialState: state)
     }
     
     var body: some View {
@@ -43,6 +43,9 @@ struct EnsembleEditView: View {
                     print("Saving Changes...")
                     viewModel.saveChanges()
                     dismiss()
+					withAnimation {
+						viewModel.saveChanges()
+					}
                 } label: {
                     Text("Save Changes")
                         .frame(maxWidth: .infinity)

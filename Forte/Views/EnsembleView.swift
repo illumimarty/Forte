@@ -11,6 +11,7 @@ import Inject
 
 struct EnsembleView: View {
     
+	@FetchRequest(sortDescriptors: []) var students: FetchedResults<Ensemble>
     @StateObject var viewModel = EnsembleViewModel()
     
     var body: some View {
@@ -25,25 +26,31 @@ struct EnsembleView: View {
                     Button("Cancel", role: .cancel) { }
                 }
                 List {
-                    ForEach(Array(viewModel.groups.enumerated()), id: \.1) { index, group in
+					ForEach(students) { student in
+//					ForEach(students.indices, id: \.self) { idx in
+//					ForEach(viewModel.groups.indices, id: \.self) { idx in
+//                    ForEach(Array(viewModel.groups.enumerated()), id: \.1) { index, group in
                             NavigationLink {
-                                CompositionView(for: group)
+								CompositionView(for: student)
+//								CompositionView(for: viewModel.groups[idx])
                             } label: {
-                                EnsembleRowView(ensemble: group)
-                                    .onDisappear(perform: viewModel.loadEnsembleList)
+								EnsembleRowView(ensemble: student)
+//								EnsembleRowView(ensemble: viewModel.groups[idx])
+//                                    .onDisappear(perform: viewModel.loadEnsembleList)
                             }
-                            .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
-                                Button(role: .destructive) {
-                                    let idx = IndexSet(integer: index)
-                                    viewModel.removeEnsemble(at: idx)
-                                    print("Deleting...")
-                                } label: {
-                                    Label("Delete", systemImage: "trash.fill")
-                                }
-                            })
+//                            .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
+//                                Button(role: .destructive) {
+//                                    let idx = IndexSet(integer: index)
+//                                    viewModel.removeEnsemble(at: idx)
+//                                    print("Deleting...")
+//                                } label: {
+//                                    Label("Delete", systemImage: "trash.fill")
+//                                }
+//                            })
                             .swipeActions(allowsFullSwipe: true) {
                                 NavigationLink {
-                                    EnsembleEditView(for: group)
+									EnsembleEditView(for: student)
+//									EnsembleEditView(for: viewModel.groups[idx])
                                         .onDisappear(perform: {
                                             viewModel.loadEnsembleList()
                                         })
@@ -57,6 +64,9 @@ struct EnsembleView: View {
                 }
                 .toolbar {
                     EditButton()
+                }
+                .refreshable {
+                    viewModel.loadEnsembleList()
                 }
             }
             .navigationTitle("My Groups")
