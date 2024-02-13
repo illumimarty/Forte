@@ -52,9 +52,9 @@ struct CompositionEditView: View {
                         print("Saving Changes...")
                         viewModel.saveChanges()
                         dismiss()
-                        withAnimation {
-                            viewModel.saveChanges()
-                        }
+//                        withAnimation {
+//                            viewModel.saveChanges()
+//                        }
                     } label: {
                         Text("Save Changes")
                             .frame(maxWidth: .infinity)

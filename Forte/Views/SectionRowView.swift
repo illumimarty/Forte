@@ -24,12 +24,27 @@ struct SectionRowView: View {
 //        return "\(start) to \(end)"
 //    }()
     
+	let percentFormatter: NumberFormatter = {
+		let formatter = NumberFormatter()
+		formatter.numberStyle = .percent
+		formatter.zeroSymbol = ""
+		return formatter
+	}()
+	
     var body: some View {
-        VStack {
-            Text(passage.name ?? "unknown section")
-            Text("\(passage.startRehearsalMark ?? "??") to \(passage.endRehearsalMark ?? "??")")
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
+		HStack {
+			VStack {
+				Text(passage.name ?? "unknown section")
+					.frame(maxWidth: .infinity, alignment: .leading)
+				HStack {
+					Text("\(passage.startRehearsalMark ?? "??") to \(passage.endRehearsalMark ?? "??")")
+					//					.frame(maxWidth: 32, alignment: .leading)
+					Text("m\(String(describing:passage.startMeasure) ?? "??") to m\(String(describing: passage.endMeasure) ?? "??")")
+						.frame(maxWidth: .infinity, alignment: .leading)
+				}
+			}
+			Text("\(Int(passage.progressValue))%")
+		}
         .padding(.vertical, 8.0)
         .eraseToAnyView()
 //        .enableInjection()

@@ -7,6 +7,9 @@
 
 import Foundation
 import SwiftUI
+//import Inject
+@_exported import HotSwiftUI
+
 
 struct CompositionView: View {
     @ObservedObject var viewModel: CompositionListViewModel
@@ -30,23 +33,21 @@ struct CompositionView: View {
 						CompositionDetailsView(for: viewModel.pieces[idx])
                     } label: {
 						CompositionRowView(piece: $viewModel.pieces[idx])
-//						CompositionRowView(pieces: viewModel.piece)
                             .padding(.vertical, 2.0)
                     }
-//                    .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
-//                        Button(role: .destructive) {
-//                            let idx = IndexSet(integer: index)
-//                            viewModel.removePiece(at: idx)
-//                            print("Deleting...")
-//                        } label: {
-//                            Label("Delete", systemImage: "trash.fill")
-//                        }
-//                    })
+                    .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
+                        Button(role: .destructive) {
+                            let idx = IndexSet(integer: idx)
+                            viewModel.removePiece(at: idx)
+                            print("Deleting...")
+                        } label: {
+                            Label("Delete", systemImage: "trash.fill")
+                        }
+                    })
                     .swipeActions(allowsFullSwipe: false) {
                         NavigationLink {
 							CompositionEditView(for: viewModel.pieces[idx], group: viewModel.group)
                                 .onDisappear(perform: {
-//                                    viewModel.saveData()
                                     viewModel.getPieces()
                                 })
                         } label: {
@@ -70,11 +71,12 @@ struct CompositionView: View {
                 Text(viewModel.group.name ?? "unknown group").font(.headline)
             }
         }
+		.eraseToAnyView()
     }
 
     #if DEBUG
 //    @ObserveInjection var redraw
 //    @ObserveInjection var inject
-//    @ObservedObject private var iO = InjectionObserver
+    @ObservedObject var iO = injectionObserver
     #endif
 }

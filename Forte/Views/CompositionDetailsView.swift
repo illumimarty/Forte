@@ -7,6 +7,8 @@
 
 import Foundation
 import SwiftUI
+import Inject
+import HotSwiftUI
 
 struct CompositionDetailsView: View {
     
@@ -33,6 +35,17 @@ struct CompositionDetailsView: View {
                     })
             }
             List {
+				VStack {
+					Text(passageViewModel.piece.name ?? "test")
+						.font(.title)
+						.fontWeight(.semibold)
+						.frame(maxWidth: .infinity, alignment: .leading)
+					//					.padding(16.0)
+					Text(passageViewModel.piece.composer ?? "test")
+						.font(.headline)
+						.padding(EdgeInsets(top: 1.0, leading: 0.0, bottom: 8.0, trailing: 0.0))
+						.frame(maxWidth: .infinity, alignment: .leading)
+				}
                 ForEach(passageViewModel.passages, content: { section in
                     NavigationLink {
                         SectionEditView(for: section, piece: passageViewModel.piece)
@@ -44,18 +57,22 @@ struct CompositionDetailsView: View {
                 .onDelete(perform: passageViewModel.removePassage)
                 
             }
-			.refreshable {
-				passageViewModel.getPassages()
-			}
+			.listStyle(.inset)
             .toolbar {
                 EditButton()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text(passageViewModel.piece.name ?? "unknown").font(.headline)
-            }
+//            ToolbarItem(placement: .principal) {
+//                Text(passageViewModel.piece.name ?? "unknown").font(.headline)
+//            }
         }
+		.eraseToAnyView()
+//		.enableInjection()
+		
     }
+	#if DEBUG
+	@ObservedObject private var iO = injectionObserver
+	#endif
 }
