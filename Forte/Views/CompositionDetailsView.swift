@@ -18,22 +18,25 @@ struct CompositionDetailsView: View {
         self.passageViewModel = PassageListViewModel(for: piece)
     }
     
+	@State private var editMode: EditMode = .inactive
     @State private var chosenName = ""
     @State private var isShowingEditView: Bool = false
     @State private var isInitializingSection: Bool = false
 
     var body: some View {
         VStack {
-            Button("Add") {
-                isShowingEditView.toggle()
-                isInitializingSection.toggle()
-            }
-            .sheet(isPresented: $isShowingEditView) {
-                SectionEditView(piece: passageViewModel.piece)
-                    .onDisappear(perform: {
-                        passageViewModel.getPassages()
-                    })
-            }
+			if editMode == .active {
+				Button("Add") {
+					isShowingEditView.toggle()
+					isInitializingSection.toggle()
+				}
+				.sheet(isPresented: $isShowingEditView) {
+					SectionEditView(piece: passageViewModel.piece)
+						.onDisappear(perform: {
+							passageViewModel.getPassages()
+						})
+				}
+			}
             List {
 				VStack {
 					Text(passageViewModel.piece.name ?? "test")
@@ -42,8 +45,8 @@ struct CompositionDetailsView: View {
 						.frame(maxWidth: .infinity, alignment: .leading)
 					//					.padding(16.0)
 					Text(passageViewModel.piece.composer ?? "test")
-						.font(.headline)
-						.padding(EdgeInsets(top: 1.0, leading: 0.0, bottom: 8.0, trailing: 0.0))
+						.font(.title3)
+						.padding(EdgeInsets(top: 0.0, leading: 0.0, bottom: 8.0, trailing: 0.0))
 						.frame(maxWidth: .infinity, alignment: .leading)
 				}
                 ForEach(passageViewModel.passages, content: { section in
@@ -62,6 +65,7 @@ struct CompositionDetailsView: View {
                 EditButton()
             }
         }
+		.environment(\.editMode, $editMode)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
 //            ToolbarItem(placement: .principal) {

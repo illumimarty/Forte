@@ -23,7 +23,12 @@ struct MainTabView: View {
                     Label("Settings", systemImage: "gearshape")
                 }
         }
+//        .enableInjection()
     }
+
+    #if DEBUG
+    @ObserveInjection var forceRedraw
+    #endif
 }
 
 struct MainTabView_Previews: PreviewProvider {

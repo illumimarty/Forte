@@ -23,5 +23,10 @@ struct EnsembleRowView: View {
         }
         .padding(.vertical, 8.0)
         .eraseToAnyView()
+//        .enableInjection()
     }
+
+    #if DEBUG
+    @ObserveInjection var forceRedraw
+    #endif
 }

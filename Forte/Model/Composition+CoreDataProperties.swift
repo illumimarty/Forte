@@ -45,3 +45,15 @@ extension Composition {
 extension Composition: Identifiable {
 
 }
+
+extension Composition {
+	var viewModel: CompositionVM {
+		.init(name: name ?? "Composition Name", composer: composer ?? "Composer", recordingLink: recordingLink ?? "Insert Link Here")
+	}
+}
+
+struct CompositionVM {
+	var name: String?
+	var composer: String?
+	var recordingLink: String?
+}

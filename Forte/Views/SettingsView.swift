@@ -20,7 +20,12 @@ struct SettingsView: View {
                 Text("Sign Out")
             }
         }
+//        .enableInjection()
     }
+
+    #if DEBUG
+    @ObserveInjection var forceRedraw
+    #endif
 }
 
 struct SettingsView_Previews: PreviewProvider {

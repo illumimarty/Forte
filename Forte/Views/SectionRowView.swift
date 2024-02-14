@@ -36,10 +36,11 @@ struct SectionRowView: View {
 			VStack {
 				Text(passage.name ?? "unknown section")
 					.frame(maxWidth: .infinity, alignment: .leading)
+					.fontWeight(.semibold)
 				HStack {
 					Text("\(passage.startRehearsalMark ?? "??") to \(passage.endRehearsalMark ?? "??")")
 					//					.frame(maxWidth: 32, alignment: .leading)
-					Text("m\(String(describing:passage.startMeasure) ?? "??") to m\(String(describing: passage.endMeasure) ?? "??")")
+					Text("m.\(String(describing:passage.startMeasure) ?? "??") to m.\(String(describing: passage.endMeasure) ?? "??")")
 						.frame(maxWidth: .infinity, alignment: .leading)
 				}
 			}

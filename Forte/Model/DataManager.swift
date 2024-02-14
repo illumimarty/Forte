@@ -62,27 +62,6 @@ class DataManager: NSObject, ObservableObject {
             .eraseToAnyPublisher()
     }
     
-//    func publisher<T: NSManagedObject>(for managedObject: T, in context: NSManagedObjectContext) -> AnyPublisher<T, Never> {
-//        
-//        // Create a notification observer to subscribe to changes in the MOC
-//        let notification = NSManagedObjectContext.didMergeChangesObjectIDsNotification
-//        
-//        return NotificationCenter.default.publisher(for: notification, object: context)
-//            .compactMap ({ notification in
-//                // Check if notification has a list of UPDATED objects from context
-//                if let updated = notification.userInfo?[NSUpdatedObjectIDsKey] as? Set<NSManagedObjectID>,
-//                   updated.contains(managedObject.objectID), // Check if the managed object, observed from the notification, exists in the updated list
-//                   let updatedObject = context.object(with: managedObject.objectID) as? T {
-//                    return updatedObject
-//                } else {
-//                    // No updates were observed from notification
-//                    return nil
-//                }
-//            })
-//            .eraseToAnyPublisher()
-//    }
-    
-    
     func save() {
         let moc = container.viewContext
         if moc.hasChanges {
