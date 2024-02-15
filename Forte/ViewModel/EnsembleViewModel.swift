@@ -53,6 +53,10 @@ class EnsembleViewModel: ObservableObject {
         }
         groups.remove(atOffsets: offsets)
     }
+	
+	func removeEnsemble(_ group: Ensemble) {
+		dataManager.deleteEnsemble(ensemble: group)
+	}
 }
 
 extension Dictionary where Key == AnyHashable {

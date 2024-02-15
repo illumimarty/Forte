@@ -11,61 +11,41 @@ import Inject
 
 struct EnsembleView: View {
     
-	@FetchRequest(sortDescriptors: []) var students: FetchedResults<Ensemble>
+	@FetchRequest(sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]) var students: FetchedResults<Ensemble>
     @StateObject var viewModel = EnsembleViewModel()
+	@State private var willDelete = false
+	@State private var isEditing = false
+	@State private var selectedItem: Ensemble?
     
     var body: some View {
         NavigationStack {
-            VStack {
-                Button("Add") {
-                    viewModel.toggleAuthenticating()
-                }
-                .alert("Enter group name", isPresented: $viewModel.isAuthenticating) {
-                    TextField("London Symphony Orchestra", text: $viewModel.chosenName)
-                    Button("OK", action: viewModel.createEnsemble)
-                    Button("Cancel", role: .cancel) { }
-                }
-                List {
-					ForEach(students) { student in
-						NavigationLink {
-							CompositionView(for: student)
-						} label: {
-							EnsembleRowView(ensemble: student)
+			ScrollView {
+				LazyVStack {
+					if isEditing {
+						Button("Add") {
+							viewModel.toggleAuthenticating()
 						}
-//                            .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
-//                                Button(role: .destructive) {
-//                                    let idx = IndexSet(integer: index)
-//                                    viewModel.removeEnsemble(at: idx)
-//                                    print("Deleting...")
-//                                } label: {
-//                                    Label("Delete", systemImage: "trash.fill")
-//                                }
-//                            })
-						.swipeActions(allowsFullSwipe: true) {
-							NavigationLink {
-								EnsembleEditView(for: student)
-									.onDisappear(perform: {
-										viewModel.loadEnsembleList()
-									})
-							} label: {
-								Label("Edit", systemImage: "square.and.pencil")
-							}
-							.tint(.yellow)
+						.alert("Enter group name", isPresented: $viewModel.isAuthenticating) {
+							TextField("London Symphony Orchestra", text: $viewModel.chosenName)
+							Button("OK", action: viewModel.createEnsemble)
+							Button("Cancel", role: .cancel) { }
 						}
-                    }
-                    .onDelete(perform: viewModel.removeEnsemble)
-                }
-                .toolbar {
-                    EditButton()
-                }
-                .refreshable {
-                    viewModel.loadEnsembleList()
-                }
-            }
+					}
+					ForEach(students, id: \.self) { group in
+						EnsembleRowView(ensemble: group, isEditing: $isEditing)
+					}
+				}
+			}
             .navigationTitle("My Groups")
             .navigationBarTitleDisplayMode(.large)
+			.toolbar {
+				ToolbarItemGroup(placement: .topBarTrailing) {
+					EditButton().simultaneousGesture(TapGesture().onEnded({ _ in
+						isEditing.toggle()
+					}))
+				}
+			}
         }
-
         .eraseToAnyView()
     }
     #if DEBUG
