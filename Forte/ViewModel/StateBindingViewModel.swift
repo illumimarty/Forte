@@ -9,8 +9,12 @@ import Foundation
 import SwiftUI
 
 open class StateBindingViewModel<State: Equatable>: ObservableObject {
-    /// Defines the state to be represented by the view.
-    @Published internal private(set) var state: State
+	/// Defines the state to be represented by the view.
+	@Published internal private(set) var state: State {
+		willSet {
+			objectWillChange.send()
+		}
+	}
     /// Initializes the ViewModel with the first / initial state for the flow.
     /// - Parameter initialState: the initial state of the flow.
     public init(initialState: State) {

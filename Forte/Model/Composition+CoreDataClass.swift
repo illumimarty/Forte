@@ -11,5 +11,7 @@ import CoreData
 
 @objc(Composition)
 public class Composition: NSManagedObject {
-
+	var compositionId: String {
+		"composition-\(self.id!)"
+	}
 }

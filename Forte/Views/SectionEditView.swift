@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
-@_exported import Inject
+//@_exported import Inject
+//import HotSwiftUI
 
 struct SectionEditView: View {
     
-    @ObserveInjection var forceRedraw
+//    @ObserveInjection var forceRedraw
     @ObservedObject var viewModel: SectionEditViewModel
     @Environment(\.dismiss) var dismiss
     private var title: String?
@@ -42,64 +43,63 @@ struct SectionEditView: View {
     }()
     
     var body: some View {
-        NavigationView {
-            VStack {
-                Form {
-                    Section("Notes") {
-                        TextField("Section Name", text: viewModel.binding(\.name))
-                        TextField("Description", text: viewModel.binding(\.notes))
-                    }
-                    Section("Rehearsal Marks") {
-                        HStack {
-                            TextField("Start", text: viewModel.binding(\.startRehearsalMark))
+        VStack {
+            Form {
+                Section("Notes") {
+                    TextField("Section Name", text: viewModel.binding(\.name))
+                    TextField("Description", text: viewModel.binding(\.notes))
+                }
+                Section("Rehearsal Marks") {
+                    HStack {
+                        TextField("Start", text: viewModel.binding(\.startRehearsalMark))
 
-                            TextField("End", text: viewModel.binding(\.endRehearsalMark))
-                        }
-                    }
-                    Section("Measure Numbers") {
-                        HStack {
-                            TextField("Start", value: $viewModel.startMeasure, formatter: measureFormatter)
-                           TextField("End", value: $viewModel.endMeasure, formatter: measureFormatter)
-                        }
-                    }
-                    Section("Progress") {
-                        VStack {
-                            Text("\(viewModel.progressValue, format: .percent)")
-                            Slider(value: $viewModel.progressValue, in: 0...1, step: 0.01)
-                            .padding()
-                        }
+                        TextField("End", text: viewModel.binding(\.endRehearsalMark))
                     }
                 }
-                
-                HStack {
-                    Button {
-//                        viewModel.isPresenting = false
-//                        isPresenting = false
-                        dismiss()
-                    } label: {
-                        Text("Cancel")
-                            .frame(maxWidth: .infinity)
+                Section("Measure Numbers") {
+                    HStack {
+                        TextField("Start", value: $viewModel.startMeasure, formatter: measureFormatter)
+                       TextField("End", value: $viewModel.endMeasure, formatter: measureFormatter)
                     }
-                    .padding()
-                    .buttonStyle(.bordered)
-                    .controlSize(.large)
-
-                    Button {
-                        print("Saving Changes...")
-                        viewModel.saveChanges()
-                        dismiss()
-                    } label: {
-                        Text("Save Changes")
-                            .frame(maxWidth: .infinity)
+                }
+                Section("Progress") {
+                    VStack {
+                        Text("\(viewModel.progressValue, format: .percent)")
+                        Slider(value: $viewModel.progressValue, in: 0...1, step: 0.01)
+                        .padding()
                     }
-                    .padding()
-                    .buttonStyle(.borderedProminent)
-                    .controlSize(.large)
                 }
             }
-            .navigationTitle(self.title ?? "")
+            
+            HStack {
+                Button {
+//                        viewModel.isPresenting = false
+//                        isPresenting = false
+                    dismiss()
+                } label: {
+                    Text("Cancel")
+                        .frame(maxWidth: .infinity)
+                }
+                .padding()
+                .buttonStyle(.bordered)
+                .controlSize(.large)
+
+                Button {
+                    print("Saving Changes...")
+                    viewModel.saveChanges()
+                    dismiss()
+                } label: {
+                    Text("Save Changes")
+                        .frame(maxWidth: .infinity)
+                }
+                .padding()
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+            }
         }
-        .enableInjection()
+        .navigationTitle(self.title ?? "")
+        .toolbar(.hidden, for: .tabBar)
+        .eraseToAnyView()
     }
 }
 
@@ -108,5 +108,6 @@ struct SectionEditView_Previews: PreviewProvider {
         let piece = Composition(context: DataManager.shared.container.viewContext)
         let section = Passage(context: DataManager.shared.container.viewContext)
         SectionEditView(for: section, piece: piece)
+		
     }
 }

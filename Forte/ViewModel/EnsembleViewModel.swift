@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 import SwiftUI
+import Combine
 
 class EnsembleViewModel: ObservableObject {
 
@@ -15,13 +16,16 @@ class EnsembleViewModel: ObservableObject {
     @Published var isAuthenticating = false
     @Published var chosenName = ""
 
-    var groups: [Ensemble] {
-        get { dataManager.ensembles() }
-        set {}
-    }
-    
+    var groups = [Ensemble]()
+	var anyCancellable: AnyCancellable?
+	
     init(dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
+        self.groups = dataManager.ensembles()
+		
+		anyCancellable = dataManager.objectWillChange.sink { [weak self] (_) in
+			dataManager.objectWillChange.send()
+		}
     }
     
     func toggleAuthenticating() {
@@ -31,11 +35,13 @@ class EnsembleViewModel: ObservableObject {
     func createEnsemble() {
         guard !(chosenName.isEmpty) else { return }
         dataManager.createEnsemble(for: chosenName)
+        self.loadEnsembleList()
         chosenName = ""
     }
     
-    func loadEnsembleList() -> [Ensemble] {
-        return dataManager.ensembles()
+    func loadEnsembleList() {
+		objectWillChange.send()
+        self.groups = dataManager.ensembles()
     }
     
     // ? - why delete from a set of indices than one index?
@@ -46,5 +52,25 @@ class EnsembleViewModel: ObservableObject {
             dataManager.deleteEnsemble(ensemble: group)
         }
         groups.remove(atOffsets: offsets)
+    }
+	
+	func removeEnsemble(_ group: Ensemble) {
+		dataManager.deleteEnsemble(ensemble: group)
+	}
+}
+
+extension Dictionary where Key == AnyHashable {
+    func value<T>(for key: NSManagedObjectContext.NotificationKey) -> T? {
+        return key.rawValue as? T
+    }
+}
+
+extension Notification {
+    var insertedObjects: Set<NSManagedObject>? {
+        return userInfo?.value(for: .insertedObjects)
+    }
+    
+    var updatedObjects: Set<NSManagedObject>? {
+        return userInfo?.value(for: .updatedObjects)
     }
 }
