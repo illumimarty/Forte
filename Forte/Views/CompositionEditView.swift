@@ -15,7 +15,7 @@ struct CompositionEditView: View {
     @Environment(\.dismiss) var dismiss
     private var title: String?
     
-    init(for piece: Composition? = nil, group: Ensemble) {
+    init(for piece: Composition? = nil, group: Ensemble? = nil) {
         if piece != nil {
             let state = CompositionEditState(piece)
 			self.title = state.name

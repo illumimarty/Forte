@@ -78,11 +78,10 @@ struct CompositionView: View {
 			})
 			.padding(24)
 		}
-		.environment(\.editMode, $editMode)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
 			ToolbarItemGroup(placement: .topBarTrailing) {
-				if isEditing {
+				if editMode == .active {
 					Button {
 						isShowingEditView.toggle()
 					} label: {
@@ -105,6 +104,7 @@ struct CompositionView: View {
 				}))
 			}
         }
+		.environment(\.editMode, $editMode)
 		.eraseToAnyView()
     }
 	
