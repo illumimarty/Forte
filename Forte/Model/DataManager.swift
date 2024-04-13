@@ -77,21 +77,69 @@ class DataManager: NSObject, ObservableObject {
         ensemble.addToPieces(piece)
         save()
     }
-    
-    func pieces(ensemble: Ensemble) -> [Composition] {
-        let request: NSFetchRequest<Composition> = Composition.fetchRequest()
-        request.predicate = NSPredicate(format: "ensemble = %@", ensemble)
-        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-        var fetchedPieces: [Composition] = []
-        
-        do {
-            fetchedPieces = try container.viewContext.fetch(request)
-        } catch let error {
-            print("Error fetching pieces: \(error)")
-        }
-        
-        return fetchedPieces
-    }
+  
+	
+	func pieces(ensemble: Ensemble) -> [CompositionRowViewModel] {
+		let request: NSFetchRequest<Composition> = Composition.fetchRequest()
+		request.predicate = NSPredicate(format: "ensemble = %@", ensemble)
+		request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+//		var fetchedPieces: [Composition] = []
+		
+		do {
+			let fetchedPieces = try container.viewContext.fetch(request)
+			let results = fetchedPieces.map(CompositionRowViewModel.init)
+			return results
+		} catch let error {
+			print("Error fetching pieces: \(error)")
+		}
+		
+		return []
+	}
+	
+	func getProgress(for piece: Composition) -> Int {
+		let keypathExp = NSExpression(forKeyPath: "progressValue")
+		let expression = NSExpression(forFunction: "average:", arguments: [keypathExp])
+		let avgDesc = NSExpressionDescription()
+		avgDesc.expression = expression
+		avgDesc.name = "avg"
+		avgDesc.expressionResultType = .floatAttributeType
+		
+		let request: NSFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Passage")
+		request.predicate = NSPredicate(format: "piece = %@", piece)
+		request.returnsObjectsAsFaults = false
+		request.propertiesToFetch = [avgDesc]
+		request.resultType = .dictionaryResultType
+		
+		do {
+			let dictionary = try container.viewContext.fetch(request)
+			let contents = dictionary[0] as? [String: Any]
+			for res in contents! {
+				let val = res.value as? Double
+				//				piece.setProgress(to: Int(round(val!)))
+				//				updatePieceProgress(for: piece, Int(round(val!)))
+				return Int(round(val!))
+			}
+		} catch let error {
+			print("Error fetching piece: \(error)")
+			return -1
+		}
+		return -1
+	}
+	
+//    func pieces(ensemble: Ensemble) -> [Composition] {
+//        let request: NSFetchRequest<Composition> = Composition.fetchRequest()
+//        request.predicate = NSPredicate(format: "ensemble = %@", ensemble)
+//        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+//        var fetchedPieces: [Composition] = []
+//        
+//        do {
+//            fetchedPieces = try container.viewContext.fetch(request)
+//        } catch let error {
+//            print("Error fetching pieces: \(error)")
+//        }
+//        
+//        return fetchedPieces
+//    }
     
     func deletePiece(piece: Composition) {
         let moc = container.viewContext

@@ -42,6 +42,9 @@
 		99B489922AD27EED00AE2CF4 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489912AD27EEC00AE2CF4 /* MainTabView.swift */; };
 		99B489942AD27F5600AE2CF4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489932AD27F5600AE2CF4 /* HomeView.swift */; };
 		99B489962AD27F6D00AE2CF4 /* EnsembleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */; };
+		99BE1FAF2BCB164C00F5AE7D /* CompositionRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BE1FAE2BCB164C00F5AE7D /* CompositionRowViewModel.swift */; };
+		99BE1FB12BCB179A00F5AE7D /* CompositionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BE1FB02BCB179A00F5AE7D /* CompositionRowView.swift */; };
+		99BE1FB32BCB219300F5AE7D /* CompositionViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BE1FB22BCB219300F5AE7D /* CompositionViewBuilder.swift */; };
 		99C2E6C02B014DF600E6F838 /* CompositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C2E6BF2B014DF600E6F838 /* CompositionView.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +83,9 @@
 		99B489912AD27EEC00AE2CF4 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		99B489932AD27F5600AE2CF4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleView.swift; sourceTree = "<group>"; };
+		99BE1FAE2BCB164C00F5AE7D /* CompositionRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompositionRowViewModel.swift; path = Forte/Composition/CompositionRowViewModel.swift; sourceTree = "<group>"; };
+		99BE1FB02BCB179A00F5AE7D /* CompositionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRowView.swift; sourceTree = "<group>"; };
+		99BE1FB22BCB219300F5AE7D /* CompositionViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionViewBuilder.swift; sourceTree = "<group>"; };
 		99C2E6BF2B014DF600E6F838 /* CompositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +112,8 @@
 				99933E2F2B08967C008AB97C /* CompositionDetailsView.swift */,
 				99933E402B09DC34008AB97C /* CompositionEditView.swift */,
 				9923D4C02B0DABDE007987EB /* CompositionListViewModel.swift */,
+				99BE1FB02BCB179A00F5AE7D /* CompositionRowView.swift */,
+				99BE1FB22BCB219300F5AE7D /* CompositionViewBuilder.swift */,
 			);
 			path = Composition;
 			sourceTree = "<group>";
@@ -139,6 +147,7 @@
 		99B489592AD2459900AE2CF4 = {
 			isa = PBXGroup;
 			children = (
+				99BE1FAE2BCB164C00F5AE7D /* CompositionRowViewModel.swift */,
 				99A825D02B3BEB0A00EF9982 /* CompositionEditViewModel.swift */,
 				99B489642AD2459900AE2CF4 /* Forte */,
 				99B489632AD2459900AE2CF4 /* Products */,
@@ -312,6 +321,7 @@
 				99933E3F2B095DCF008AB97C /* SectionRowView.swift in Sources */,
 				9917066A2B0C82260041466E /* Passage+CoreDataClass.swift in Sources */,
 				99933E3A2B089E46008AB97C /* Composition+CoreDataProperties.swift in Sources */,
+				99BE1FAF2BCB164C00F5AE7D /* CompositionRowViewModel.swift in Sources */,
 				996D49562B0EDC7E00165F16 /* SectionEditViewModel.swift in Sources */,
 				99B489962AD27F6D00AE2CF4 /* EnsembleView.swift in Sources */,
 				993392DA2BCB01EF005ADF0E /* EnsembleRowViewModel.swift in Sources */,
@@ -323,10 +333,12 @@
 				99B489662AD2459900AE2CF4 /* ForteApp.swift in Sources */,
 				99B489922AD27EED00AE2CF4 /* MainTabView.swift in Sources */,
 				9923D4C32B0DB7F3007987EB /* EnsembleViewModel.swift in Sources */,
+				99BE1FB12BCB179A00F5AE7D /* CompositionRowView.swift in Sources */,
 				9959647C2AD3CB7B003EECAC /* Ensemble.xcdatamodeld in Sources */,
 				995964742AD39E10003EECAC /* SettingsView.swift in Sources */,
 				996F1D492B071F4D0048D9CC /* Ensemble+CoreDataProperties.swift in Sources */,
 				99C2E6C02B014DF600E6F838 /* CompositionView.swift in Sources */,
+				99BE1FB32BCB219300F5AE7D /* CompositionViewBuilder.swift in Sources */,
 				99A825D12B3BEB0A00EF9982 /* CompositionEditViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -30,5 +30,16 @@ class EnsembleRowViewModel: Identifiable, ObservableObject {
 		dataManager.deleteEnsemble(ensemble: ensemble)
 	}
 	
+	func getEnsemble() -> Ensemble {
+		return ensemble
+	}
 	
+	
+	
+}
+
+extension EnsembleRowViewModel {
+	var compositionView: some View {
+		return CompositionViewBuilder.makeCompositionView(for: ensemble)
+	}
 }

@@ -30,16 +30,7 @@ struct EnsembleRowView: View {
 				}
 				.padding(16)
 			}
-			NavigationLink {
-				Text("Hello world")
-
-//				rowViewModel.createCompositionView()
-				
-				
-				
-				//				rowViewModel.compositionView
-				//				CompositionView(for: ensemble)
-			} label: {
+			NavigationLink(destination: rowViewModel.compositionView) {
 				GroupBox {
 					VStack {
 						Text(rowViewModel.name).font(.title3)
