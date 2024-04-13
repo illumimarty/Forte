@@ -63,12 +63,13 @@ struct CompositionDetailsView: View {
 								Image(systemName: "plus.app")
 							}
 							//TODO: Implement to change progress value
-//							.sheet(isPresented: $viewModel.isInitializingSection, content: {
-//								SectionEditView(piece: viewModel.piece)
-//									.onDisappear(perform: {
-//										viewModel.getPassages()
-//									})
-//							})
+							.sheet(isPresented: $viewModel.isInitializingSection, content: {
+//								SectionEditView(for: viewModel.piece)
+								SectionEditView(piece: viewModel.piece)
+									.onDisappear(perform: {
+										viewModel.getPassages()
+									})
+							})
 						}
 						EditButton()
 					}

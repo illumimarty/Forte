@@ -36,7 +36,7 @@ struct PassageRowView: View {
 //	}()
 	
 	var body: some View {
-		NavigationLink(destination: Text("Hello world")) {
+		NavigationLink(destination: SectionEditView(for: rowViewModel.getPassage(), piece: mainViewModel.piece)) {
 			HStack {
 				VStack {
 					Text(rowViewModel.name)

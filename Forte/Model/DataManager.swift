@@ -161,6 +161,29 @@ class DataManager: NSObject, ObservableObject {
         piece.addToSection(section)
         save()
     }
+	
+	func fetchPassage(for id: UUID) -> Passage {
+		let request: NSFetchRequest<Passage> = Passage.fetchRequest()
+		request.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+		var res: [Passage] = []
+		do {
+			res = try container.viewContext.fetch(request)
+		} catch let error {
+			print("Error fetching piece: \(error)")
+		}
+		return res[0]
+	}
+	
+	func updatePassage(for state: SectionEditState) {
+		let section = fetchPassage(for: state.id!)
+		
+		let mirror = Mirror(reflecting: state)
+		for (compProp, compVal) in mirror.children {
+			section.setValue(compVal, forKeyPath: compProp!)
+		}
+		save()
+	}
+	
     
     func passage(piece: Composition) -> PassageRowViewModel {
         let section = Passage(context: container.viewContext)
