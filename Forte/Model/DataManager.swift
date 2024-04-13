@@ -42,17 +42,19 @@ class DataManager: NSObject, ObservableObject {
         save()
     }
     
-    func ensembles() -> [Ensemble] {
+    func ensembles() -> [EnsembleRowViewModel] {
         let request: NSFetchRequest<Ensemble> = Ensemble.fetchRequest()
-        var fetchedEnsembles: [Ensemble] = []
+//        var fetchedEnsembles: [Ensemble] = []
         
         do {
-            fetchedEnsembles = try container.viewContext.fetch(request)
+            let fetchedEnsembles = try container.viewContext.fetch(request)
+			let results = fetchedEnsembles.map(EnsembleRowViewModel.init)
+			return results
         } catch let error {
             print("Error fetching ensembles: \(error)")
         }
         
-        return fetchedEnsembles
+        return []
     }
     
     func deleteEnsemble(ensemble: Ensemble) {
