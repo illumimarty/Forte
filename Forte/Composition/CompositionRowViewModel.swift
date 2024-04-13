@@ -62,3 +62,10 @@ extension CompositionRowViewModel: Equatable, Hashable {
 	
 	
 }
+
+extension CompositionRowViewModel {
+	var passageView: some View {
+		return PassageViewBuilder.makePassageView(for: getComposition())
+//		return CompositionViewBuilder.makeCompositionView(for: ensemble)
+	}
+}

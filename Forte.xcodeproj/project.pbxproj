@@ -45,6 +45,9 @@
 		99BE1FAF2BCB164C00F5AE7D /* CompositionRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BE1FAE2BCB164C00F5AE7D /* CompositionRowViewModel.swift */; };
 		99BE1FB12BCB179A00F5AE7D /* CompositionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BE1FB02BCB179A00F5AE7D /* CompositionRowView.swift */; };
 		99BE1FB32BCB219300F5AE7D /* CompositionViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BE1FB22BCB219300F5AE7D /* CompositionViewBuilder.swift */; };
+		99BE1FB52BCB30FE00F5AE7D /* PassageRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BE1FB42BCB30FE00F5AE7D /* PassageRowViewModel.swift */; };
+		99BE1FB72BCB32E800F5AE7D /* PassageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BE1FB62BCB32E800F5AE7D /* PassageRowView.swift */; };
+		99BE1FB92BCB38B200F5AE7D /* PassageViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BE1FB82BCB38B200F5AE7D /* PassageViewBuilder.swift */; };
 		99C2E6C02B014DF600E6F838 /* CompositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C2E6BF2B014DF600E6F838 /* CompositionView.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,7 +74,7 @@
 		99933E3E2B095DCF008AB97C /* SectionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionRowView.swift; sourceTree = "<group>"; };
 		99933E402B09DC34008AB97C /* CompositionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionEditView.swift; sourceTree = "<group>"; };
 		99933E422B09F26D008AB97C /* SectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditView.swift; sourceTree = "<group>"; };
-		99A825D02B3BEB0A00EF9982 /* CompositionEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompositionEditViewModel.swift; path = Forte/ViewModel/CompositionEditViewModel.swift; sourceTree = "<group>"; };
+		99A825D02B3BEB0A00EF9982 /* CompositionEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionEditViewModel.swift; sourceTree = "<group>"; };
 		99B489622AD2459900AE2CF4 /* Forte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Forte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99B489652AD2459900AE2CF4 /* ForteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForteApp.swift; sourceTree = "<group>"; };
 		99B489672AD2459900AE2CF4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -83,9 +86,12 @@
 		99B489912AD27EEC00AE2CF4 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		99B489932AD27F5600AE2CF4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleView.swift; sourceTree = "<group>"; };
-		99BE1FAE2BCB164C00F5AE7D /* CompositionRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompositionRowViewModel.swift; path = Forte/Composition/CompositionRowViewModel.swift; sourceTree = "<group>"; };
+		99BE1FAE2BCB164C00F5AE7D /* CompositionRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRowViewModel.swift; sourceTree = "<group>"; };
 		99BE1FB02BCB179A00F5AE7D /* CompositionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRowView.swift; sourceTree = "<group>"; };
 		99BE1FB22BCB219300F5AE7D /* CompositionViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionViewBuilder.swift; sourceTree = "<group>"; };
+		99BE1FB42BCB30FE00F5AE7D /* PassageRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassageRowViewModel.swift; sourceTree = "<group>"; };
+		99BE1FB62BCB32E800F5AE7D /* PassageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassageRowView.swift; sourceTree = "<group>"; };
+		99BE1FB82BCB38B200F5AE7D /* PassageViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassageViewBuilder.swift; sourceTree = "<group>"; };
 		99C2E6BF2B014DF600E6F838 /* CompositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +112,8 @@
 		993392D62BCB0163005ADF0E /* Composition */ = {
 			isa = PBXGroup;
 			children = (
+				99BE1FAE2BCB164C00F5AE7D /* CompositionRowViewModel.swift */,
+				99A825D02B3BEB0A00EF9982 /* CompositionEditViewModel.swift */,
 				99933E352B089E46008AB97C /* Composition+CoreDataClass.swift */,
 				99933E362B089E46008AB97C /* Composition+CoreDataProperties.swift */,
 				99C2E6BF2B014DF600E6F838 /* CompositionView.swift */,
@@ -134,12 +142,15 @@
 		993392D82BCB0163005ADF0E /* Passage */ = {
 			isa = PBXGroup;
 			children = (
+				99BE1FB62BCB32E800F5AE7D /* PassageRowView.swift */,
+				99BE1FB42BCB30FE00F5AE7D /* PassageRowViewModel.swift */,
 				9923D4BE2B0DA49D007987EB /* PassageListViewModel.swift */,
 				991706682B0C82260041466E /* Passage+CoreDataClass.swift */,
 				991706692B0C82260041466E /* Passage+CoreDataProperties.swift */,
 				996D49552B0EDC7E00165F16 /* SectionEditViewModel.swift */,
 				99933E3E2B095DCF008AB97C /* SectionRowView.swift */,
 				99933E422B09F26D008AB97C /* SectionEditView.swift */,
+				99BE1FB82BCB38B200F5AE7D /* PassageViewBuilder.swift */,
 			);
 			path = Passage;
 			sourceTree = "<group>";
@@ -147,8 +158,6 @@
 		99B489592AD2459900AE2CF4 = {
 			isa = PBXGroup;
 			children = (
-				99BE1FAE2BCB164C00F5AE7D /* CompositionRowViewModel.swift */,
-				99A825D02B3BEB0A00EF9982 /* CompositionEditViewModel.swift */,
 				99B489642AD2459900AE2CF4 /* Forte */,
 				99B489632AD2459900AE2CF4 /* Products */,
 				99B4897D2AD249F400AE2CF4 /* Frameworks */,
@@ -312,9 +321,11 @@
 				9923D4BF2B0DA49D007987EB /* PassageListViewModel.swift in Sources */,
 				996F1D482B071F4D0048D9CC /* Ensemble+CoreDataClass.swift in Sources */,
 				996F1D4A2B071F4D0048D9CC /* Repertoire+CoreDataClass.swift in Sources */,
+				99BE1FB72BCB32E800F5AE7D /* PassageRowView.swift in Sources */,
 				99933E392B089E46008AB97C /* Composition+CoreDataClass.swift in Sources */,
 				99933E412B09DC34008AB97C /* CompositionEditView.swift in Sources */,
 				99B489682AD2459900AE2CF4 /* ContentView.swift in Sources */,
+				99BE1FB92BCB38B200F5AE7D /* PassageViewBuilder.swift in Sources */,
 				9917066B2B0C82260041466E /* Passage+CoreDataProperties.swift in Sources */,
 				9977A4E22B3BCDB8007B5151 /* StateBindingViewModel.swift in Sources */,
 				996F1D4B2B071F4D0048D9CC /* Repertoire+CoreDataProperties.swift in Sources */,
@@ -337,6 +348,7 @@
 				9959647C2AD3CB7B003EECAC /* Ensemble.xcdatamodeld in Sources */,
 				995964742AD39E10003EECAC /* SettingsView.swift in Sources */,
 				996F1D492B071F4D0048D9CC /* Ensemble+CoreDataProperties.swift in Sources */,
+				99BE1FB52BCB30FE00F5AE7D /* PassageRowViewModel.swift in Sources */,
 				99C2E6C02B014DF600E6F838 /* CompositionView.swift in Sources */,
 				99BE1FB32BCB219300F5AE7D /* CompositionViewBuilder.swift in Sources */,
 				99A825D12B3BEB0A00EF9982 /* CompositionEditViewModel.swift in Sources */,

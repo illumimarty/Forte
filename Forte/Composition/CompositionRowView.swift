@@ -20,9 +20,9 @@ struct CompositionRowView: View {
 	
 	var body: some View {
 		HStack {
-			
 			NavigationLink {
-				Text("Hello")
+//				Text("Hello")
+				rowViewModel.passageView
 				//				CompositionDetailsView(for: viewModel.pieces[idx])
 			} label: {
 				GroupBox {

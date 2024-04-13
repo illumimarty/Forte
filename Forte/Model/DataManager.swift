@@ -162,27 +162,46 @@ class DataManager: NSObject, ObservableObject {
         save()
     }
     
-    func passage(piece: Composition) -> Passage {
+    func passage(piece: Composition) -> PassageRowViewModel {
         let section = Passage(context: container.viewContext)
         section.id = UUID()
         piece.addToSection(section)
-        return section
+		
+		let viewModel = PassageRowViewModel(for: section)
+        return viewModel
     }
-    
-    func passages(for piece: Composition) -> [Passage] {
-        let request: NSFetchRequest<Passage> = Passage.fetchRequest()
-        request.predicate = NSPredicate(format: "piece = %@", piece)
-        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-        var fetchedPassages: [Passage] = []
-        
-        do {
-            fetchedPassages = try container.viewContext.fetch(request)
-        } catch let error {
-            print("Error fetching pieces: \(error)")
-        }
-        
-        return fetchedPassages
-    }
+  
+	func passages(for piece: Composition) -> [PassageRowViewModel] {
+		let request: NSFetchRequest<Passage> = Passage.fetchRequest()
+		request.predicate = NSPredicate(format: "piece = %@", piece)
+		request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+//		var fetchedPassages: [Passage] = []
+		
+		do {
+			let fetchedPassages = try container.viewContext.fetch(request)
+			let results = fetchedPassages.map(PassageRowViewModel.init)
+			return results
+		} catch let error {
+			print("Error fetching pieces: \(error)")
+		}
+		
+		return []
+	}
+	
+//    func passages(for piece: Composition) -> [Passage] {
+//        let request: NSFetchRequest<Passage> = Passage.fetchRequest()
+//        request.predicate = NSPredicate(format: "piece = %@", piece)
+//        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+//        var fetchedPassages: [Passage] = []
+//        
+//        do {
+//            fetchedPassages = try container.viewContext.fetch(request)
+//        } catch let error {
+//            print("Error fetching pieces: \(error)")
+//        }
+//        
+//        return fetchedPassages
+//    }
     
     func deletePassage(passage: Passage) {
         let moc = container.viewContext

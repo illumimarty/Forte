@@ -7,11 +7,18 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class PassageListViewModel: ObservableObject {
     
     @Published private var dataManager: DataManager
-    @Published var passages: [Passage]
+	@Published var passages: [PassageRowViewModel] = []
+	@Published var chosenName = ""
+	@Published var isShowingEditView: Bool = false
+	@Published var isInitializingSection: Bool = false
+	@Published var editMode: EditMode = .inactive
+
+//    @Published var passages: [Passage]
     var piece: Composition
     var anyCancellable: AnyCancellable? = nil
 
@@ -19,8 +26,9 @@ class PassageListViewModel: ObservableObject {
     init(for piece: Composition, dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
         self.piece = piece
-        self.passages = dataManager.passages(for: piece)
-        
+		getPassages()
+//        self.passages = dataManager.passages(for: piece)
+//        
         anyCancellable = dataManager.objectWillChange.sink { [weak self] (_) in
             self?.objectWillChange.send()
         }
@@ -39,7 +47,8 @@ class PassageListViewModel: ObservableObject {
     func removePassage(at offsets: IndexSet) {
         for index in offsets {
             let section = passages[index]
-            dataManager.deletePassage(passage: section)
+			section.deletePassage()
+//            dataManager.deletePassage(passage: section)
         }
         passages.remove(atOffsets: offsets)
     }
