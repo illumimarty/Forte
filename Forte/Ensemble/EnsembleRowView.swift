@@ -29,11 +29,14 @@ struct EnsembleRowView: View {
 			}
 			NavigationLink(destination: rowViewModel.compositionView) {
 				GroupBox {
-					VStack {
-						Text(rowViewModel.name).font(.title3)
-							.frame(maxWidth: .infinity, alignment: .leading)
-						Text(rowViewModel.location)
-							.frame(maxWidth: .infinity, alignment: .leading)
+					HStack {
+						VStack {
+							Text(rowViewModel.name).font(.title3)
+								.frame(maxWidth: .infinity, alignment: .leading)
+							Text(rowViewModel.location)
+								.frame(maxWidth: .infinity, alignment: .leading)
+						}
+						Text("\(rowViewModel.progressValue)%")
 					}
 				}
 			}

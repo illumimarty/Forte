@@ -15,12 +15,14 @@ class DataManager: NSObject, ObservableObject {
     let container = NSPersistentContainer(name: "Ensemble")
 	
 	var valuePublisher = PassthroughSubject<Int, Never>()
+	var ensembleProgressPublisher = PassthroughSubject<(UUID, Int), Never>()
 	var passageProgressPublisher = PassthroughSubject<(UUID, Int), Never>()
 	var compositionProgressPublisher = PassthroughSubject<(UUID, Int), Never>()
 	var newCompositionPublisher = PassthroughSubject<Composition, Never>()
 	var editCompositionPublisher = PassthroughSubject<Void, Never>()
 	var newEnsemblePublisher = PassthroughSubject<Ensemble, Never>()
 	var editEnsemblePublisher = PassthroughSubject<Void, Never>()
+	var ensembleViewNotifier = PassthroughSubject<Void, Never>()
 	
     override init() {
         container.loadPersistentStores { desc, error in
@@ -102,6 +104,36 @@ class DataManager: NSObject, ObservableObject {
 		editEnsemblePublisher.send()
 		
 	}
+	
+	func getProgress(for group: Ensemble) -> Int {
+		let keypathExp = NSExpression(forKeyPath: "progressValue")
+		let expression = NSExpression(forFunction: "average:", arguments: [keypathExp])
+		let avgDesc = NSExpressionDescription()
+		avgDesc.expression = expression
+		avgDesc.name = "avg"
+		avgDesc.expressionResultType = .floatAttributeType
+		
+		let request: NSFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Composition")
+		request.predicate = NSPredicate(format: "ensemble = %@", group)
+		request.returnsObjectsAsFaults = false
+		request.propertiesToFetch = [avgDesc]
+		request.resultType = .dictionaryResultType
+		
+		do {
+			let dictionary = try container.viewContext.fetch(request)
+			let contents = dictionary[0] as? [String: Any]
+			for res in contents! {
+				let val = res.value as? Double
+				let res = Int(round(val!))
+				ensembleProgressPublisher.send((group.id!, res))
+				return res
+			}
+		} catch let error {
+			print("Error fetching piece: \(error)")
+			return -1
+		}
+		return -1
+	}
     
     
     // MARK: Piece Operations
@@ -151,23 +183,6 @@ class DataManager: NSObject, ObservableObject {
 		} else {
 			editCompositionPublisher.send()
 		}
-		
-		
-//		switch piece {
-//			case .success(let managedObject):
-//				if let compositionManagedObject = managedObject {
-//					let mirror = Mirror(reflecting: state)
-//					for (compProp, compVal) in mirror.children {
-//						compositionManagedObject.setValue(compVal, forKeyPath: compProp!)
-//					}
-//					save()
-//				} else {
-//					
-//				}
-//			case .failure(_):
-//				print("Couldn't fetch managed object for selected composition")
-//		}
-		
 	}
   
 	
@@ -215,6 +230,13 @@ class DataManager: NSObject, ObservableObject {
 			return -1
 		}
 		return -1
+	}
+	
+	func updateCompositionProgress(for piece: Composition, to value: Float) {
+		let pieceMOC = fetchComposition(for: piece.id!)
+		pieceMOC.progressValue = value
+//		piece.progressValue = value
+		save()
 	}
     
     func deletePiece(piece: Composition) {

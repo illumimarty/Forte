@@ -67,7 +67,6 @@ final class CompositionEditViewModel: StateBindingViewModel<CompositionEditState
 //		updateComposition()
 		if !isInitializing {
 			updateComposition()
-			dataManager.editCompositionPublisher.send()
 		} else {
 			createComposition()
 			

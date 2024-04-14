@@ -38,10 +38,18 @@ class CompositionRowViewModel: Identifiable, ObservableObject {
 			.filter({ [weak self] (id, _) in
 				id == self?.id
 			})
-			.sink { [weak self] (_, value) in
-				self?.progressValue = value
+			.sink { [weak self] (id, value) in
+				if let progress = self?.dataManager.getProgress(for: self!.composition) {
+					self?.progressValue = progress
+					self?.updateProgressToMOC(with: progress)
+					self?.dataManager.ensembleViewNotifier.send()
+				}
 			}
 			.store(in: &disposables)
+	}
+	
+	func updateProgressToMOC(with value: Int) {
+		dataManager.updateCompositionProgress(for: composition, to: Float(value))
 	}
 
 	func getComposition() -> Composition {
