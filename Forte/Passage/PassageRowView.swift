@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PassageRowView: View {
 	
-	private var rowViewModel: PassageRowViewModel
+	@ObservedObject private var rowViewModel: PassageRowViewModel
 	private var mainViewModel: PassageListViewModel
 	
 	init(for rowViewModel: PassageRowViewModel, mainViewModel: PassageListViewModel) {

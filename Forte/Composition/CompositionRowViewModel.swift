@@ -7,11 +7,13 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 class CompositionRowViewModel: Identifiable, ObservableObject {
 	
 	@Published private var composition: Composition
 	private let dataManager = DataManager.shared
+	private var disposables = Set<AnyCancellable>()
 	
 	// NOTE: Needed to prevent the CompositionView ForEach list from creating views infintely
 	var id: UUID? {
@@ -31,11 +33,23 @@ class CompositionRowViewModel: Identifiable, ObservableObject {
 //	}
 	
 	public var progressValue: Int {
-		return DataManager.shared.getProgress(for: self.composition)
+		
+//		let value = dataManager.valuePublisher
+//			.sink(receiveValue: <#T##((Int) -> Void)##((Int) -> Void)##(Int) -> Void#>)
+//			.store(in: &disposables)
+		get {
+			return DataManager.shared.getProgress(for: self.composition)
+		}
+		set { }
 	}
 	
 	init(for piece: Composition) {
 		self.composition = piece
+		dataManager.valuePublisher
+			.sink { value in
+				self.progressValue = value
+			}
+			.store(in: &disposables)
 	}
 	
 	func getComposition() -> Composition {
@@ -65,7 +79,9 @@ extension CompositionRowViewModel: Equatable, Hashable {
 
 extension CompositionRowViewModel {
 	var passageView: some View {
-		return PassageViewBuilder.makePassageView(for: getComposition())
+		return PassageViewBuilder.makePassageView(for: self)
+//		/*return PassageViewBuilder.makePassageView(for: <#T##Composition#>*/)
+//		return PassageViewBuilder.makePassageView(for: getComposition())
 //		return CompositionViewBuilder.makeCompositionView(for: ensemble)
 	}
 }

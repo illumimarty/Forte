@@ -10,15 +10,21 @@ import SwiftUI
 
 struct CompositionDetailsView: View {
     
+	@ObservedObject var composition: CompositionRowViewModel
     @ObservedObject var viewModel: PassageListViewModel
-    
-    init(for piece: Composition) {
-        self.viewModel = PassageListViewModel(for: piece)
-    }
-	
-	init(with viewModel: PassageListViewModel) {
+  
+	init(for piece: CompositionRowViewModel, with viewModel: PassageListViewModel) {
 		self.viewModel = viewModel
+		self.composition = piece
 	}
+	
+//    init(for piece: Composition) {
+//        self.viewModel = PassageListViewModel(for: piece)
+//    }
+//	
+//	init(with viewModel: PassageListViewModel) {
+//		self.viewModel = viewModel
+//	}
     
 
 
@@ -64,7 +70,6 @@ struct CompositionDetailsView: View {
 							}
 							//TODO: Implement to change progress value
 							.sheet(isPresented: $viewModel.isInitializingSection, content: {
-//								SectionEditView(for: viewModel.piece)
 								SectionEditView(piece: viewModel.piece)
 									.onDisappear(perform: {
 										viewModel.getPassages()

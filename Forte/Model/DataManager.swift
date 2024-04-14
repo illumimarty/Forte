@@ -7,11 +7,15 @@
 
 import Foundation
 import CoreData
+import Combine
 
 class DataManager: NSObject, ObservableObject {
     static let shared = DataManager()
   
     let container = NSPersistentContainer(name: "Ensemble")
+	
+	var valuePublisher = PassthroughSubject<Int, Never>()
+	var passageProgressPublisher = PassthroughSubject<(UUID, Int), Never>()
     
     override init() {
         container.loadPersistentStores { desc, error in
@@ -115,9 +119,13 @@ class DataManager: NSObject, ObservableObject {
 			let contents = dictionary[0] as? [String: Any]
 			for res in contents! {
 				let val = res.value as? Double
+				let res = Int(round(val!))
 				//				piece.setProgress(to: Int(round(val!)))
 				//				updatePieceProgress(for: piece, Int(round(val!)))
-				return Int(round(val!))
+				
+				valuePublisher.send(res)
+				
+				return res
 			}
 		} catch let error {
 			print("Error fetching piece: \(error)")
@@ -180,6 +188,11 @@ class DataManager: NSObject, ObservableObject {
 		let mirror = Mirror(reflecting: state)
 		for (compProp, compVal) in mirror.children {
 			section.setValue(compVal, forKeyPath: compProp!)
+			if (compProp == "progressValue") {
+				guard compVal is Int16 else { continue }
+				let input: Int = Int(compVal as! Int16)
+				passageProgressPublisher.send((state.id!, input))
+			}
 		}
 		save()
 	}

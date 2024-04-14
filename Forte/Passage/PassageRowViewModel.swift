@@ -7,11 +7,13 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 class PassageRowViewModel: Identifiable, ObservableObject {
 	
 	@Published private var passage: Passage
 	private let dataManager = DataManager.shared
+	private var disposables = Set<AnyCancellable>()
 	
 	// NOTE: Needed to prevent the CompositionView ForEach list from creating views infintely
 	var id: UUID? {
@@ -40,17 +42,26 @@ class PassageRowViewModel: Identifiable, ObservableObject {
 		return measureNum
 	}
 	
-	var progressValue: String {
-//		let percentFormatter: NumberFormatter = {
-//			let formatter = NumberFormatter()
-//			formatter.numberStyle = .percent
-//			formatter.zeroSymbol = ""
-//			return formatter
-//		}()
-		
-		let value = String(describing: Int(passage.progressValue))
-		return "\(value)%"
-	}
+	@Published var progressValue: String
+	
+//	@Published var progressValue: String {
+////		let percentFormatter: NumberFormatter = {
+////			let formatter = NumberFormatter()
+////			formatter.numberStyle = .percent
+////			formatter.zeroSymbol = ""
+////			return formatter
+////		}()
+//		
+////		let value = String(describing: Int(passage.progressValue))
+////		return "\(value)%"
+//		get {
+//			let value = String(describing: Int(passage.progressValue))
+//			return "\(value)%"
+//		}
+//		set {
+//			
+//		}
+//	}
 	
 	//	var progressValue: Int {
 	//		return composition.
@@ -62,6 +73,17 @@ class PassageRowViewModel: Identifiable, ObservableObject {
 	
 	init(for passage: Passage) {
 		self.passage = passage
+		let value = String(describing: Int(passage.progressValue))
+		self.progressValue = "\(value)%"
+		
+		dataManager.passageProgressPublisher
+			.filter({ [weak self] (id, _) in
+				id == self?.id
+			})
+			.sink { [weak self] (_, value) in
+				self?.progressValue = "\(String(describing: value))%"
+			}
+			.store(in: &disposables)
 	}
 	
 	func getPassage() -> Passage {

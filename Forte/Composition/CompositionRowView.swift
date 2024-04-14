@@ -28,13 +28,13 @@ struct CompositionRowView: View {
 				GroupBox {
 					HStack {
 						VStack {
-							Text(rowViewModel.name ?? "").font(.title3)
+							Text(rowViewModel.name).font(.title3)
 								.frame(maxWidth: .infinity, alignment: .leading)
 							
-							Text(rowViewModel.composer ?? "")
+							Text(rowViewModel.composer)
 								.frame(maxWidth: .infinity, alignment: .leading)
 						}
-						Text("\(rowViewModel.progressValue ?? 0)%")
+						Text("\(rowViewModel.progressValue)%")
 					}
 				}
 				.padding(.vertical, 4.0)			}
