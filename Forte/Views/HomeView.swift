@@ -10,7 +10,12 @@ import SwiftUI
 struct HomeView: View {
     var body: some View {
         Text("Home View")
+//        .enableInjection()
     }
+
+    #if DEBUG
+    @ObserveInjection var forceRedraw
+    #endif
 }
 
 struct HomeView_Previews: PreviewProvider {
