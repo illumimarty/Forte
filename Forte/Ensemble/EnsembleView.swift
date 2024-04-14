@@ -6,22 +6,16 @@
 //
 
 import SwiftUI
-import HotSwiftUI
-import Inject
 
 struct EnsembleView: View {
     
-	@FetchRequest(sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]) var students: FetchedResults<Ensemble>
     @StateObject var viewModel = EnsembleViewModel()
-	@State private var willDelete = false
-	@State private var isEditing = false
-	@State private var selectedItem: Ensemble?
     
     var body: some View {
-        NavigationStack {
+		NavigationStack {
 			ScrollView {
 				LazyVStack {
-					if isEditing {
+					if viewModel.isEditing {
 						Button("Add") {
 							viewModel.toggleAuthenticating()
 						}
@@ -31,24 +25,20 @@ struct EnsembleView: View {
 							Button("Cancel", role: .cancel) { }
 						}
 					}
-					ForEach(students, id: \.self) { group in
-						EnsembleRowView(ensemble: group, isEditing: $isEditing)
+					ForEach(viewModel.groups) { row in
+						EnsembleRowView.init(rowViewModel: row, mainViewModel: self.viewModel)
 					}
 				}
 			}
-            .navigationTitle("My Groups")
-            .navigationBarTitleDisplayMode(.large)
+			.navigationTitle("My Groups")
+			.navigationBarTitleDisplayMode(.large)
 			.toolbar {
 				ToolbarItemGroup(placement: .topBarTrailing) {
 					EditButton().simultaneousGesture(TapGesture().onEnded({ _ in
-						isEditing.toggle()
+						viewModel.isEditing.toggle()
 					}))
 				}
 			}
-        }
-        .eraseToAnyView()
+		}
     }
-    #if DEBUG
-    @ObservedObject var iO = injectionObserver
-    #endif
 }

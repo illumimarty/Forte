@@ -15,17 +15,25 @@ struct CompositionEditView: View {
     @Environment(\.dismiss) var dismiss
     private var title: String?
     
-    init(for piece: Composition? = nil, group: Ensemble? = nil) {
-        if piece != nil {
-            let state = CompositionEditState(piece)
-			self.title = state.name
-            self.viewModel = CompositionEditViewModel(initialState: state)
-        } else {
-            let state = CompositionEditState(for: group)
-            self.title = "New Composition"
-            self.viewModel = CompositionEditViewModel(initialState: state, isInitializing: true)
-        }
-    }
+	// TODO: Might need to refactor into one initializer
+	
+	init(for piece: Composition? = nil, group: Ensemble? = nil) {
+		if piece != nil {
+			let state = CompositionEditState(piece!)
+//			let state = CompositionEditState(piece)
+//			self.title = state.name
+			self.viewModel = CompositionEditViewModel(initialState: state)
+		} else {
+			var state = CompositionEditState(for: group)
+//			self.title = "New Composition"
+			self.viewModel = CompositionEditViewModel(initialState: state, isInitializing: true)
+		}
+	}
+	
+//    init(for group: Ensemble, isInitializing: Bool = false) {
+//		let state = CompositionEditState(for: group)
+//		self.viewModel = CompositionEditViewModel(initialState: state)
+//    }
 
     var body: some View {
         NavigationView {
@@ -50,7 +58,8 @@ struct CompositionEditView: View {
                     
                     Button {
                         print("Saving Changes...")
-                        viewModel.saveChanges()
+						viewModel.saveChanges()
+//                        viewModel.createComposition()
                         dismiss()
 //                        withAnimation {
 //                            viewModel.saveChanges()
@@ -64,7 +73,7 @@ struct CompositionEditView: View {
                     .controlSize(.large)
                 }
             }
-            .navigationTitle(title ?? "")
+			.navigationTitle($viewModel.title)
         }
         .toolbar(.hidden, for: .tabBar)
         .eraseToAnyView()

@@ -21,6 +21,7 @@ extension Composition {
     @NSManaged public var name: String?
     @NSManaged public var recordingLink: String?
     @NSManaged public var ensemble: Ensemble?
+	@NSManaged public var progressValue: Float
     @NSManaged public var section: NSSet?
 
 }

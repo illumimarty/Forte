@@ -7,23 +7,31 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class PassageListViewModel: ObservableObject {
     
     @Published private var dataManager: DataManager
-    @Published var passages: [Passage]
-    var piece: Composition
-    var anyCancellable: AnyCancellable?
+	@Published var passages: [PassageRowViewModel] = []
+	@Published var chosenName = ""
+	@Published var isShowingEditView: Bool = false
+	@Published var isInitializingSection: Bool = false
+	@Published var editMode: EditMode = .inactive
+	@Published var compositionProgressValue: Int = -1
 
+    var piece: Composition
+    
     init(for piece: Composition, dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
         self.piece = piece
-        self.passages = dataManager.passages(for: piece)
-        
-        anyCancellable = dataManager.objectWillChange.sink { [weak self] (_) in
-            self?.objectWillChange.send()
-        }
+		getPassages()
     }
+	
+	func getPieceProgress() {
+		let value = dataManager.getProgress(for: piece)
+		dataManager.compositionProgressPublisher.send((piece.id!, value))
+		self.compositionProgressValue = value
+	}
     
     func getPassages() {
         self.passages = dataManager.passages(for: piece)
@@ -32,13 +40,13 @@ class PassageListViewModel: ObservableObject {
     func addPassage(for piece: Composition) {
         let passage = DataManager.shared.passage(piece: piece)
         passages.append(passage)
-        DataManager.shared.save()
+		dataManager.save()
     }
     
     func removePassage(at offsets: IndexSet) {
         for index in offsets {
             let section = passages[index]
-            dataManager.deletePassage(passage: section)
+			section.deletePassage()
         }
         passages.remove(atOffsets: offsets)
     }
