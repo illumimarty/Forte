@@ -11,7 +11,7 @@ import SwiftUI
 struct CompositionRowView: View {
 	
 	@ObservedObject private var rowViewModel: CompositionRowViewModel
-	private var mainViewModel: CompositionListViewModel
+	@ObservedObject private var mainViewModel: CompositionListViewModel
 	
 	init(for rowVM: CompositionRowViewModel, mainViewModel: CompositionListViewModel) {
 		self.rowViewModel = rowVM
@@ -20,6 +20,16 @@ struct CompositionRowView: View {
 	
 	var body: some View {
 		HStack {
+			if mainViewModel.editMode == .active {
+				Button(role: .destructive) {
+					mainViewModel.selectedPiece = rowViewModel.getComposition()
+					mainViewModel.showAlert.toggle()
+				} label: {
+					Image(systemName: "minus.circle")
+				}
+				.padding(4)
+			}
+			
 			NavigationLink(destination: rowViewModel.passageView) {
 				GroupBox {
 					HStack {
@@ -35,14 +45,22 @@ struct CompositionRowView: View {
 				}
 				.padding(.vertical, 4.0)			}
 			.buttonStyle(PlainButtonStyle())
-			.swipeActions(edge: .leading, allowsFullSwipe: false, content: {
-				Button(role: .destructive) {
-					rowViewModel.deleteComposition()
-					print("Deleting...")
-				} label: {
-					Label("Delete", systemImage: "trash.fill")
-				}
-			})
 		}
+		.alert(isPresented: $mainViewModel.showAlert, content: {
+			guard let piece = mainViewModel.selectedPiece else {
+				return Alert(title: Text("Error"), message: Text("Selected piece is nil"), dismissButton: .default(Text("OK")))
+
+			}
+			return Alert(
+				title: Text("Delete \"\(piece.name ?? "??")\""),
+				message: Text("Are you sure you want to delete this?"),
+				primaryButton: .default(Text("Delete")) {
+					rowViewModel.delete(piece)
+					mainViewModel.getPieces()
+				},
+				secondaryButton: .cancel()
+			)
+		})
+
 	}
 }

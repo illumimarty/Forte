@@ -29,33 +29,24 @@ struct CompositionView: View {
 						.font(.title)
 						.fontWeight(.semibold)
 						.frame(maxWidth: .infinity, alignment: .leading)
-					ForEach(viewModel.pieces, id: \.id) { piece in
-						//					if viewModel.isEditing {
-						//						Button(role: .destructive) {
-						//							viewModel.selectedPiece = piece.getComposition()
-						//							viewModel.showAlert.toggle()
-						//						} label: {
-						//							Image(systemName: "minus.circle")
-						//						}
-						//						.padding(4)
-						//					}
-						//					Text(piece.name)
+					ForEach(viewModel.pieces) { piece in
+//						HStack {
+//							if viewModel.editMode == .active {
+//								Button(role: .destructive) {
+//									viewModel.selectedPiece = piece.getComposition()
+//									viewModel.showAlert.toggle()
+//								} label: {
+//									Image(systemName: "minus.circle")
+//								}
+//								.padding(4)
+//							}
+//							//						Text(piece.name)
+//							CompositionRowView.init(for: piece, mainViewModel: self.viewModel)
+//						}
 						CompositionRowView.init(for: piece, mainViewModel: self.viewModel)
+
 					}
-					.alert(isPresented: $viewModel.showAlert, content: {
-						Alert(
-							title: Text("Delete \"\(viewModel.selectedPiece?.name ?? "")\""),
-							message: Text("Are you sure you want to delete this ?"),
-							primaryButton: .default(Text("Delete")) {
-								if let index = viewModel.selectedItemIndex {
-									let indexSet = IndexSet(integer: index)
-									viewModel.removePiece(at: indexSet)
-								}
-							},
-							secondaryButton: .cancel()
-						)
-					})
-					.padding(24)
+//					.padding(8)
 				}
 				.navigationBarTitleDisplayMode(.inline)
 				.toolbar {
@@ -76,7 +67,8 @@ struct CompositionView: View {
 							}
 							.sheet(isPresented: $viewModel.isAddingNewPiece, content: {
 								// TODO: Implement
-								//	CompositionEditView(group: viewModel.group)
+//								CompositionEditView(group: viewModel.group)
+								CompositionEditView(for: viewModel.group, isInitializing: true)
 							})
 						}
 						EditButton().simultaneousGesture(TapGesture().onEnded({ _ in
@@ -87,6 +79,8 @@ struct CompositionView: View {
 				.environment(\.editMode, $viewModel.editMode)
 			}
 		}
-		
+		.onAppear(perform: {
+			viewModel.getPieces()
+		})
 	}
 }

@@ -24,14 +24,12 @@ class PassageListViewModel: ObservableObject {
     init(for piece: Composition, dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
         self.piece = piece
-//		self.compositionProgressValue = dataManager.getProgress(for: piece)
 		getPassages()
     }
 	
 	func getPieceProgress() {
 		let value = dataManager.getProgress(for: piece)
 		dataManager.compositionProgressPublisher.send((piece.id!, value))
-//		dataManager.valuePublisher.send((piece.id!, value))
 		self.compositionProgressValue = value
 	}
     

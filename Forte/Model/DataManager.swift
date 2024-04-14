@@ -17,7 +17,8 @@ class DataManager: NSObject, ObservableObject {
 	var valuePublisher = PassthroughSubject<Int, Never>()
 	var passageProgressPublisher = PassthroughSubject<(UUID, Int), Never>()
 	var compositionProgressPublisher = PassthroughSubject<(UUID, Int), Never>()
-    
+	var newCompositionPublisher = PassthroughSubject<Composition, Never>()
+	
     override init() {
         container.loadPersistentStores { desc, error in
             if let error = error {
@@ -80,6 +81,10 @@ class DataManager: NSObject, ObservableObject {
         }
         ensemble.addToPieces(piece)
         save()
+		
+		newCompositionPublisher.send(piece)
+		
+		
     }
   
 	

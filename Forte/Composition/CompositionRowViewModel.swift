@@ -48,8 +48,12 @@ class CompositionRowViewModel: Identifiable, ObservableObject {
 		return self.composition
 	}
 	
-	func deleteComposition() {
-		dataManager.deletePiece(piece: self.composition)
+	func delete(_ piece: Composition? = nil) {
+		guard piece != nil else {
+			dataManager.deletePiece(piece: self.composition)
+			return
+		}
+		dataManager.deletePiece(piece: piece!)
 	}
 }
 

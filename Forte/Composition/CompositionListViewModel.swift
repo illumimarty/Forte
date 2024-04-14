@@ -14,50 +14,31 @@ class CompositionListViewModel: ObservableObject {
 
 	@Published private var dataManager: DataManager
 	@Published var pieces: [CompositionRowViewModel] = []
-	@State var selectedItemIndex: Int?
-	@State var isShowingEditView: Bool = false
-	@State var isAddingNewPiece: Bool = false
-	@State var editMode: EditMode = .inactive
-	@State var isEditing: Bool = false
-	@State var showAlert = false
-	
-	var selectedPiece: Composition? {
-		get {
-			guard let idx = selectedItemIndex else { return nil }
-			return self.pieces[idx].getComposition()
-		}
-		set {
-			if let piece = newValue {
-				selectedPiece = piece
-			}
-		}
-	}
+	@Published var selectedItemIndex: Int?
+	@Published var isShowingEditView: Bool = false
+	@Published var isAddingNewPiece: Bool = false
+	@Published var editMode: EditMode = .inactive
+	@Published var isEditing: Bool = false
+	@Published var showAlert = false
+	@Published var selectedPiece: Composition? = nil
 	
 	var group: Ensemble
-	var anyCancellable: AnyCancellable?
+	private var disposables = Set<AnyCancellable>()
     
     init(for ensemble: Ensemble, dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
         self.group = ensemble
 		getPieces()
         
-        // TODO: Figure out why this works
-        anyCancellable = dataManager.objectWillChange.sink { [weak self] (_) in
-            self?.objectWillChange.send()
-        }
+		dataManager.newCompositionPublisher
+			.sink { [weak self] piece in
+				let newPieceVM = CompositionRowViewModel(for: piece)
+				self?.pieces.append(newPieceVM)
+			}
+			.store(in: &disposables)
     }
     
     func getPieces() {
         self.pieces = dataManager.pieces(ensemble: group)
-    }
-
-    // ? - why delete from a set of indices than one index?
-    func removePiece(at offsets: IndexSet) {
-        // TODO: add a prompt to ensure desired item deletion
-        for index in offsets {
-            let piece = pieces[index]
-			piece.deleteComposition()
-        }
-        pieces.remove(atOffsets: offsets)
     }
 }
