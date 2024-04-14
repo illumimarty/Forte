@@ -22,9 +22,7 @@ struct EnsembleRowView: View {
 		HStack {
 			if mainViewModel.isEditing {
 				Button(role: .destructive) {
-					//					selectedItem = group
 					rowViewModel.willDelete.toggle()
-					//					rowViewModel.willDelete.toggle()
 				} label: {
 					Image(systemName: "minus.circle")
 				}
@@ -46,7 +44,6 @@ struct EnsembleRowView: View {
 		.confirmationDialog("Are you sure?", isPresented: $rowViewModel.willDelete) {
 			Button("OK", role: .destructive) {
 				rowViewModel.deleteEnsemble()
-				//				viewModel.dataManager.deleteEnsemble(ensemble: ensemble)
 			}
 			Button("Cancel", role: .cancel) { }
 		} message: {

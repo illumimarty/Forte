@@ -20,11 +20,7 @@ struct CompositionRowView: View {
 	
 	var body: some View {
 		HStack {
-			NavigationLink {
-//				Text("Hello")
-				rowViewModel.passageView
-				//				CompositionDetailsView(for: viewModel.pieces[idx])
-			} label: {
+			NavigationLink(destination: rowViewModel.passageView) {
 				GroupBox {
 					HStack {
 						VStack {
@@ -42,8 +38,6 @@ struct CompositionRowView: View {
 			.swipeActions(edge: .leading, allowsFullSwipe: false, content: {
 				Button(role: .destructive) {
 					rowViewModel.deleteComposition()
-					//					let idx = IndexSet(integer: idx)
-					//					viewModel.removePiece(at: idx)
 					print("Deleting...")
 				} label: {
 					Label("Delete", systemImage: "trash.fill")

@@ -17,17 +17,6 @@ struct CompositionDetailsView: View {
 		self.viewModel = viewModel
 		self.composition = piece
 	}
-	
-//    init(for piece: Composition) {
-//        self.viewModel = PassageListViewModel(for: piece)
-//    }
-//	
-//	init(with viewModel: PassageListViewModel) {
-//		self.viewModel = viewModel
-//	}
-    
-
-
         
     // TODO: Remember to consider the user's groups/pieces since, if multiple users, will pull EVERYONE's data instead of only their own
 

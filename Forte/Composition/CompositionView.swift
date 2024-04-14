@@ -76,7 +76,7 @@ struct CompositionView: View {
 							}
 							.sheet(isPresented: $viewModel.isAddingNewPiece, content: {
 								// TODO: Implement
-								//							CompositionEditView(group: viewModel.group)
+								//	CompositionEditView(group: viewModel.group)
 							})
 						}
 						EditButton().simultaneousGesture(TapGesture().onEnded({ _ in

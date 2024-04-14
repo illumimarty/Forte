@@ -13,26 +13,19 @@ import Combine
 class EnsembleViewModel: ObservableObject {
 
     @Published private var dataManager: DataManager
+	@Published var chosenName = ""
+
     @Published var isAuthenticating = false
-    @Published var chosenName = ""
 	@Published var isEditing = false
 
 	@Published var groups: [EnsembleRowViewModel] = []
 	
 	private var disposables = Set<AnyCancellable>()
 	
-//    var groups: [Ensemble] {
-//        get { dataManager.ensembles() }
-//        set {}
-//    }
-    
     
 	init(dataManager: DataManager = DataManager.shared, scheduler: DispatchQueue = DispatchQueue(label: "EnsembleViewModel")) {
         self.dataManager = dataManager
-		
 		loadEnsembleList()
-		
-		
     }
     
     func toggleAuthenticating() {
@@ -55,7 +48,6 @@ class EnsembleViewModel: ObservableObject {
         for index in offsets {
             let group = groups[index]
 			group.deleteEnsemble()
-//            dataManager.deleteEnsemble(ensemble: group)
         }
         groups.remove(atOffsets: offsets)
     }

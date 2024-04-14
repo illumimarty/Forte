@@ -15,6 +15,8 @@ class PassageRowViewModel: Identifiable, ObservableObject {
 	private let dataManager = DataManager.shared
 	private var disposables = Set<AnyCancellable>()
 	
+	@Published var progressValue: String
+	
 	// NOTE: Needed to prevent the CompositionView ForEach list from creating views infintely
 	var id: UUID? {
 		return passage.id ?? nil
@@ -42,35 +44,6 @@ class PassageRowViewModel: Identifiable, ObservableObject {
 		return measureNum
 	}
 	
-	@Published var progressValue: String
-	
-//	@Published var progressValue: String {
-////		let percentFormatter: NumberFormatter = {
-////			let formatter = NumberFormatter()
-////			formatter.numberStyle = .percent
-////			formatter.zeroSymbol = ""
-////			return formatter
-////		}()
-//		
-////		let value = String(describing: Int(passage.progressValue))
-////		return "\(value)%"
-//		get {
-//			let value = String(describing: Int(passage.progressValue))
-//			return "\(value)%"
-//		}
-//		set {
-//			
-//		}
-//	}
-	
-	//	var progressValue: Int {
-	//		return composition.
-	//	}
-	
-//	public var progressValue: Int {
-//		return DataManager.shared.getProgress(for: self.passage)
-//	}
-	
 	init(for passage: Passage) {
 		self.passage = passage
 		let value = String(describing: Int(passage.progressValue))
@@ -94,19 +67,3 @@ class PassageRowViewModel: Identifiable, ObservableObject {
 		dataManager.deletePassage(passage: self.passage)
 	}
 }
-
-//extension CompositionRowViewModel: Equatable, Hashable {
-//	static func == (lhs: CompositionRowViewModel, rhs: CompositionRowViewModel) -> Bool {
-//		return false
-//	}
-//	
-//	func hash(into hasher: inout Hasher) {
-//		hasher.combine(self.composition)
-//	}
-//	
-//	//	static func == (lhs: CompositionRowViewModel, rhs: CompositionRowViewModel) -> Bool {
-//	//		return true
-//	//	}
-//	
-//	
-//}

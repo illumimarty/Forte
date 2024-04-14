@@ -48,7 +48,6 @@ class DataManager: NSObject, ObservableObject {
     
     func ensembles() -> [EnsembleRowViewModel] {
         let request: NSFetchRequest<Ensemble> = Ensemble.fetchRequest()
-//        var fetchedEnsembles: [Ensemble] = []
         
         do {
             let fetchedEnsembles = try container.viewContext.fetch(request)
@@ -87,7 +86,6 @@ class DataManager: NSObject, ObservableObject {
 		let request: NSFetchRequest<Composition> = Composition.fetchRequest()
 		request.predicate = NSPredicate(format: "ensemble = %@", ensemble)
 		request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-//		var fetchedPieces: [Composition] = []
 		
 		do {
 			let fetchedPieces = try container.viewContext.fetch(request)
@@ -120,11 +118,7 @@ class DataManager: NSObject, ObservableObject {
 			for res in contents! {
 				let val = res.value as? Double
 				let res = Int(round(val!))
-				//				piece.setProgress(to: Int(round(val!)))
-				//				updatePieceProgress(for: piece, Int(round(val!)))
-				
 				valuePublisher.send(res)
-				
 				return res
 			}
 		} catch let error {
@@ -133,21 +127,6 @@ class DataManager: NSObject, ObservableObject {
 		}
 		return -1
 	}
-	
-//    func pieces(ensemble: Ensemble) -> [Composition] {
-//        let request: NSFetchRequest<Composition> = Composition.fetchRequest()
-//        request.predicate = NSPredicate(format: "ensemble = %@", ensemble)
-//        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-//        var fetchedPieces: [Composition] = []
-//        
-//        do {
-//            fetchedPieces = try container.viewContext.fetch(request)
-//        } catch let error {
-//            print("Error fetching pieces: \(error)")
-//        }
-//        
-//        return fetchedPieces
-//    }
     
     func deletePiece(piece: Composition) {
         let moc = container.viewContext
@@ -211,7 +190,6 @@ class DataManager: NSObject, ObservableObject {
 		let request: NSFetchRequest<Passage> = Passage.fetchRequest()
 		request.predicate = NSPredicate(format: "piece = %@", piece)
 		request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-//		var fetchedPassages: [Passage] = []
 		
 		do {
 			let fetchedPassages = try container.viewContext.fetch(request)
@@ -223,22 +201,7 @@ class DataManager: NSObject, ObservableObject {
 		
 		return []
 	}
-	
-//    func passages(for piece: Composition) -> [Passage] {
-//        let request: NSFetchRequest<Passage> = Passage.fetchRequest()
-//        request.predicate = NSPredicate(format: "piece = %@", piece)
-//        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-//        var fetchedPassages: [Passage] = []
-//        
-//        do {
-//            fetchedPassages = try container.viewContext.fetch(request)
-//        } catch let error {
-//            print("Error fetching pieces: \(error)")
-//        }
-//        
-//        return fetchedPassages
-//    }
-    
+
     func deletePassage(passage: Passage) {
         let moc = container.viewContext
         moc.delete(passage)

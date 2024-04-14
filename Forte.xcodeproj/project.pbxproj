@@ -26,7 +26,6 @@
 		99933E302B08967C008AB97C /* CompositionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E2F2B08967C008AB97C /* CompositionDetailsView.swift */; };
 		99933E392B089E46008AB97C /* Composition+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E352B089E46008AB97C /* Composition+CoreDataClass.swift */; };
 		99933E3A2B089E46008AB97C /* Composition+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E362B089E46008AB97C /* Composition+CoreDataProperties.swift */; };
-		99933E3F2B095DCF008AB97C /* SectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E3E2B095DCF008AB97C /* SectionRowView.swift */; };
 		99933E412B09DC34008AB97C /* CompositionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E402B09DC34008AB97C /* CompositionEditView.swift */; };
 		99933E432B09F26D008AB97C /* SectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99933E422B09F26D008AB97C /* SectionEditView.swift */; };
 		99A825D12B3BEB0A00EF9982 /* CompositionEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A825D02B3BEB0A00EF9982 /* CompositionEditViewModel.swift */; };
@@ -71,7 +70,6 @@
 		99933E2F2B08967C008AB97C /* CompositionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionDetailsView.swift; sourceTree = "<group>"; };
 		99933E352B089E46008AB97C /* Composition+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Composition+CoreDataClass.swift"; sourceTree = "<group>"; };
 		99933E362B089E46008AB97C /* Composition+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Composition+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		99933E3E2B095DCF008AB97C /* SectionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionRowView.swift; sourceTree = "<group>"; };
 		99933E402B09DC34008AB97C /* CompositionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionEditView.swift; sourceTree = "<group>"; };
 		99933E422B09F26D008AB97C /* SectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditView.swift; sourceTree = "<group>"; };
 		99A825D02B3BEB0A00EF9982 /* CompositionEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionEditViewModel.swift; sourceTree = "<group>"; };
@@ -148,7 +146,6 @@
 				991706682B0C82260041466E /* Passage+CoreDataClass.swift */,
 				991706692B0C82260041466E /* Passage+CoreDataProperties.swift */,
 				996D49552B0EDC7E00165F16 /* SectionEditViewModel.swift */,
-				99933E3E2B095DCF008AB97C /* SectionRowView.swift */,
 				99933E422B09F26D008AB97C /* SectionEditView.swift */,
 				99BE1FB82BCB38B200F5AE7D /* PassageViewBuilder.swift */,
 			);
@@ -329,7 +326,6 @@
 				9917066B2B0C82260041466E /* Passage+CoreDataProperties.swift in Sources */,
 				9977A4E22B3BCDB8007B5151 /* StateBindingViewModel.swift in Sources */,
 				996F1D4B2B071F4D0048D9CC /* Repertoire+CoreDataProperties.swift in Sources */,
-				99933E3F2B095DCF008AB97C /* SectionRowView.swift in Sources */,
 				9917066A2B0C82260041466E /* Passage+CoreDataClass.swift in Sources */,
 				99933E3A2B089E46008AB97C /* Composition+CoreDataProperties.swift in Sources */,
 				99BE1FAF2BCB164C00F5AE7D /* CompositionRowViewModel.swift in Sources */,

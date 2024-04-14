@@ -33,9 +33,6 @@ class EnsembleRowViewModel: Identifiable, ObservableObject {
 	func getEnsemble() -> Ensemble {
 		return ensemble
 	}
-	
-	
-	
 }
 
 extension EnsembleRowViewModel {

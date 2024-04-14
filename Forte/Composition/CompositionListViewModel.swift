@@ -33,16 +33,11 @@ class CompositionListViewModel: ObservableObject {
 		}
 	}
 	
-	
-	
-	//	@Published var pieces: [Composition]
-	
 	var group: Ensemble
 	var anyCancellable: AnyCancellable?
     
     init(for ensemble: Ensemble, dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
-//        self.pieces = dataManager.pieces(ensemble: ensemble)
         self.group = ensemble
 		getPieces()
         
@@ -62,7 +57,6 @@ class CompositionListViewModel: ObservableObject {
         for index in offsets {
             let piece = pieces[index]
 			piece.deleteComposition()
-//            dataManager.deletePiece(piece: piece)
         }
         pieces.remove(atOffsets: offsets)
     }

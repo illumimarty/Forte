@@ -28,15 +28,7 @@ class CompositionRowViewModel: Identifiable, ObservableObject {
 		return composition.composer ?? ""
 	}
 	
-//	var progressValue: Int {
-//		return composition.
-//	}
-	
 	public var progressValue: Int {
-		
-//		let value = dataManager.valuePublisher
-//			.sink(receiveValue: <#T##((Int) -> Void)##((Int) -> Void)##(Int) -> Void#>)
-//			.store(in: &disposables)
 		get {
 			return DataManager.shared.getProgress(for: self.composition)
 		}
@@ -69,19 +61,10 @@ extension CompositionRowViewModel: Equatable, Hashable {
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(self.composition)
 	}
-	
-	//	static func == (lhs: CompositionRowViewModel, rhs: CompositionRowViewModel) -> Bool {
-	//		return true
-	//	}
-	
-	
 }
 
 extension CompositionRowViewModel {
 	var passageView: some View {
 		return PassageViewBuilder.makePassageView(for: self)
-//		/*return PassageViewBuilder.makePassageView(for: <#T##Composition#>*/)
-//		return PassageViewBuilder.makePassageView(for: getComposition())
-//		return CompositionViewBuilder.makeCompositionView(for: ensemble)
 	}
 }
