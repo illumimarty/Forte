@@ -48,10 +48,11 @@ struct CompositionDetailsView: View {
 							} label: {
 								Image(systemName: "square.and.pencil")
 							}
-//							.sheet(isPresented: $viewModel.isShowingEditView, content: {
+							.sheet(isPresented: $viewModel.isShowingEditView, content: {
+								CompositionEditView(for: viewModel.piece)
 //								CompositionEditView(
 //									for: viewModel.piece)
-//							})
+							})
 							Button {
 								viewModel.isInitializingSection.toggle()
 							} label: {

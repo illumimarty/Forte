@@ -12,10 +12,25 @@ struct CompositionEditView: View {
     @ObservedObject var viewModel: CompositionEditViewModel
     @Environment(\.dismiss) var dismiss
     
-    init(for group: Ensemble, isInitializing: Bool = false) {
-        let state = CompositionEditState(for: group)
-        self.viewModel = CompositionEditViewModel(initialState: state)
-    }
+	// TODO: Might need to refactor into one initializer
+	
+	init(for piece: Composition? = nil, group: Ensemble? = nil) {
+		if piece != nil {
+			let state = CompositionEditState(piece!)
+//			let state = CompositionEditState(piece)
+//			self.title = state.name
+			self.viewModel = CompositionEditViewModel(initialState: state)
+		} else {
+			var state = CompositionEditState(for: group)
+//			self.title = "New Composition"
+			self.viewModel = CompositionEditViewModel(initialState: state, isInitializing: true)
+		}
+	}
+	
+//    init(for group: Ensemble, isInitializing: Bool = false) {
+//		let state = CompositionEditState(for: group)
+//		self.viewModel = CompositionEditViewModel(initialState: state)
+//    }
 
     var body: some View {
         NavigationView {
@@ -40,7 +55,8 @@ struct CompositionEditView: View {
                     
                     Button {
                         print("Saving Changes...")
-                        viewModel.createComposition()
+						viewModel.saveChanges()
+//                        viewModel.createComposition()
                         dismiss()
                     } label: {
                         Text("Save Changes")
@@ -51,7 +67,7 @@ struct CompositionEditView: View {
                     .controlSize(.large)
                 }
             }
-            .navigationTitle("New Composition")
+			.navigationTitle($viewModel.title)
         }
     }
 }

@@ -51,7 +51,8 @@ struct CompositionView: View {
 								Image(systemName: "plus.app")
 							}
 							.sheet(isPresented: $viewModel.isAddingNewPiece, content: {
-								CompositionEditView(for: viewModel.group, isInitializing: true)
+								CompositionEditView(group: viewModel.group)
+//								CompositionEditView(for: viewModel.group, isInitializing: true)
 							})
 						}
 						EditButton().simultaneousGesture(TapGesture().onEnded({ _ in

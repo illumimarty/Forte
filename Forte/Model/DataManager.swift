@@ -18,6 +18,7 @@ class DataManager: NSObject, ObservableObject {
 	var passageProgressPublisher = PassthroughSubject<(UUID, Int), Never>()
 	var compositionProgressPublisher = PassthroughSubject<(UUID, Int), Never>()
 	var newCompositionPublisher = PassthroughSubject<Composition, Never>()
+	var editCompositionPublisher = PassthroughSubject<Void, Never>()
 	var newEnsemblePublisher = PassthroughSubject<Ensemble, Never>()
 	var editEnsemblePublisher = PassthroughSubject<Void, Never>()
 	
@@ -107,7 +108,8 @@ class DataManager: NSObject, ObservableObject {
     func createPiece(for state: CompositionEditState) {
         let piece = Composition(context: container.viewContext)
         let ensemble = state.ensemble!
-        piece.id = UUID()
+		piece.id = state.id!
+		
         
         let mirror = Mirror(reflecting: state)
         for (compProp, compVal) in mirror.children {
@@ -120,6 +122,53 @@ class DataManager: NSObject, ObservableObject {
 		
 		
     }
+	
+	func fetchComposition(for id: UUID) -> Composition {
+		let request: NSFetchRequest<Composition> = Composition.fetchRequest()
+		request.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+		var res: [Composition] = []
+		do {
+			res = try container.viewContext.fetch(request)
+		} catch let error {
+			print("Error fetching piece: \(error)")
+		}
+		return res[0]
+	}
+	
+	func updatePiece(for state: CompositionEditState, _ isInitializing: Bool = false) {
+		// TODO: Implement similar to updatePassage()
+		
+		let piece = fetchComposition(for: state.id!)
+		
+		let mirror = Mirror(reflecting: state)
+		for (compProp, compVal) in mirror.children {
+			piece.setValue(compVal, forKeyPath: compProp!)
+		}
+		save()
+		
+		if isInitializing {
+			newCompositionPublisher.send(piece)
+		} else {
+			editCompositionPublisher.send()
+		}
+		
+		
+//		switch piece {
+//			case .success(let managedObject):
+//				if let compositionManagedObject = managedObject {
+//					let mirror = Mirror(reflecting: state)
+//					for (compProp, compVal) in mirror.children {
+//						compositionManagedObject.setValue(compVal, forKeyPath: compProp!)
+//					}
+//					save()
+//				} else {
+//					
+//				}
+//			case .failure(_):
+//				print("Couldn't fetch managed object for selected composition")
+//		}
+		
+	}
   
 	
 	func pieces(ensemble: Ensemble) -> [CompositionRowViewModel] {
