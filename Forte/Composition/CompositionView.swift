@@ -30,23 +30,8 @@ struct CompositionView: View {
 						.fontWeight(.semibold)
 						.frame(maxWidth: .infinity, alignment: .leading)
 					ForEach(viewModel.pieces) { piece in
-//						HStack {
-//							if viewModel.editMode == .active {
-//								Button(role: .destructive) {
-//									viewModel.selectedPiece = piece.getComposition()
-//									viewModel.showAlert.toggle()
-//								} label: {
-//									Image(systemName: "minus.circle")
-//								}
-//								.padding(4)
-//							}
-//							//						Text(piece.name)
-//							CompositionRowView.init(for: piece, mainViewModel: self.viewModel)
-//						}
 						CompositionRowView.init(for: piece, mainViewModel: self.viewModel)
-
 					}
-//					.padding(8)
 				}
 				.navigationBarTitleDisplayMode(.inline)
 				.toolbar {
@@ -58,7 +43,7 @@ struct CompositionView: View {
 								Image(systemName: "square.and.pencil")
 							}
 							.sheet(isPresented: $viewModel.isShowingEditView, content: {
-								//							EnsembleEditView(for: viewModel.group)
+								EnsembleEditView(for: viewModel.group)
 							})
 							Button {
 								viewModel.isAddingNewPiece.toggle()
@@ -66,8 +51,6 @@ struct CompositionView: View {
 								Image(systemName: "plus.app")
 							}
 							.sheet(isPresented: $viewModel.isAddingNewPiece, content: {
-								// TODO: Implement
-//								CompositionEditView(group: viewModel.group)
 								CompositionEditView(for: viewModel.group, isInitializing: true)
 							})
 						}

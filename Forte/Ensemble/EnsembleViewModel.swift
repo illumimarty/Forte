@@ -26,6 +26,19 @@ class EnsembleViewModel: ObservableObject {
 	init(dataManager: DataManager = DataManager.shared, scheduler: DispatchQueue = DispatchQueue(label: "EnsembleViewModel")) {
         self.dataManager = dataManager
 		loadEnsembleList()
+		
+		dataManager.newEnsemblePublisher
+			.sink { [weak self] group in
+				let newGroupVM = EnsembleRowViewModel(for: group)
+				self?.groups.append(newGroupVM)
+			}
+			.store(in: &disposables)
+		
+		dataManager.editEnsemblePublisher
+			.sink { _ in
+				self.loadEnsembleList()
+			}
+			.store(in: &disposables)
     }
     
     func toggleAuthenticating() {
@@ -40,16 +53,6 @@ class EnsembleViewModel: ObservableObject {
     
     func loadEnsembleList() {
         groups = dataManager.ensembles()
-    }
-    
-    // ? - why delete from a set of indices than one index?
-    func removeEnsemble(at offsets: IndexSet) {
-        // TODO: add a prompt to ensure desired item deletion
-        for index in offsets {
-            let group = groups[index]
-			group.deleteEnsemble()
-        }
-        groups.remove(atOffsets: offsets)
     }
 }
 

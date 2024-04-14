@@ -18,6 +18,8 @@ class DataManager: NSObject, ObservableObject {
 	var passageProgressPublisher = PassthroughSubject<(UUID, Int), Never>()
 	var compositionProgressPublisher = PassthroughSubject<(UUID, Int), Never>()
 	var newCompositionPublisher = PassthroughSubject<Composition, Never>()
+	var newEnsemblePublisher = PassthroughSubject<Ensemble, Never>()
+	var editEnsemblePublisher = PassthroughSubject<Void, Never>()
 	
     override init() {
         container.loadPersistentStores { desc, error in
@@ -46,6 +48,8 @@ class DataManager: NSObject, ObservableObject {
         ensemble.id = UUID()
         ensemble.name = name
         save()
+		
+		newEnsemblePublisher.send(ensemble)
     }
     
     func ensembles() -> [EnsembleRowViewModel] {
@@ -67,6 +71,36 @@ class DataManager: NSObject, ObservableObject {
         moc.delete(ensemble)
         save()
     }
+	
+	func fetchEnsemble(for id: UUID) -> Ensemble {
+		let request: NSFetchRequest<Ensemble> = Ensemble.fetchRequest()
+		request.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+		var res: [Ensemble] = []
+		do {
+			res = try container.viewContext.fetch(request)
+		} catch let error {
+			print("Error fetching piece: \(error)")
+		}
+		return res[0]
+	}
+	
+	func updateEnsemble(for state: EnsembleEditState) {
+		let section = fetchEnsemble(for: state.id!)
+		
+		let mirror = Mirror(reflecting: state)
+		for (compProp, compVal) in mirror.children {
+			section.setValue(compVal, forKeyPath: compProp!)
+			if (compProp == "progressValue") {
+				guard compVal is Int16 else { continue }
+				let input: Int = Int(compVal as! Int16)
+				passageProgressPublisher.send((state.id!, input))
+			}
+		}
+		save()
+		
+		editEnsemblePublisher.send()
+		
+	}
     
     
     // MARK: Piece Operations

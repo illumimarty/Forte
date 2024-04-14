@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9913BE612BCB938A0010C11F /* EnsembleEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9913BE602BCB938A0010C11F /* EnsembleEditView.swift */; };
+		9913BE632BCB93D20010C11F /* EnsembleEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9913BE622BCB93D20010C11F /* EnsembleEditViewModel.swift */; };
 		9917066A2B0C82260041466E /* Passage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991706682B0C82260041466E /* Passage+CoreDataClass.swift */; };
 		9917066B2B0C82260041466E /* Passage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991706692B0C82260041466E /* Passage+CoreDataProperties.swift */; };
 		9923D4BF2B0DA49D007987EB /* PassageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9923D4BE2B0DA49D007987EB /* PassageListViewModel.swift */; };
@@ -51,6 +53,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9913BE602BCB938A0010C11F /* EnsembleEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleEditView.swift; sourceTree = "<group>"; };
+		9913BE622BCB93D20010C11F /* EnsembleEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnsembleEditViewModel.swift; sourceTree = "<group>"; };
 		991706682B0C82260041466E /* Passage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Passage+CoreDataClass.swift"; sourceTree = "<group>"; };
 		991706692B0C82260041466E /* Passage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Passage+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9923D4BE2B0DA49D007987EB /* PassageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassageListViewModel.swift; sourceTree = "<group>"; };
@@ -133,6 +137,8 @@
 				99B489952AD27F6D00AE2CF4 /* EnsembleView.swift */,
 				993392D92BCB01EF005ADF0E /* EnsembleRowViewModel.swift */,
 				993392DB2BCB02AB005ADF0E /* EnsembleRowView.swift */,
+				9913BE602BCB938A0010C11F /* EnsembleEditView.swift */,
+				9913BE622BCB93D20010C11F /* EnsembleEditViewModel.swift */,
 			);
 			path = Ensemble;
 			sourceTree = "<group>";
@@ -318,6 +324,8 @@
 				9923D4BF2B0DA49D007987EB /* PassageListViewModel.swift in Sources */,
 				996F1D482B071F4D0048D9CC /* Ensemble+CoreDataClass.swift in Sources */,
 				996F1D4A2B071F4D0048D9CC /* Repertoire+CoreDataClass.swift in Sources */,
+				9913BE612BCB938A0010C11F /* EnsembleEditView.swift in Sources */,
+				9913BE632BCB93D20010C11F /* EnsembleEditViewModel.swift in Sources */,
 				99BE1FB72BCB32E800F5AE7D /* PassageRowView.swift in Sources */,
 				99933E392B089E46008AB97C /* Composition+CoreDataClass.swift in Sources */,
 				99933E412B09DC34008AB97C /* CompositionEditView.swift in Sources */,

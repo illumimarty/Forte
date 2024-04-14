@@ -26,7 +26,6 @@ struct EnsembleRowView: View {
 				} label: {
 					Image(systemName: "minus.circle")
 				}
-				.padding(16)
 			}
 			NavigationLink(destination: rowViewModel.compositionView) {
 				GroupBox {
@@ -47,7 +46,7 @@ struct EnsembleRowView: View {
 			}
 			Button("Cancel", role: .cancel) { }
 		} message: {
-			Text("Are you sure you want to delete the group: \(rowViewModel.name ?? "")?")
+			Text("Are you sure you want to delete the group: \(rowViewModel.name)?")
 		}
 	}
 }
