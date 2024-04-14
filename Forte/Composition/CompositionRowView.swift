@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CompositionRowView: View {
 	
-	private var rowViewModel: CompositionRowViewModel
+	@ObservedObject private var rowViewModel: CompositionRowViewModel
 	private var mainViewModel: CompositionListViewModel
 	
 	init(for rowVM: CompositionRowViewModel, mainViewModel: CompositionListViewModel) {

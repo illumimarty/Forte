@@ -70,6 +70,9 @@ struct CompositionDetailsView: View {
 				}
 			}
 		})
+		.onAppear(perform: {
+			viewModel.getPieceProgress()
+		})
 		.environment(\.editMode, $viewModel.editMode)
 		.navigationBarTitleDisplayMode(.inline)
 //		.eraseToAnyView()

@@ -16,6 +16,7 @@ class DataManager: NSObject, ObservableObject {
 	
 	var valuePublisher = PassthroughSubject<Int, Never>()
 	var passageProgressPublisher = PassthroughSubject<(UUID, Int), Never>()
+	var compositionProgressPublisher = PassthroughSubject<(UUID, Int), Never>()
     
     override init() {
         container.loadPersistentStores { desc, error in

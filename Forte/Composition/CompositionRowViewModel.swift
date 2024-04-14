@@ -14,6 +14,7 @@ class CompositionRowViewModel: Identifiable, ObservableObject {
 	@Published private var composition: Composition
 	private let dataManager = DataManager.shared
 	private var disposables = Set<AnyCancellable>()
+	@Published public var progressValue: Int
 	
 	// NOTE: Needed to prevent the CompositionView ForEach list from creating views infintely
 	var id: UUID? {
@@ -28,22 +29,21 @@ class CompositionRowViewModel: Identifiable, ObservableObject {
 		return composition.composer ?? ""
 	}
 	
-	public var progressValue: Int {
-		get {
-			return DataManager.shared.getProgress(for: self.composition)
-		}
-		set { }
-	}
 	
 	init(for piece: Composition) {
 		self.composition = piece
-		dataManager.valuePublisher
-			.sink { value in
-				self.progressValue = value
+		self.progressValue = dataManager.getProgress(for: piece)
+		
+		dataManager.compositionProgressPublisher
+			.filter({ [weak self] (id, _) in
+				id == self?.id
+			})
+			.sink { [weak self] (_, value) in
+				self?.progressValue = value
 			}
 			.store(in: &disposables)
 	}
-	
+
 	func getComposition() -> Composition {
 		return self.composition
 	}

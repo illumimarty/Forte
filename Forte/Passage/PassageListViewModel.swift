@@ -17,14 +17,23 @@ class PassageListViewModel: ObservableObject {
 	@Published var isShowingEditView: Bool = false
 	@Published var isInitializingSection: Bool = false
 	@Published var editMode: EditMode = .inactive
+	@Published var compositionProgressValue: Int = -1
 
     var piece: Composition
     
     init(for piece: Composition, dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
         self.piece = piece
+//		self.compositionProgressValue = dataManager.getProgress(for: piece)
 		getPassages()
     }
+	
+	func getPieceProgress() {
+		let value = dataManager.getProgress(for: piece)
+		dataManager.compositionProgressPublisher.send((piece.id!, value))
+//		dataManager.valuePublisher.send((piece.id!, value))
+		self.compositionProgressValue = value
+	}
     
     func getPassages() {
         self.passages = dataManager.passages(for: piece)
