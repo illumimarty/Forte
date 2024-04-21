@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-struct CompositionEditState: Equatable {
+struct CompositionEditState: Equatable, ForteState {
 	var id: UUID?
     var ensemble: Ensemble?
     var name: String = ""

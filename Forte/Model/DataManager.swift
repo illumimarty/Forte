@@ -319,3 +319,303 @@ class DataManager: NSObject, ObservableObject {
         save()
     }
 }
+
+protocol ForteState: Equatable {
+	var id: UUID? { get }
+//	var progressValue: Int16 { get set }
+}
+
+protocol ForteFetchable {
+	associatedtype ManagedObject: NSManagedObject
+	associatedtype ParentObject: Equatable & NSManagedObject
+	
+	/// Fetches a managed object with the given ID.
+	///
+	/// - Parameter id: The ID of the object to fetch.
+	/// - Returns: The fetched managed object.
+	func fetchObject(with id: UUID) -> ManagedObject?
+	
+	/// Fetches all managed objects associated with the given parent object.
+	///
+	/// - Parameter parent: The parent object for which to fetch associated objects.
+	/// - Returns: An array of fetched managed objects.
+	func fetchAll(for parent: ParentObject) -> [ManagedObject]
+}
+
+protocol ForteUpdatable {
+	func update(for state: any ForteState)
+}
+
+protocol Repository {
+	associatedtype Object: AnyObject
+	associatedtype Parent: AnyObject
+	
+	func create(obj: Object?, with state: (any ForteState)?)
+	func fetch(obj: Object?) -> Object?
+	func fetchAll(for parent: Parent?) -> [Object]
+	func update(obj: Object?, with state: (any ForteState)?)
+	func delete(obj: Object?)
+}
+
+class CoreDataRepository<Object: NSManagedObject>: Repository {
+	typealias Object = NSManagedObject
+	typealias Parent = NSManagedObject
+	
+	private let dataManager: DataManager
+	private let objectType: ForteDataType?
+	
+	init(dataManager: DataManager = DataManager.shared) {
+		self.dataManager = dataManager
+		
+		switch (Object.self) {
+			case is Ensemble.Type: self.objectType = .Ensemble
+			case is Composition.Type: self.objectType = .Composition
+			case is Passage.Type: self.objectType = .Passage
+			default: self.objectType = nil
+		}
+	}
+	
+	enum ForteDataType {
+		case Ensemble
+		case Composition
+		case Passage
+	}
+	
+	// TODO: Remove below if above works
+	
+	private func getKeyForRequest() -> String? {
+		switch (objectType) {
+			case .Ensemble: return nil
+			case .Composition: return "group"
+			case .Passage: return "piece"
+			default:
+				return nil
+		}
+	}
+	
+	private func createFetchRequest() -> NSFetchRequest<NSFetchRequestResult>? {
+		switch objectType {
+			case .Ensemble:
+				return Ensemble.fetchRequest()
+			case .Composition:
+				return Composition.fetchRequest()
+			case .Passage:
+				return Passage.fetchRequest()
+			case nil:
+				return nil
+		}
+	}
+	
+	private func mapStateToObject(_ state: any ForteState, obj: NSManagedObject) {
+		let mirror = Mirror(reflecting: state)
+		for (compProp, compVal) in mirror.children {
+			obj.setValue(compVal, forKeyPath: compProp!)
+			if (compProp == "progressValue") {
+				guard compVal is Int16 else { continue }
+				let input: Int = Int(compVal as! Int16)
+//				passageProgressPublisher.send((state.id!, input))
+			}
+		}
+	}
+	
+	func create(obj: NSManagedObject? = nil, with state: (any ForteState)? = nil) {
+		
+		if let state = state {
+			let stateType = type(of: state)
+			switch (stateType) {
+				case is CompositionEditState.Type:
+					let compositionEditState = state as! CompositionEditState
+					let obj = Composition(context: dataManager.container.viewContext)
+					let parent = compositionEditState.ensemble!
+					mapStateToObject(compositionEditState, obj: obj)
+					parent.addToPieces(obj)
+					dataManager.save()
+				case is SectionEditState.Type:
+					let sectionEditState = state as! SectionEditState
+					let obj = Passage(context: dataManager.container.viewContext)
+					let parent = sectionEditState.piece!
+					mapStateToObject(sectionEditState, obj: obj)
+					parent.addToSection(obj)
+					dataManager.save()
+				default:
+					return
+			}
+		}
+	}
+	
+	func fetch(obj: NSManagedObject? = nil) -> NSManagedObject? {
+		guard obj != nil else { return nil }
+		
+		guard let request = createFetchRequest() else { return nil }
+		let objectId = obj!.objectID
+		request.predicate = NSPredicate(format: "id = %@", objectId)
+		var res: [any NSFetchRequestResult]
+		
+		do {
+			res = try dataManager.container.viewContext.fetch(request)
+			switch objectType {
+				case .Ensemble:
+					return res[0] as! Ensemble
+				case .Composition:
+					return res[0] as! Composition
+				case .Passage:
+					return res[0] as! Passage
+				case nil:
+					return nil
+			}
+		} catch let error {
+			print("Error fetching piece: \(error)")
+		}
+		return nil
+//		return res[0] as? NSManagedObject
+	}
+	
+	func fetchAll(for parent: NSManagedObject? = nil) -> [NSManagedObject] {
+		
+		// Checks if parent object has been passed
+		if parent != nil {
+			// Check if the caller is of type Ensemble, by which can proceed without a parent
+			if objectType != .Ensemble {
+				return []
+			}
+		}
+		
+		guard let request = createFetchRequest() else { return [] }
+		let res: [any NSFetchRequestResult]
+		
+		if let parentKey = getKeyForRequest() {
+			request.predicate = NSPredicate(format: "\(parentKey)", parent!)
+			request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+		}
+		do {
+			res = try dataManager.container.viewContext.fetch(request)
+			
+			switch objectType {
+				case .Ensemble:
+					return res as! [Ensemble]
+				case .Composition:
+					return res as! [Composition]
+				case .Passage:
+					return res as! [Passage]
+				case nil:
+					return []
+			}
+		} catch let error {
+			print("Error fetching list: \(error)")
+		}
+		
+		return []
+	}
+	
+	func update(obj: NSManagedObject? = nil, with state: (any ForteState)? = nil) {
+		if state != nil, 
+			let fetchedObject = fetch(obj: obj) {
+			mapStateToObject(state!, obj: fetchedObject)
+			dataManager.save()
+		}
+	}
+	
+	func delete(obj: NSManagedObject? = nil) {
+		guard obj != nil else { return }
+		dataManager.container.viewContext.delete(obj!)
+	}
+}
+
+protocol DataServiceProtocol {
+	func createEnsemble(for state: EnsembleEditState)
+	func fetchEnsemble(obj: Ensemble) -> Ensemble
+	func fetchEnsembles() -> [Ensemble]
+	func updateEnsemble(for state: EnsembleEditState)
+	func deleteEnsemble(obj: Ensemble)
+	
+	func createComposition(for state: CompositionEditState)
+	func fetchComposition(obj: Composition) -> Composition
+	func fetchCompositions(for group: Ensemble) -> [Composition]
+	func updateComposition(for state: CompositionEditState)
+	func deleteComposition(obj: Composition)
+	
+	func createPassage(for state: SectionEditState)
+	func fetchPassage(obj: Passage) -> Passage
+	func fetchPassages(for piece: Composition) -> [Passage]
+	func updatePassage(for state: SectionEditState)
+	func deletePassage(obj: Passage)
+}
+
+class DataService: DataServiceProtocol {
+
+	private let ensembleRepository: CoreDataRepository<Ensemble>
+	private let compositionRepository: CoreDataRepository<Composition>
+	private let passageRepository: CoreDataRepository<Passage>
+	private let dataManager: DataManager
+	
+	init(ensembleRepository: CoreDataRepository<Ensemble>, compositionRepository: CoreDataRepository<Composition>, passageRepository: CoreDataRepository<Passage>, dataManager: DataManager = DataManager.shared) {
+		self.ensembleRepository = ensembleRepository
+		self.compositionRepository = compositionRepository
+		self.passageRepository = passageRepository
+		self.dataManager = dataManager
+	}
+	
+	func createEnsemble(for state: EnsembleEditState) {
+		ensembleRepository.create(with: state)
+	}
+	
+	func fetchEnsemble(obj: Ensemble) -> Ensemble {
+		return ensembleRepository.fetch(obj: obj) as! Ensemble
+	}
+	
+	func fetchEnsembles() -> [Ensemble] {
+		return ensembleRepository.fetchAll() as! [Ensemble]
+	}
+	
+	func updateEnsemble(for state: EnsembleEditState) {
+		ensembleRepository.update(with: state)
+	}
+	
+	func deleteEnsemble(obj: Ensemble) {
+		ensembleRepository.delete(obj: obj)
+	}
+	
+	// MARK: Composition operations
+	
+	func createComposition(for state: CompositionEditState) {
+		compositionRepository.create(with: state)
+	}
+	
+	func fetchComposition(obj: Composition) -> Composition {
+		compositionRepository.fetch(obj: obj) as! Composition
+	}
+	
+	func fetchCompositions(for group: Ensemble) -> [Composition] {
+		compositionRepository.fetchAll(for: group) as! [Composition]
+	}
+	
+	func updateComposition(for state: CompositionEditState) {
+		compositionRepository.update(with: state)
+	}
+	
+	func deleteComposition(obj: Composition) {
+		compositionRepository.delete(obj: obj)
+	}
+	
+	// MARK: Passage operations
+	
+	func createPassage(for state: SectionEditState) {
+		passageRepository.create(with: state)
+	}
+	
+	func fetchPassage(obj: Passage) -> Passage {
+		return passageRepository.fetch(obj: obj) as! Passage
+	}
+	
+	func fetchPassages(for piece: Composition) -> [Passage] {
+		return passageRepository.fetchAll(for: piece) as! [Passage]
+	}
+	
+	func updatePassage(for state: SectionEditState) {
+		passageRepository.update(with: state)
+	}
+	
+	func deletePassage(obj: Passage) {
+		passageRepository.delete(obj: obj)
+	}
+}

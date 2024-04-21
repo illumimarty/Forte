@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct EnsembleEditState: Equatable {
+struct EnsembleEditState: Equatable, ForteState {
 	var id: UUID?
 	var name: String = ""
 	var location: String = ""

@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct SectionEditState: Equatable {
+struct SectionEditState: Equatable, ForteState {
+	
 	var id: UUID?
 	var piece: Composition?
 	var name: String = ""
