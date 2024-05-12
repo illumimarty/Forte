@@ -1,13 +1,9 @@
 
 # Forte - iOS Music Practice Logger
 
-## Overview
+### Overview
 
-
-
-`TO-DO`
-
-## Product Spec
+Forte is a mobile application designed to streamline the rehearsal process for music ensembles. It provides a platform for ensemble members to manage their repertoire, track rehearsal progress, and collaborate effectively. The app aims to enhance the efficiency and organization of ensemble practices, ultimately leading to improved performance outcomes.
 
 ### User Stories (Required and Optional)
 
@@ -25,4 +21,5 @@
 
 
 ### GIF Demo Walkthrough
-`TO-DO`
+
+<img src="https://i.imgur.com/kUtP1JW.gif" width=400 alt="lo-fi sketch of app">
